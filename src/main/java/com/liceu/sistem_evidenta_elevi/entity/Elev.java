@@ -1,8 +1,9 @@
 package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 
@@ -25,14 +26,14 @@ public class Elev {
     @Column(nullable = false)
     private String sex;
 
-    @Column(nullable = false)
+
     private String numarTelefon;
 
     @Column(nullable = false)
     private String adresa;
 
     @Column(nullable = false)
-    private Date dataNasterii;
+    private LocalDate dataNasterii;
 
 
     public Integer getIdElev() {
@@ -91,11 +92,11 @@ public class Elev {
         this.adresa = adresa;
     }
 
-    public Date getDataNasterii() {
+    public LocalDate getDataNasterii() {
         return dataNasterii;
     }
 
-    public void setDataNasterii(Date dataNasterii) {
+    public void setDataNasterii(LocalDate dataNasterii) {
         this.dataNasterii = dataNasterii;
     }
 }
