@@ -1,4 +1,4 @@
-package com.liceu.sistem_evidenta_elevi;
+package com.liceu.sistem_evidenta_elevi.controller;
 
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
@@ -7,12 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
 @RequestMapping("liceu/elevi")
-public class Controller {
+public class ElevController {
 
     private ElevService elevService;
 
@@ -21,7 +20,7 @@ public class Controller {
         this.elevService = elevService;
     }
 
-    public Controller(ElevService elevService) {}
+    public ElevController() {}
 
     @GetMapping
     public ResponseEntity<List<Elev>> getAllElevi() {
@@ -47,8 +46,6 @@ public class Controller {
         Elev elevActualizat = elevService.actualizareElev(elev);
         return new ResponseEntity<>(elevActualizat, HttpStatus.OK);
     }
-
-
 
 
 }

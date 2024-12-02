@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 
@@ -14,25 +14,25 @@ public class Elev {
     private Integer idElev;
 
     @Column(nullable = false)
-    private String numeElev;
+    private String nume;
 
     @Column(nullable = false)
-    private String prenumeElev;
+    private String prenume;
 
     @Column(nullable = false)
     private String CNP;
 
     @Column(nullable = false)
-    private String sexElev;
+    private String sex;
 
     @Column(nullable = false)
-    private String numarTelefonElev;
+    private String numarTelefon;
 
     @Column(nullable = false)
-    private String adresaElev;
+    private String adresa;
 
     @Column(nullable = false)
-    private Date dataNasteriiElev;
+    private Date dataNasterii;
 
 
     public Integer getIdElev() {
@@ -43,20 +43,20 @@ public class Elev {
         this.idElev = idElev;
     }
 
-    public String getNumeElev() {
-        return numeElev;
+    public String getNume() {
+        return nume;
     }
 
-    public void setNumeElev(String numeElev) {
-        this.numeElev = numeElev;
+    public void setNume(String nume) {
+        this.nume = nume;
     }
 
-    public String getPrenumeElev() {
-        return prenumeElev;
+    public String getPrenume() {
+        return prenume;
     }
 
-    public void setPrenumeElev(String prenumeElev) {
-        this.prenumeElev = prenumeElev;
+    public void setPrenume(String prenume) {
+        this.prenume = prenume;
     }
 
     public String getCNP() {
@@ -67,35 +67,35 @@ public class Elev {
         this.CNP = CNP;
     }
 
-    public String getSexElev() {
-        return sexElev;
+    public String getSex() {
+        return sex;
     }
 
-    public void setSexElev(String sexElev) {
-        this.sexElev = sexElev;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getNumarTelefonElev() {
-        return numarTelefonElev;
+    public String getNumarTelefon() {
+        return numarTelefon;
     }
 
-    public void setNumarTelefonElev(String numarTelefonElev) {
-        this.numarTelefonElev = numarTelefonElev;
+    public void setNumarTelefon(String numarTelefon) {
+        this.numarTelefon = numarTelefon;
     }
 
-    public String getAdresaElev() {
-        return adresaElev;
+    public String getAdresa() {
+        return adresa;
     }
 
-    public void setAdresaElev(String adresaElev) {
-        this.adresaElev = adresaElev;
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 
-    public Date getDataNasteriiElev() {
-        return dataNasteriiElev;
+    public Date getDataNasterii() {
+        return dataNasterii;
     }
 
-    public void setDataNasteriiElev(Date dataNasteriiElev) {
-        this.dataNasteriiElev = dataNasteriiElev;
+    public void setDataNasterii(Date dataNasterii) {
+        this.dataNasterii = dataNasterii;
     }
 }

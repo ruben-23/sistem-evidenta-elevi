@@ -35,13 +35,13 @@ public class ElevServiceImplementare implements ElevService {
     @Override
     public Elev actualizareElev(Elev elev){
         Elev elevActual = elevRepository.findById(elev.getIdElev()).get();
-        elevActual.setNumeElev(elev.getNumeElev());
-        elevActual.setPrenumeElev(elev.getPrenumeElev());
+        elevActual.setNume(elev.getNume());
+        elevActual.setPrenume(elev.getPrenume());
         elevActual.setCNP(elev.getCNP());
-        elevActual.setSexElev(elev.getSexElev());
-        elevActual.setNumarTelefonElev(elev.getNumarTelefonElev());
-        elevActual.setAdresaElev(elev.getAdresaElev());
-        elevActual.setDataNasteriiElev(elev.getDataNasteriiElev());
+        elevActual.setSex(elev.getSex());
+        elevActual.setNumarTelefon(elev.getNumarTelefon());
+        elevActual.setAdresa(elev.getAdresa());
+        elevActual.setDataNasterii(elev.getDataNasterii());
         return elevRepository.save(elevActual);
 
     }
