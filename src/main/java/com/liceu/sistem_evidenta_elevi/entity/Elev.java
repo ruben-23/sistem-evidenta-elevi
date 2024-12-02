@@ -11,7 +11,7 @@ public class Elev {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idElev;
+    private Integer idElev;
 
     @Column(nullable = false)
     private String numeElev;
