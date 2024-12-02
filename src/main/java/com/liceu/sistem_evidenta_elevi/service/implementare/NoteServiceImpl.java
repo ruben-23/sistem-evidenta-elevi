@@ -29,3 +29,31 @@ public class NoteServiceImpl implements NoteService {
         return NoteRepoboberitory.findAll();
     }
 
+    @Override
+    public Note getNotedupaId(Long id) {
+        Optional<Note> note = NoteRepoboberitory.findById(id);
+        if (note.isPresent()) {
+            return note.get();
+        } else {
+            throw new IllegalArgumentException("Nota nu a fost gasita cu id-ul: " + id);
+        }
+    }
+
+    @Override
+    public Note actualizareNote(Note note) {
+        if (NoteRepoboberitory.existsById(note.getId())) {
+            return NoteRepoboberitory.save(note);
+        } else {
+            throw new IllegalArgumentException("Nota nu a fost gasita cu id-ul: " + note.getId());
+        }
+    }
+
+    @Override
+    public void stergeNotedupaId(Long id) {
+        if (NoteRepoboberitory.existsById(id)) {
+            NoteRepoboberitory.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Nota nu a fost gasita cu id-ul: " + id);
+        }
+    }
+}
