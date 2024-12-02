@@ -11,7 +11,7 @@ public class Permisiune {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPermisiune;
+    private Integer idPermisiune;
 
     @Column(nullable=false)
     private String nume;
