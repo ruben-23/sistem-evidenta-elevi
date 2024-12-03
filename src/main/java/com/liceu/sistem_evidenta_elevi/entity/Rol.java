@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="rol")
+@Table(name="roluri")
 public class Rol {
 
     @Id
@@ -25,10 +25,8 @@ public class Rol {
     )
     private Set<Permisiune> permisiuni;
 
-
     @OneToMany(mappedBy = "rol")
     private Set<User> useri = new HashSet<>();
-
 
     public int getIdRol() {
         return idRol;
