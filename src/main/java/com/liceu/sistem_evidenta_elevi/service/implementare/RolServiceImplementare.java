@@ -32,7 +32,7 @@ public class RolServiceImplementare implements RolService {
     public  Rol adaugaRol(Rol rol){
 
         if(rol == null){
-            throw new IllegalArgumentException("Rolul nu poate fi nul");
+            throw new IllegalArgumentException("Rolul nu poate fi null");
         }
         return rolRepository.save(rol);
     }
