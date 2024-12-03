@@ -1,5 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
+import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class ElevController {
     }
 
     @PostMapping
-    public ResponseEntity<Elev> addElev(@RequestBody Elev elev) {
-        Elev elevSalvat = elevService.adaugaElev(elev);
+    public ResponseEntity<Elev> addElev(@RequestBody ElevRequestDTO elevRequest) {
+        Elev elevSalvat = elevService.adaugaElev(elevRequest);
         return new ResponseEntity<>(elevSalvat, HttpStatus.CREATED);
     }
 

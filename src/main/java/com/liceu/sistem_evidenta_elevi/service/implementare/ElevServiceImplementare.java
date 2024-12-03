@@ -1,5 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
+import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
@@ -42,12 +43,22 @@ public class ElevServiceImplementare implements ElevService {
         elevActual.setNumarTelefon(elev.getNumarTelefon());
         elevActual.setAdresa(elev.getAdresa());
         elevActual.setDataNasterii(elev.getDataNasterii());
-        return elevRepository.save(elevActual);
 
+        return elevRepository.save(elevActual);
     }
 
     @Override
-    public Elev adaugaElev(Elev elev){
+    public Elev adaugaElev(ElevRequestDTO elevRequestDTO){
+
+        Elev elev = new Elev();
+        elev.setNume(elevRequestDTO.getNume());
+        elev.setPrenume(elevRequestDTO.getPrenume());
+        elev.setCNP(elevRequestDTO.getCNP());
+        elev.setNumarTelefon(elevRequestDTO.getNumarTelefon());
+        elev.setAdresa(elevRequestDTO.getAdresa());
+        elev.setDataNasterii(elevRequestDTO.getDataNasterii());
+        /* TODO: legatura cu clasa */
+
         return elevRepository.save(elev);
     }
 
