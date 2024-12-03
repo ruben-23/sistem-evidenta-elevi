@@ -33,7 +33,6 @@ public class UserServiceImplementare implements UserService {
     @Override
     public User actualizeazaUser(User user) {
         User userActual = userRepository.findById(user.getIdUser()).get();
-        userActual.setIdUser(user.getIdUser());
         userActual.setUsername(user.getUsername());
         userActual.setParola(user.getParola());
         userActual.setEmail(user.getEmail());
