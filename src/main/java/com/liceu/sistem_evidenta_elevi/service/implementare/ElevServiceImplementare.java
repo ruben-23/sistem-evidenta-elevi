@@ -27,7 +27,7 @@ public class ElevServiceImplementare implements ElevService {
     }
 
     @Override
-    public Elev getElevById(int id){
+    public Elev getElevById(Integer id){
         Optional<Elev> elev = elevRepository.findById(id);
         return elev.get();
     }

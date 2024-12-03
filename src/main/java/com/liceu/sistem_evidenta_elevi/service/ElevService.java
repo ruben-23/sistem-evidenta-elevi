@@ -8,7 +8,7 @@ public interface ElevService {
 
     List<Elev> getAllElevi();
 
-    Elev getElevById(int id);
+    Elev getElevById(Integer id);
 
     Elev actualizareElev(Elev elev);
 
