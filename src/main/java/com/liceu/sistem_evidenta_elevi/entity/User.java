@@ -23,6 +23,9 @@ public class User {
     @JoinColumn(name="id_rol", nullable=false)
     private Rol rol;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Elev elev;
+
     public int getIdUser() {
         return idUser;
     }

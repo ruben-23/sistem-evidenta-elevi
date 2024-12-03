@@ -36,6 +36,10 @@ public class Elev {
     @Column(nullable = false)
     private int idClasa;
 
+    @OneToOne
+    @JoinColumn(name="id_user")
+    private User user;
+
     public Integer getIdElev() {
         return idElev;
     }
