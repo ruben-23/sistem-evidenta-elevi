@@ -11,13 +11,13 @@ public class UserTest {
         User user = new User();
         user.setIdUser(1);
         user.setUsername("username");
-        user.setPassword("password");
+        user.setParola("Parola");
         user.setEmail("email");
 
         assertNotNull(user);
         assertEquals(1, user.getIdUser());
         assertEquals("username", user.getUsername());
-        assertEquals("password", user.getPassword());
+        assertEquals("Parola", user.getParola());
         assertEquals("email", user.getEmail());
 
     }
