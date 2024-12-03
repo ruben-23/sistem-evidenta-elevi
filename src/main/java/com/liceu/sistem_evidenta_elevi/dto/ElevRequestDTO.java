@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class ElevRequestDTO {
 
+    private Integer idElev;
     private String nume;
     private String prenume;
     private String CNP;
@@ -13,6 +14,13 @@ public class ElevRequestDTO {
     private LocalDate dataNasterii;
     private int idClasa;
 
+    public Integer getIdElev() {
+        return idElev;
+    }
+
+    public void setIdElev(Integer idElev) {
+        this.idElev = idElev;
+    }
 
     public String getNume() {
         return nume;
