@@ -1,6 +1,12 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
+import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
+import com.liceu.sistem_evidenta_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.entity.Rol;
 import com.liceu.sistem_evidenta_elevi.entity.User;
+import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import com.liceu.sistem_evidenta_elevi.service.RolService;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +19,14 @@ import java.util.Optional;
 public class UserServiceImplementare implements UserService {
 
     private UserRepository userRepository;
+    private RolService rolService; // pentru a putea accesa rolurile
+    private ElevService elevService; // pentru a adauga elevul asociat user-ului
 
     @Autowired
-    public UserServiceImplementare(UserRepository userRepository) {
+    public UserServiceImplementare(UserRepository userRepository, RolService rolService, ElevService elevService) {
         this.userRepository = userRepository;
+        this.rolService = rolService;
+        this.elevService = elevService;
     }
 
     @Override
@@ -41,10 +51,47 @@ public class UserServiceImplementare implements UserService {
     }
 
     @Override
-    public User adaugaUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User  must not be null");
+    public User adaugaUser(UserRequestDTO userRequest) {
+        if (userRequest == null) {
+            throw new IllegalArgumentException("User nu poate fi null");
         }
+
+        // creare user nou din DTO
+        User user = new User();
+        user.setUsername(userRequest.getUsername());
+        user.setParola(userRequest.getParola());
+        user.setEmail(userRequest.getEmail());
+
+        // verifica daca rolul exista
+        Rol rol = rolService.getRolByNume(userRequest.getRol());
+        if(rol == null) {
+            throw new IllegalArgumentException("Rolul nu exista");
+        }
+
+        // rolul obtinut e atribuit user-ului
+        user.setRol(rol);
+
+        // creare entitate in functie de rolul din user
+        switch(userRequest.getRol().toLowerCase()) {
+
+            case "elev":
+                // obtinem elevDTO din userDTO
+                ElevRequestDTO elevRequest = userRequest.getElev();
+                // adaugare elev in baza de date
+                elevService.adaugaElev(elevRequest);
+
+                // obtinem elevul adaugat anterior
+                Elev elev = elevService.getElevById(elevRequest.getIdElev());
+
+                // facem legatura intre user si elev
+                elev.setUser(user);
+                user.setElev(elev);
+                break;
+            // adaugare cazuri si pentru celelalte roluri
+            default:
+                throw new IllegalArgumentException("Rol invalid: " + userRequest.getRol());
+        }
+
         return userRepository.save(user);
     }
 

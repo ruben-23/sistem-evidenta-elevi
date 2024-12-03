@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-
+import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.User;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> adaugaUser(@RequestBody User user) {
-        User userSalvat = userService.adaugaUser(user);
+    public ResponseEntity<User> adaugaUser(@RequestBody UserRequestDTO userRequest) {
+        User userSalvat = userService.adaugaUser(userRequest);
         return new ResponseEntity<>(userSalvat, HttpStatus.CREATED);
     }
 
