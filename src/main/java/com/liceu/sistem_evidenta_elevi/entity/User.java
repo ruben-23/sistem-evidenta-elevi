@@ -65,4 +65,16 @@ public class User {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
+    public Elev getElev() {
+        return elev;
+    }
+
+    public void setElev(Elev elev) {
+        this.elev = elev;
+    }
 }

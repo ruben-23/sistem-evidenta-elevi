@@ -36,6 +36,7 @@ public class Elev {
     @Column(nullable = false)
     private int idClasa;
 
+    // pentru a stii carui user ii apartine entitatea
     @OneToOne
     @JoinColumn(name="id_user")
     private User user;
@@ -102,5 +103,13 @@ public class Elev {
 
     public void setDataNasterii(LocalDate dataNasterii) {
         this.dataNasterii = dataNasterii;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
