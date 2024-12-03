@@ -16,7 +16,7 @@ public class ElevController {
     private ElevService elevService;
 
     @Autowired
-    public void setElevService(ElevService elevService) {
+    public ElevController(ElevService elevService) {
         this.elevService = elevService;
     }
 
