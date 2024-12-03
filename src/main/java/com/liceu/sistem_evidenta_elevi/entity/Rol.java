@@ -17,7 +17,8 @@ public class Rol {
     private String nume;
 
     // tabel pentru a reprezenta relatia de many-to-many dintre roluri si permisiuni
-    @ManyToMany
+    // eager - permisiunile sunt incarcate la creare unui obiect de tip Rol
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "roluri_permisiuni",
             joinColumns = @JoinColumn(name="id_rol"),

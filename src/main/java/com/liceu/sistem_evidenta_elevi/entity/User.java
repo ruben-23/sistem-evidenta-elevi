@@ -23,7 +23,7 @@ public class User {
     @JoinColumn(name="id_rol", nullable=false)
     private Rol rol;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Elev elev;
 
     public int getIdUser() {
