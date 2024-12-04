@@ -1,8 +1,8 @@
-package com.liceu.sistem_evidenta_elevi.service.implementare;
+package com.liceu.sistem_evidenta_elevi.note_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
-import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
-import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import com.liceu.sistem_evidenta_elevi.note_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.note_elevi.service.ElevService;
+import com.liceu.sistem_evidenta_elevi.note_elevi.repository.ElevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
