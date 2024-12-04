@@ -1,39 +1,17 @@
-package com.liceu.sistem_evidenta_elevi.note_elevi.entity;
-
-import jakarta.persistence.*;
+package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
-@Entity
+public class ElevResponseDTO {
 
-@Table(name="elevi")
-public class Elev {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idElev;
-
-    @Column(nullable = false)
     private String nume;
-
-    @Column(nullable = false)
     private String prenume;
-
-    @Column(nullable = false)
     private String CNP;
-
-    @Column(nullable = false)
     private String sex;
-
     private String numarTelefon;
-
-    @Column(nullable = false)
     private String adresa;
-
-    @Column(nullable = false)
     private LocalDate dataNasterii;
-
-    @Column(nullable = false)
     private int idClasa;
 
     public Integer getIdElev() {
@@ -68,12 +46,12 @@ public class Elev {
         this.CNP = CNP;
     }
 
-    public String getSex() {
-        return sex;
+    public String getAdresa() {
+        return adresa;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 
     public String getNumarTelefon() {
@@ -84,12 +62,12 @@ public class Elev {
         this.numarTelefon = numarTelefon;
     }
 
-    public String getAdresa() {
-        return adresa;
+    public String getSex() {
+        return sex;
     }
 
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public LocalDate getDataNasterii() {
@@ -98,5 +76,13 @@ public class Elev {
 
     public void setDataNasterii(LocalDate dataNasterii) {
         this.dataNasterii = dataNasterii;
+    }
+
+    public int getIdClasa() {
+        return idClasa;
+    }
+
+    public void setIdClasa(int idClasa) {
+        this.idClasa = idClasa;
     }
 }

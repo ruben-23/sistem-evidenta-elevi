@@ -1,6 +1,5 @@
-package com.liceu.sistem_evidenta_elevi.note_elevi.service;
+package com.liceu.sistem_evidenta_elevi.note_elevi;
 
-import com.liceu.sistem_evidenta_elevi.note_elevi.entity.Note;
 import java.util.List;
 
 public interface NoteService {

@@ -1,4 +1,4 @@
-package com.liceu.sistem_evidenta_elevi.note_elevi.entity;
+package com.liceu.sistem_evidenta_elevi.note_elevi;
 
 
 import jakarta.persistence.*;
