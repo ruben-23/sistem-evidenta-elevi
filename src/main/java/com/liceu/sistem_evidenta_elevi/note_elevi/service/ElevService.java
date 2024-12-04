@@ -1,6 +1,6 @@
-package com.liceu.sistem_evidenta_elevi.service;
+package com.liceu.sistem_evidenta_elevi.note_elevi.service;
 
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.note_elevi.entity.Elev;
 
 import java.util.List;
 
