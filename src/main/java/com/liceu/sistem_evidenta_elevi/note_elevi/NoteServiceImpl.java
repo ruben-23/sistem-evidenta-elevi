@@ -1,8 +1,5 @@
-package com.liceu.sistem_evidenta_elevi.note_elevi.service.implementare;
+package com.liceu.sistem_evidenta_elevi.note_elevi;
 
-import com.liceu.sistem_evidenta_elevi.note_elevi.entity.Note;
-import com.liceu.sistem_evidenta_elevi.note_elevi.repository.NoteRepoboberitory;
-import com.liceu.sistem_evidenta_elevi.note_elevi.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
