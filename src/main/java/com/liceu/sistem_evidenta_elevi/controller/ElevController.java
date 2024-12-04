@@ -1,7 +1,7 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
-import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import com.liceu.sistem_evidenta_elevi.note_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.note_elevi.service.ElevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
