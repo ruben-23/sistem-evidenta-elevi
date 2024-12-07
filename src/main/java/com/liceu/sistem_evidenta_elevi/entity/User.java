@@ -24,7 +24,7 @@ public class User {
     private Rol rol;
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Elev elev;
+    private Profesor profesor;
 
     public int getIdUser() {
         return idUser;
@@ -70,11 +70,11 @@ public class User {
         this.idUser = idUser;
     }
 
-    public Elev getElev() {
-        return elev;
+    public Profesor getProfesor() {
+        return profesor;
     }
 
-    public void setElev(Elev elev) {
-        this.elev = elev;
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 }

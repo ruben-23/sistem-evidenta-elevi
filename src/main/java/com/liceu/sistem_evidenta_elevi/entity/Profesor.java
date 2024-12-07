@@ -25,6 +25,10 @@ public class Profesor {
     @Column(nullable=false)
     private String CNP;
 
+    @OneToOne
+    @JoinColumn(name="id_user")
+    private User user;
+
     public Integer getIdProfesor() {
         return idProfesor;
     }
