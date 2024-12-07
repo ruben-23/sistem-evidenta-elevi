@@ -9,7 +9,7 @@ public interface ProfesorService {
 
     List<Profesor> getAllProfesori();
     Profesor getProfesorById(Integer id);
-    Profesor actualizareProfesor(Profesor profesor);
+    Profesor actualizareProfesor(ProfesorRequestDTO profesorRequest);
     Profesor adaugaProfesor(ProfesorRequestDTO profesorRequest);
     
 }

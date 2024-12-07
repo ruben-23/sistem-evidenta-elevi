@@ -33,15 +33,21 @@ public class ProfesorServiceImplementare implements ProfesorService {
     }
 
     @Override
-    public Profesor actualizareProfesor(Profesor profesor){
-        Profesor profesorActual = profesorRepository.findById(profesor.getIdProfesor()).get();
-        profesorActual.setNume(profesor.getNume());
-        profesorActual.setPrenume(profesor.getPrenume());
-        profesorActual.setAdresa(profesor.getAdresa());
-        profesorActual.setCNP(profesor.getCNP());
-        profesorActual.setNumarTelefon(profesor.getNumarTelefon());
+    public Profesor actualizareProfesor(ProfesorRequestDTO profesorRequest){
+        // verifica daca profesorul cu id-ul dat exista in db
+        Optional<Profesor> profesor = profesorRepository.findById(profesorRequest.getIdProfesor());
+        if(profesor.isPresent()) {
+            Profesor profesorActual = profesor.get();
+            profesorActual.setNume(profesorRequest.getNume());
+            profesorActual.setPrenume(profesorRequest.getPrenume());
+            profesorActual.setAdresa(profesorRequest.getAdresa());
+            profesorActual.setCNP(profesorRequest.getCNP());
+            profesorActual.setNumarTelefon(profesorRequest.getNumarTelefon());
 
-        return profesorRepository.save(profesorActual);
+            return profesorRepository.save(profesorActual);
+        } else {
+            throw new IllegalArgumentException("Profesorul nu exista");
+        }
     }
 
     @Override
