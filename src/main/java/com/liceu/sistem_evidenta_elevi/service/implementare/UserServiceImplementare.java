@@ -1,11 +1,11 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.entity.Rol;
 import com.liceu.sistem_evidenta_elevi.entity.User;
-import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import com.liceu.sistem_evidenta_elevi.service.RolService;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
@@ -20,13 +20,13 @@ public class UserServiceImplementare implements UserService {
 
     private UserRepository userRepository;
     private RolService rolService; // pentru a putea accesa rolurile
-    private ElevService elevService; // pentru a adauga elevul asociat user-ului
+    private ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
 
     @Autowired
-    public UserServiceImplementare(UserRepository userRepository, RolService rolService, ElevService elevService) {
+    public UserServiceImplementare(UserRepository userRepository, RolService rolService, ProfesorService profesorService) {
         this.userRepository = userRepository;
         this.rolService = rolService;
-        this.elevService = elevService;
+        this.profesorService = profesorService;
     }
 
     @Override
@@ -74,18 +74,18 @@ public class UserServiceImplementare implements UserService {
         // creare entitate in functie de rolul din user
         switch(userRequest.getRol().toLowerCase()) {
 
-            case "elev":
-                // obtinem elevDTO din userDTO
-                ElevRequestDTO elevRequest = userRequest.getElev();
-                // adaugare elev in baza de date
-                elevService.adaugaElev(elevRequest);
+            case "profesor":
+                // obtinem profesorDTO din userDTO
+                ProfesorRequestDTO profesorRequest = userRequest.getProfesor();
+                // adaugare profesor in baza de date
+                profesorService.adaugaProfesor(profesorRequest);
 
-                // obtinem elevul adaugat anterior
-                Elev elev = elevService.getElevById(elevRequest.getIdElev());
+                // obtinem profesorul adaugat anterior
+                Profesor profesor = profesorService.getProfesorById(profesorRequest.getIdProfesor());
 
-                // facem legatura intre user si elev
-                elev.setUser(user);
-                user.setElev(elev);
+                // facem legatura intre user si profesor
+                profesor.setUser(user);
+                user.setProfesor(profesor);
                 break;
             // adaugare cazuri si pentru celelalte roluri
             default:
