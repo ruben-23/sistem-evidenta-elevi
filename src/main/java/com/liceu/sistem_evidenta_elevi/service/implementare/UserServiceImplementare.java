@@ -76,10 +76,9 @@ public class UserServiceImplementare implements UserService {
                 // obtinem profesorDTO din userDTO
                 ProfesorRequestDTO profesorRequest = userRequest.getProfesor();
                 // adaugare profesor in baza de date
-                profesorService.adaugaProfesor(profesorRequest);
 
                 // obtinem profesorul adaugat anterior
-                Profesor profesor = profesorService.getProfesorById(profesorRequest.getIdProfesor());
+                Profesor profesor = profesorService.adaugaProfesor(profesorRequest);
 
                 // facem legatura intre user si profesor
                 profesor.setUser(user);
