@@ -7,8 +7,8 @@ public class UserRequestDTO {
     private String email;
     private String rol;
 
-    // pentru a include informatii despre elev(daca userul e elev)
-    private ElevRequestDTO elev;
+    // pentru a include informatii despre profesor(daca userul e profesor)
+    private ProfesorRequestDTO profesor;
 
     // alte variabile pentru celelalte tipuri de useri
 
@@ -44,11 +44,13 @@ public class UserRequestDTO {
         this.rol = role;
     }
 
-    public ElevRequestDTO getElev() {
-        return elev;
+    public ProfesorRequestDTO getProfesor() {
+        return profesor;
     }
 
-    public void setElev(ElevRequestDTO elev) {
-        this.elev = elev;
+    public void setProfesor(ProfesorRequestDTO profesor) {
+        this.profesor = profesor;
     }
+
+    
 }

@@ -76,4 +76,12 @@ public class Profesor {
     public void setAdresa(String adresa) {
         this.adresa = adresa;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

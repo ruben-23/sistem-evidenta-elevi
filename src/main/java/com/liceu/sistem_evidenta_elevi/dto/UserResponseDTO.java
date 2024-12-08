@@ -4,7 +4,7 @@ public class UserResponseDTO {
     private Integer idUser ;
     private String username;
     private String email;
-    private ElevResponseDTO elev; // pentru a transmite si informatiile despre elev
+    private ProfesorResponseDTO profesor; // pentru a transmite si informatiile despre profesor
 
     public Integer getIdUser() {
         return idUser;
@@ -30,11 +30,11 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public ElevResponseDTO getElev() {
-        return elev;
+    public ProfesorResponseDTO getProfesor() {
+        return profesor;
     }
 
-    public void setElev(ElevResponseDTO elev) {
-        this.elev = elev;
+    public void setProfesor(ProfesorResponseDTO profesor) {
+        this.profesor = profesor;
     }
 }
