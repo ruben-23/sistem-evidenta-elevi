@@ -6,7 +6,6 @@ import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.entity.Rol;
 import com.liceu.sistem_evidenta_elevi.entity.User;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
-import com.liceu.sistem_evidenta_elevi.service.RolService;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,11 @@ import java.util.Optional;
 public class UserServiceImplementare implements UserService {
 
     private UserRepository userRepository;
-    private RolService rolService; // pentru a putea accesa rolurile
     private ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
 
     @Autowired
-    public UserServiceImplementare(UserRepository userRepository, RolService rolService, ProfesorService profesorService) {
+    public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService) {
         this.userRepository = userRepository;
-        this.rolService = rolService;
         this.profesorService = profesorService;
     }
 
@@ -62,19 +59,20 @@ public class UserServiceImplementare implements UserService {
         user.setParola(userRequest.getParola());
         user.setEmail(userRequest.getEmail());
 
-        // verifica daca rolul exista
-        Rol rol = rolService.getRolByNume(userRequest.getRol());
-        if(rol == null) {
+        // verifica daca rolul exista in enum
+        String numeRol = userRequest.getRol().toUpperCase();
+        if(!Rol.exista(numeRol)) {
             throw new IllegalArgumentException("Rolul nu exista");
         }
 
         // rolul obtinut e atribuit user-ului
+        Rol rol = Rol.valueOf(numeRol);
         user.setRol(rol);
 
         // creare entitate in functie de rolul din user
-        switch(userRequest.getRol().toLowerCase()) {
+        switch(rol) {
 
-            case "profesor":
+            case ROLE_PROFESOR:
                 // obtinem profesorDTO din userDTO
                 ProfesorRequestDTO profesorRequest = userRequest.getProfesor();
                 // adaugare profesor in baza de date
@@ -87,7 +85,7 @@ public class UserServiceImplementare implements UserService {
                 profesor.setUser(user);
                 user.setProfesor(profesor);
                 break;
-            // adaugare cazuri si pentru celelalte roluri
+            // TODO adaugare cazuri si pentru celelalte roluri
             default:
                 throw new IllegalArgumentException("Rol invalid: " + userRequest.getRol());
         }

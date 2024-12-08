@@ -19,8 +19,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name="id_rol", nullable=false)
+    @Enumerated(EnumType.STRING)
     private Rol rol;
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
