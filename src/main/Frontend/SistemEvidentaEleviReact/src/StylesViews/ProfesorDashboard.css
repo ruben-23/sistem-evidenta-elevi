@@ -1,131 +1,149 @@
-.professor-dashboard {
+/* Container principal pentru tabel și butoane */
+.content-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  width: 100vw;
-  background-color: #133c78; 
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  box-sizing: border-box;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-h2 {
-  color: #ffffff;
-  margin-bottom: 20px;
-  font-size: 2rem; 
-}
-
-h3 {
-  color: #000000;
-  margin-bottom: 10px;
-  font-size: 1.5rem; 
-}
-
-.manage-student,
-.manage-grades,
-.manage-attendance {
-  margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #ecf0f1; 
-  width: 80%; 
-  max-width: 600px; 
-  color: #000000;
-}
-
-select {
+/* Stiluri pentru tabelul cu elevi */
+.students-table {
   width: 100%;
+  margin-right: 20px;
+}
+
+.students-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #34495e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.students-table th, .students-table td {
   padding: 12px;
-  font-size: 16px;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  background-color: #ffffff;
-  color: #000000;
-  transition: border-color 0.3s ease;
-}
-
-select:focus {
-  border-color: #3498db; 
-}
-
-input {
-  width: 70%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-  transition: border-color 0.3s ease;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-input:focus {
-  border-color: #3498db; 
-}
-
-.button {
-  width: 40%;
-  padding: 12px;
-  font-size: 16px;
+  text-align: left;
   color: #fff;
-  background-color: #1baf5b; 
+}
+/* Modal pentru Note, Absențe, Detalii */
+
+/* Stiluri pentru modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex; /* Afișează modalul când este activ */
+}
+
+.modal-content {
+  background-color: #1f3c5d; /* Albastru închis */
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff; /* Text alb pentru a se potrivi cu fundalul */
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #fff;
+}
+
+.modal-close {
+  color: #fff;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-footer button {
+  background-color: #2a4d75; /* Albastru mai deschis pentru butonul de închidere */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-footer button:hover {
+  background-color: #1f3c5d;
+}
+
+.students-table th {
+  background-color: #1b2838;
+  font-weight: bold;
+}
+
+.students-table tbody tr:nth-child(even) {
+  background-color: #2c3e50;
+}
+
+.students-table tbody tr:nth-child(odd) {
+  background-color: #34495e;
+}
+
+.students-table tbody tr:hover {
+  background-color: #5c6bc0;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #3498db;
+}
+
+/* Stiluri pentru butoanele de acțiune din tabel */
+.students-table .action-button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #1baf5b;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
-  background-color: #197f4e; 
+.students-table .action-button:hover {
+  background-color: #197f4e;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-
- 
+.students-table .action-button:nth-child(2) {
+  background-color: #3498db;
 }
 
-ul li {
-  margin-bottom: 10px; 
-  font-size: 1.1rem; /
+.students-table .action-button:nth-child(2):hover {
+  background-color: #2a7cb8;
 }
 
+.students-table .action-button:nth-child(3) {
+  background-color: #f39c12;
+}
+
+.students-table .action-button:nth-child(3):hover {
+  background-color: #e67e22;
+}
+
+/* Stiluri pentru butonul de logout */
 .lgbutton {
-  width: 20%;
-  padding: 12px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #dc3545; 
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
 
 .lgbutton:hover {
-  background-color: #b21f2d;
+  background-color: #c0392b;
 }
-
-@media (max-width: 768px) {
-  .manage-student,
-  .manage-grades,
-  .manage-attendance {
-    width: 95%; 
-  }
-
-  .button, .lgbutton {
-    width: 100%; 
-  }
-}
-
-.error {
-  color: #f80909; 
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
