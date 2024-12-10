@@ -33,13 +33,10 @@ public class Elev {
     @Column(nullable = false)
     private LocalDate dataNasterii;
 
-    @Column(nullable = false)
-    private int idClasa;
-
-    // pentru a stii carui user ii apartine entitatea
-    @OneToOne
-    @JoinColumn(name="id_user")
-    private User user;
+    // clasa din care face parte elevul
+    @ManyToOne
+    @JoinColumn(name="id_clasa", referencedColumnName = "idClasa")
+    private Clasa clasa;
 
     public Integer getIdElev() {
         return idElev;
@@ -105,11 +102,19 @@ public class Elev {
         this.dataNasterii = dataNasterii;
     }
 
-    public User getUser() {
-        return user;
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
+    public Clasa getClasa() {
+        return clasa;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClasa(Clasa clasa) {
+        this.clasa = clasa;
     }
 }
