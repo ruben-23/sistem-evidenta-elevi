@@ -27,6 +27,35 @@ public class Absenta {
     @JoinColumn(name = "id_materie", referencedColumnName = "idMaterie")
     private Materie materie;
 
+    public Integer getIdAbsenta() {
+        return idAbsenta;
+    }
 
+    public void setIdAbsenta(Integer idAbsenta) {
+        this.idAbsenta = idAbsenta;
+    }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public Elev getElev() {
+        return elev;
+    }
+
+    public void setElev(Elev elev) {
+        this.elev = elev;
+    }
+
+    public Materie getMaterie() {
+        return materie;
+    }
+
+    public void setMaterie(Materie materie) {
+        this.materie = materie;
+    }
 }
