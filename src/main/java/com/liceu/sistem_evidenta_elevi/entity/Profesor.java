@@ -25,9 +25,14 @@ public class Profesor {
     @Column(nullable=false)
     private String CNP;
 
+    // pentru a stii carui user este asociat profesorul
     @OneToOne
     @JoinColumn(name="id_user")
     private User user;
+
+    // clasa pentru care profesorul e diriginte
+    @OneToOne(mappedBy = "diriginte", cascade = CascadeType.ALL)
+    private Clasa clasa;
 
     public Integer getIdProfesor() {
         return idProfesor;
@@ -83,5 +88,13 @@ public class Profesor {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Clasa getClasa() {
+        return clasa;
+    }
+
+    public void setClasa(Clasa clasa) {
+        this.clasa = clasa;
     }
 }
