@@ -22,7 +22,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Profesor profesor;
 
     public int getIdUser() {
