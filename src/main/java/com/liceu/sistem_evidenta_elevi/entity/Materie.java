@@ -2,6 +2,8 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="materii")
 public class Materie {
@@ -12,6 +14,14 @@ public class Materie {
 
     @Column(nullable = false)
     private String nume;
+
+    // notele primite la materie
+    @OneToMany(mappedBy = "materie")
+    private List<Nota> note;
+
+    // absentele primite la materie
+    @OneToMany(mappedBy = "materie")
+    private List<Absenta> absente;
 
     public Integer getIdMaterie() {
         return idMaterie;
@@ -27,5 +37,21 @@ public class Materie {
 
     public void setNume(String nume) {
         this.nume = nume;
+    }
+
+    public List<Nota> getNote() {
+        return note;
+    }
+
+    public void setNote(List<Nota> note) {
+        this.note = note;
+    }
+
+    public List<Absenta> getAbsente() {
+        return absente;
+    }
+
+    public void setAbsente(List<Absenta> absente) {
+        this.absente = absente;
     }
 }

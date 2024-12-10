@@ -3,6 +3,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 
@@ -37,6 +38,14 @@ public class Elev {
     @ManyToOne
     @JoinColumn(name="id_clasa", referencedColumnName = "idClasa")
     private Clasa clasa;
+
+    // notele primite de elev
+    @OneToMany(mappedBy = "nota")
+    private List<Nota> note;
+
+    // notele primite de elev
+    @OneToMany(mappedBy = "nota")
+    private List<Absenta> absente;
 
     public Integer getIdElev() {
         return idElev;
@@ -102,19 +111,27 @@ public class Elev {
         this.dataNasterii = dataNasterii;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
     public Clasa getClasa() {
         return clasa;
     }
 
     public void setClasa(Clasa clasa) {
         this.clasa = clasa;
+    }
+
+    public List<Nota> getNote() {
+        return note;
+    }
+
+    public void setNote(List<Nota> note) {
+        this.note = note;
+    }
+
+    public List<Absenta> getAbsente() {
+        return absente;
+    }
+
+    public void setAbsente(List<Absenta> absente) {
+        this.absente = absente;
     }
 }
