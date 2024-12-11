@@ -28,9 +28,9 @@ public class ClasaMaterieProfesorId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false; // tipuri diferite
 
         ClasaMaterieProfesorId that = (ClasaMaterieProfesorId) o;
-        return Objects.equals(idClasa, that.idClasa) &&
-                Objects.equals(idProfesor, that.idProfesor) &&
-                Objects.equals(idMaterie, that.idMaterie);
+        return idClasa.equals(that.idClasa) &&
+                idProfesor.equals(that.idProfesor) &&
+                idMaterie.equals(that.idMaterie);
     }
 
     // pentru a genera un hash unic bazat pe id-urile ce compun cheia
