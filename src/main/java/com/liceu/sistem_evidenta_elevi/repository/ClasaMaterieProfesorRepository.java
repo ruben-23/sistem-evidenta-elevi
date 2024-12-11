@@ -12,7 +12,7 @@ public interface ClasaMaterieProfesorRepository extends JpaRepository<ClasaMater
 
     // returnare materii predate intr-o clasa
     @Query("SELECT cmp.materie FROM ClasaMaterieProfesor cmp WHERE cmp.clasa.idClasa = :idClasa")
-    List<Materie> findMateriiByClasa(@Param("idClasa") Integer idClasa);
+    List<Materie> findMateriiByClasaId(@Param("idClasa") Integer idClasa);
 
     // returnare materii predate de un profesor pentru o anumita clasa
     @Query("SELECT cmp.materie FROM ClasaMaterieProfesor cmp WHERE cmp.profesor.idProfesor = :idProfesor AND cmp.clasa.idClasa = :idClasa")
