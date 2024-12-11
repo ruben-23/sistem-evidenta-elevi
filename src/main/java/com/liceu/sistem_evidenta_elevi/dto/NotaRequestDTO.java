@@ -8,7 +8,7 @@ public class NotaRequestDTO {
     private Integer idClasa;
     private Integer idElev;
     private Integer idMaterie;
-    private Double nota;
+    private Double valoare;
     private LocalDate data;
 
     public Integer getIdNota() {
@@ -19,12 +19,12 @@ public class NotaRequestDTO {
         this.idNota = idNota;
     }
 
-    public Double getNota() {
-        return nota;
+    public Double getValoare() {
+        return valoare;
     }
 
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setValoare(Double valoare) {
+        this.valoare = valoare;
     }
 
     public LocalDate getData() {
