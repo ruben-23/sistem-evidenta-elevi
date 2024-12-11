@@ -13,6 +13,14 @@ public class ClasaMaterieProfesorId implements Serializable {
     private Integer idProfesor;
     private Integer idMaterie;
 
+    public ClasaMaterieProfesorId() {}
+
+    public ClasaMaterieProfesorId(Integer idClasa, Integer idProfesor, Integer idMaterie) {
+        this.idClasa = idClasa;
+        this.idProfesor = idProfesor;
+        this.idMaterie = idMaterie;
+    }
+
     // pentru a compara 2 entitati de tip ClasaMaterieProfesor, in functie de id-urile cheii compuse
     @Override
     public boolean equals(Object o) {
