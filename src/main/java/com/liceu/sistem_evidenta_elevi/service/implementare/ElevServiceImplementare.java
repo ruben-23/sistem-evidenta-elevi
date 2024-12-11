@@ -69,4 +69,8 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elev);
     }
 
+    @Override
+    public void stergeElev(Integer idElev){
+       elevRepository.deleteById(idElev);
+    }
 }

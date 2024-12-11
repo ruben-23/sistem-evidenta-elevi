@@ -11,5 +11,5 @@ public interface ElevService {
     Elev getElevById(Integer id);
     Elev actualizareElev(ElevRequestDTO elevRequest);
     Elev adaugaElev(Clasa clasa, ElevRequestDTO elevRequest);
-
+    void stergeElev(Integer idElev);
 }
