@@ -8,6 +8,17 @@ import jakarta.persistence.*;
 public class ClasaMaterieProfesor {
 
     @Id
+    @Column(name = "id_clasa")
+    private Integer idClasa;
+
+    @Id
+    @Column(name = "id_profesor")
+    private Integer idProfesor;
+
+    @Id
+    @Column(name = "id_materie")
+    private Integer idMaterie;
+
     @ManyToOne
     @JoinColumn(name="id_clasa", referencedColumnName = "idClasa")
     private Clasa clasa;
