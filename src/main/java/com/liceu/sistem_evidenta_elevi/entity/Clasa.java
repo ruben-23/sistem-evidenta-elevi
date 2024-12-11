@@ -29,7 +29,6 @@ public class Clasa {
     @OneToMany (mappedBy = "clasa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Elev> elevi;
 
-
     public Integer getIdClasa() {
         return idClasa;
     }
@@ -60,5 +59,13 @@ public class Clasa {
 
     public void setElevi(Set<Elev> elevi) {
         this.elevi = elevi;
+    }
+
+    public Profesor getDiriginte() {
+        return diriginte;
+    }
+
+    public void setDiriginte(Profesor diriginte) {
+        this.diriginte = diriginte;
     }
 }
