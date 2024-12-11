@@ -40,11 +40,11 @@ public class Elev {
     private Clasa clasa;
 
     // notele primite de elev
-    @OneToMany(mappedBy = "nota")
+    @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Nota> note;
 
     // notele primite de elev
-    @OneToMany(mappedBy = "nota")
+    @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Absenta> absente;
 
     public Integer getIdElev() {
