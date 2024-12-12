@@ -158,6 +158,7 @@ public class ClasaServiceImplementare implements ClasaService {
         return clasaMaterieProfesorService.getMateriiDinClasa(idClasa);
     }
 
+    @Override
     public ClasaMaterieProfesor adaugaMaterieSiProfesorLaClasa(Integer idClasa, Integer idProfesor, Integer idMaterie) {
         Clasa clasa = getClasaById(idClasa);
         Profesor profesor = profesorService.getProfesorById(idProfesor);
@@ -168,16 +169,19 @@ public class ClasaServiceImplementare implements ClasaService {
         return clasaMaterieProfesorService.stergereMaterieSiProfesorDinClasa(idClasa, idProfesor, idMaterie);
     }
 
+    @Override
     // materiile predate de un profesor intr-o clasa
     public List<Materie> getMateriiPredateDeProfesorInClasa(Integer idClasa, Integer idProfesor){
         return clasaMaterieProfesorService.getMateriiPredateDeProfesorInClasa(idClasa, idProfesor);
     }
 
+    @Override
     // clasele in care preda un profesor
     public List<Clasa> getClaseProfesor(Integer idProfesor){
         return clasaMaterieProfesorService.getClaseProfesor(idProfesor);
     }
 
+    @Override
     // profesorii care predau intr-o clasa
     public List<Profesor> getProfesoriDinClasa(Integer idClasa){
         return clasaMaterieProfesorService.getProfesoriDinClasa(idClasa);
