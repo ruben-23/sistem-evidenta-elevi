@@ -22,7 +22,7 @@ public class Clasa {
 
     // indica profesorul care e diriginte al clasei
     @OneToOne
-    @JoinColumn(name = "profesor_id", referencedColumnName = "idProfesor")
+    @JoinColumn(name = "id_profesor", referencedColumnName = "idProfesor")
     private Profesor diriginte;
 
     // elevii din clasa
