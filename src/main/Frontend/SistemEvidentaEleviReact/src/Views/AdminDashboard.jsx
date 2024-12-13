@@ -103,9 +103,6 @@ const AdminDashboard = () => {
         setIsModalNoteOpen(true);
     };
 
-    // Handle Edit
-    const handleEdit = (type, item) => {
-        setEditingItem({ type, item }); // Set the item to be edited
     };
 
     // Handle Save (After Editing)
