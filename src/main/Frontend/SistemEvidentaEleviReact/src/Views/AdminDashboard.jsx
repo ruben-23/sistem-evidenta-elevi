@@ -18,6 +18,26 @@ import { v4 as uuidv4 } from 'uuid';
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts');
     const [data, setData] = useState({
+        accounts: [
+            { id: 1, username: 'admin', email: 'admin@example.com', role: 'ADMIN' },
+            { id: 2, username: 'professor1', email: 'professor1@example.com', role: 'PROFESOR' },
+        ],
+        students: [
+            {
+                id: 1,
+                name: 'John Doe',
+                prenume: 'John',
+                cnp: '1234567890123',
+                adresa: 'Street 1',
+                dataNasterii: '2005-01-01',
+                parinteNumarTelefon: '987654321',
+                elevNumarTelefon: '123456789',
+                sex: 'male',
+                class: '9A',
+                subject: 'Mathematics',
+                media: '8.5',
+                totalAbsente: 3,
+            },
     });
 
     const [editingItem, setEditingItem] = useState(null); // Track which item is being edited
