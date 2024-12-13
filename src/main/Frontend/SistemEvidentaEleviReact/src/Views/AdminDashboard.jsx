@@ -8,6 +8,9 @@ import Table from './AdminComponents/Table';
 import StudentDetali from './AdminComponents/StudentDetali';
 import ModalNote from "./AdminComponents/ModalNote.jsx";
 import ModalAbsente from "./AdminComponents/ModalAbsente.jsx";
+import ModalAddInfo from "./AdminComponents/ModalAddInfo.jsx";
+import ConfirmationModal from "./AdminComponents/ConfirmationModal.jsx";
+import '../StylesViews/AdminDashboard.css';
 
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
