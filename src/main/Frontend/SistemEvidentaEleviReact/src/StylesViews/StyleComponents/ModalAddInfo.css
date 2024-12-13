@@ -29,3 +29,9 @@
     margin-bottom: 15px;
 }
 
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
