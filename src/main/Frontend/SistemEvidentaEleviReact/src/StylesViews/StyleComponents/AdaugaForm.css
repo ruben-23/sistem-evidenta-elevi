@@ -24,3 +24,21 @@ form button:hover {
     background-color: #218838;
 }
 
+/* Student Details AdaugaForm */
+.student-details {
+    margin-top: 20px;
+}
+
+.student-details form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-details form input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
