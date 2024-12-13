@@ -52,3 +52,11 @@ const StudentDetali = ({ student, onSave, onClose }) => {
         </div>
     );
 };
+
+StudentDetali.propTypes = {
+    student: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired, // Ensure onClose is passed from the parent
+};
+
+export default StudentDetali;
