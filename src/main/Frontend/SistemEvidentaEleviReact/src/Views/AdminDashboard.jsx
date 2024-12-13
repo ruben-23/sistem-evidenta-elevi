@@ -277,6 +277,13 @@ const AdminDashboard = () => {
                         }}
                     />
                 )}
+                {isConfirmDeleteOpen && (
+                    <ConfirmationModal
+                        message="Vrei ca boberul sa taie copacul?"
+                        onConfirm={confirmDelete}
+                        onCancel={cancelDelete}
+                    />
+                )}
             </div>
         </div>
     );
