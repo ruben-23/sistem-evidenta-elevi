@@ -24,4 +24,16 @@ const AdaugaForm = ({ type, forms, setForms }) => {
     };
 
     return (
+        <>
+            <form onSubmit={(e) => e.preventDefault()}>
+                {Object.keys(forms[type]).map((key) => (
+                    <input
+                        key={key}
+                        type={key === 'dataNasterii' ? 'date' : 'text'}
+                        placeholder={key}
+                        value={forms[type][key]}
+                        onChange={(e) => handleChange(key, e.target.value)}
+                    />
+                ))}
                 <button type="button" onClick={() => setShowModal(true)}>Adauga</button>
+            </form>
