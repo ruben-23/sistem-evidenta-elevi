@@ -30,3 +30,20 @@
 }
 
 
+/* Main container for dropdowns and search bar */
+.upper-dropdowns {
+    display: flex;
+    justify-content: center; /* Space dropdowns and search bar */
+    gap: 20px; /* Space between the dropdowns and the search bar */
+    margin-bottom: 20px;
+    align-items: center; /* Align items in the center vertically */
+}
+
+/* Adjust the dropdowns for a good fit */
+.upper-dropdowns select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 150px;
+}
