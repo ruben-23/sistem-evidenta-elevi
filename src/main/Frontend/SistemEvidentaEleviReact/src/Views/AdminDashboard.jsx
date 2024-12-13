@@ -137,27 +137,6 @@ const AdminDashboard = () => {
         setItemToDelete(null); // Clear the item to delete
     };
 
-                                required
-                            />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={newAccount.email}
-                                onChange={(e) => setNewAccount({ ...newAccount, email: e.target.value })}
-                                required
-                            />
-                            <select
-                                value={newAccount.role}
-                                onChange={(e) => setNewAccount({ ...newAccount, role: e.target.value })}
-                                required
-                            >
-                                <option value="">Select Role</option>
-                                <option value="ADMIN">Admin</option>
-                                <option value="PROFESOR">Profesor</option>
-                                <option value="ELEV">Elev</option>
-                            </select>
-                            <button type="submit">Add Account</button>
-                        </form>
 
                         <table>
                             <tbody>
