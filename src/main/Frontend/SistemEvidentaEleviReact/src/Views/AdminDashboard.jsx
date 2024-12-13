@@ -108,16 +108,6 @@ const AdminDashboard = () => {
         setIsModalAbsenteOpen(true);
     };
 
-    // Handle Save (After Editing)
-    const handleSave = (type) => {
-        if (type === 'accounts') {
-            setAccounts(accounts.map((account) =>
-                account.id === editingItem.item.id ? editingItem.item : account
-            ));
-        } else if (type === 'students') {
-            setStudents(students.map((student) =>
-                student.id === editingItem.item.id ? editingItem.item : student
-            ));
         } else if (type === 'teachers') {
             setTeachers(teachers.map((teacher) =>
                 teacher.id === editingItem.item.id ? editingItem.item : teacher
