@@ -1,0 +1,77 @@
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #000000; /* Black border for table rows */
+}
+
+table th {
+    background-color: #000000; /* Black background for headers */
+    color: #ffffff; /* White text for headers */
+}
+
+table tr:hover {
+    background-color: #9a0101; /* Highlight row on hover */
+    color: #ffffff; /* White text for hovered rows */
+}
+
+/* Button Styles */
+button {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-right: 5px;
+    border-radius: 3px;
+    border: none; /* Remove default borders */
+    cursor: pointer; /* Pointer cursor for buttons */
+    transition: background-color 0.3s, opacity 0.2s; /* Smooth hover effects */
+}
+
+button:hover {
+    opacity: 0.8; /* Slight transparency on hover */
+}
+
+button:focus {
+    outline: none; /* Remove default focus outline */
+}
+
+/* Specific Button Types */
+button[type='button'] {
+    background-color: #ffc107; /* Yellow for action buttons */
+    color: #852626; /* Dark red text */
+}
+
+button[type='button']:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+}
+
+button[type='submit'] {
+    background-color: #007bff; /* Blue for submit buttons */
+    color: #ffffff; /* White text */
+}
+
+button[type='submit']:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Optional Additional Styling */
+button:disabled {
+    background-color: #cccccc; /* Gray for disabled buttons */
+    color: #666666; /* Lighter text for disabled buttons */
+    cursor: not-allowed; /* Indicate disabled state */
+}
+
+/* Responsive Table Adjustments */
+@media (max-width: 768px) {
+    table th,
+    table td {
+        font-size: 14px; /* Smaller text on smaller screens */
+        padding: 8px; /* Adjust padding */
+    }
+}
