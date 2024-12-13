@@ -163,6 +163,8 @@ const AdminDashboard = () => {
         class: selectedClass,
         subject: selectedSubject,
     });
+    const filteredTeachers = filterData(data.teachers, searchQuery);
+    const filteredAccounts = filterData(data.accounts, searchQuery);
         }
     };
 
