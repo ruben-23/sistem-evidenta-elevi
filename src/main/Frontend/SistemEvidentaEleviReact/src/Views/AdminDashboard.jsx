@@ -98,6 +98,9 @@ const AdminDashboard = () => {
         setDetailsMode(true);
     };
 
+    const handleNote = (student) => {
+        setCurrentStudent(student);
+        setIsModalNoteOpen(true);
     };
 
     // Handle Edit
