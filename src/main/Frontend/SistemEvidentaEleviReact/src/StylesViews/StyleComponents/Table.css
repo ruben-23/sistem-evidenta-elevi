@@ -1,0 +1,23 @@
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #000000; /* Black border for table rows */
+}
+
+table th {
+    background-color: #000000; /* Black background for headers */
+    color: #ffffff; /* White text for headers */
+}
+
+table tr:hover {
+    background-color: #9a0101; /* Highlight row on hover */
+    color: #ffffff; /* White text for hovered rows */
+}
