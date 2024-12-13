@@ -49,13 +49,12 @@
     transform: translateY(-2px); /* Slight lift on hover */
 }
 
+/* Main Content */
+.main-content {
+    margin-left: 220px; /* Space to the left for the sidebar */
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 100vh;
-}
-
 /* Section Headers */
 h2 {
     font-size: 24px;
