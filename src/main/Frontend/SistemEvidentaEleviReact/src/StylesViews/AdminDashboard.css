@@ -8,21 +8,9 @@
     height: 100vh; /* Ensures full height */
 }
 
-/* Sidebar (Navigation Buttons) */
-.dashboard-buttons {
-    position: fixed; /* Fix the sidebar to the left */
-    top: 0;
-    left: 0;
-    width: 250px; /* Set a width for the sidebar */
-    height: 100%; /* Sidebar will take full height */
-    background-color: #007bff; /* Main Blue */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Sidebar Styles */
+.dashboard-sidebar {
     display: flex;
-    flex-direction: column; /* Make the buttons stack vertically */
-    gap: 15px;
-    align-items: flex-start; /* Align buttons to the left */
 }
 
 /* Sidebar Buttons */
