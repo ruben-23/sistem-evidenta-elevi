@@ -77,6 +77,15 @@ const AdminDashboard = () => {
     const handleLogout = () => navigate('/');
 
     const handleEdit = (type, item) => setEditingItem({ type, item });
+
+    const handleSave = () => {
+        setData({
+            ...data,
+            [editingItem.type]: data[editingItem.type].map((item) =>
+                item.id === editingItem.item.id ? editingItem.item : item
+            ),
+        });
+        setEditingItem(null);
     };
 
     // Handle form submissions
