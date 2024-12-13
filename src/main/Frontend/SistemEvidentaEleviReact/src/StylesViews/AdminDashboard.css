@@ -44,28 +44,11 @@
     transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
 }
 
-/* Specific Buttons */
-.manage-accounts {
-    /* Additional styles for Manage Accounts button */
+.dashboard-buttons button:hover {
+    background-color: #0056b3; /* Blue hover effect */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-.manage-students {
-    /* Additional styles for Manage Students button */
-}
-
-.manage-teachers {
-    /* Additional styles for Manage Teachers button */
-}
-
-.logout-button {
-    /* Additional styles for Logout button */
-}
-
-/* Main Content Area */
-.dashboard-content {
-    flex-grow: 1;
-    margin-left: 270px; /* Create space for the fixed sidebar */
-    background-color: #f5f5f5; /* Neutral background for content */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
