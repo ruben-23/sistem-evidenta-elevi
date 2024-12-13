@@ -5,3 +5,12 @@
     margin-bottom: 20px;
     align-items: center; /* Align items in the center vertically */
 }
+
+/* Adjust the dropdowns for a good fit */
+.upper-dropdowns select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 150px;
+}
