@@ -159,6 +159,10 @@ const AdminDashboard = () => {
     };
 
 
+    const filteredStudents = filterData(data.students, searchQuery, {
+        class: selectedClass,
+        subject: selectedSubject,
+    });
         }
     };
 
