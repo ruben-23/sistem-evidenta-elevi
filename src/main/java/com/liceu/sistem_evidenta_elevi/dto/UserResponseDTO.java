@@ -4,6 +4,7 @@ public class UserResponseDTO {
     private Integer idUser ;
     private String username;
     private String email;
+    private String rol;
     private ProfesorResponseDTO profesor; // pentru a transmite si informatiile despre profesor
 
     public Integer getIdUser() {
@@ -36,5 +37,13 @@ public class UserResponseDTO {
 
     public void setProfesor(ProfesorResponseDTO profesor) {
         this.profesor = profesor;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
