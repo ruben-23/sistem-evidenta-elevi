@@ -137,19 +137,6 @@ const AdminDashboard = () => {
         setItemToDelete(null); // Clear the item to delete
     };
 
-    // Render the appropriate section based on the currentView state
-    const renderView = () => {
-        switch (currentView) {
-            case 'accounts':
-                return (
-                    <div className="manage-accounts">
-                        <h2>Manage Accounts</h2>
-                        <form onSubmit={handleAccountSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                value={newAccount.username}
-                                onChange={(e) => setNewAccount({ ...newAccount, username: e.target.value })}
                                 required
                             />
                             <input
