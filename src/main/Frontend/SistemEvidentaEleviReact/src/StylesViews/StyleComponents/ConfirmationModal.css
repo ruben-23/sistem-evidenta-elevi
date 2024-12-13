@@ -9,6 +9,18 @@
     justify-content: center;
     align-items: center;
 }
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
 .modal-actions button {
     margin: 0 10px;
 }
