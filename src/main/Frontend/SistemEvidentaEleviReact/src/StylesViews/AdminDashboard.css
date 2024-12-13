@@ -32,9 +32,16 @@
     width: 100%;
 }
 
-.dashboard-button:hover {
-    background-color: #0056b3;
+.dashboard-buttons button {
+    padding: 10px 20px;
+    background-color: #333333; /* Slightly lighter black */
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
 }
 
 /* Specific Buttons */
