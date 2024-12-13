@@ -5,6 +5,9 @@ import Sidebar from "./AdminComponents/Sidebar.jsx";
 import Dropdowns from "./AdminComponents/Dropdowns.jsx";
 import AdaugaForm from './AdminComponents/AdaugaForm.jsx';
 import Table from './AdminComponents/Table';
+import StudentDetali from './AdminComponents/StudentDetali';
+import ModalNote from "./AdminComponents/ModalNote.jsx";
+import ModalAbsente from "./AdminComponents/ModalAbsente.jsx";
 
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
