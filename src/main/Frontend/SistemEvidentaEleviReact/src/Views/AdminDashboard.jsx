@@ -93,25 +93,6 @@ const AdminDashboard = () => {
         setIsConfirmDeleteOpen(true); // Show the confirmation modal
     };
 
-    const handleStudentSubmit = (e) => {
-        e.preventDefault();
-        const newId = students.length + 1;
-        setStudents([
-            ...students,
-            { id: newId, ...newStudent },
-        ]);
-        setNewStudent({
-            name: '',
-            prenume: '',
-            cnp: '',
-            adresa: '',
-            dataNasterii: '',
-            numarTelefon: '',
-            parinteNumarTelefon: '',
-            elevNumarTelefon: '',
-            sex: '',
-        }); // Reset form
-        setShowAddStudent(false); // Close the form after submission
     };
 
     const handleTeacherSubmit = (e) => {
