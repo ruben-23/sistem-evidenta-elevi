@@ -35,14 +35,9 @@ public class ElevController {
         return new ResponseEntity<>(elev, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Elev> addElev(@RequestBody ElevRequestDTO elevRequest) {
-        Elev elevSalvat = elevService.adaugaElev(elevRequest);
-        return new ResponseEntity<>(elevSalvat, HttpStatus.CREATED);
-    }
 
     @PutMapping("{id}")
-    public ResponseEntity<Elev> updateElev(@PathVariable("id") Integer idElev, @RequestBody Elev elev) {
+    public ResponseEntity<Elev> actualizareElev(@PathVariable("id") Integer idElev, @RequestBody ElevRequestDTO elev) {
         elev.setIdElev(idElev);
         Elev elevActualizat = elevService.actualizareElev(elev);
         return new ResponseEntity<>(elevActualizat, HttpStatus.OK);
