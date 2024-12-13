@@ -15,9 +15,21 @@ const Dropdowns = ({ selectedClass, setSelectedClass, selectedSubject, setSelect
             <option value="12A">12A</option>
             <option value="12B">12B</option>
         </select>
+        <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
+            <option value="">Select Subject</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Literature">Literature</option>
+            <option value="Physics">Physics</option>
+            <option value="Biology">Biology</option>
+        </select>
+    </div>
+);
+
 Dropdowns.propTypes = {
     selectedClass: PropTypes.string.isRequired,
     setSelectedClass: PropTypes.func.isRequired,
+    selectedSubject: PropTypes.string.isRequired,
+    setSelectedSubject: PropTypes.func.isRequired,
 };
 
 export default Dropdowns;
