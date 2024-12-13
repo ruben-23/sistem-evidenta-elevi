@@ -55,34 +55,7 @@
     background-color: #ffffff; /* White background */
     color: #000000; /* Black text */
     padding: 20px;
-/* Section Headers */
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-/* Filters */
-.filters {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.filters select,
-.filters input {
-    padding: 10px;
-    border: 1px solid #71f646; /* Lighter green for input borders */
     border-radius: 5px;
-    font-size: 16px;
-}
-
-.filters input[type="text"] {
-    width: 250px;
-}
-
-/* Forms */
 form {
     display: flex;
     flex-direction: column;
