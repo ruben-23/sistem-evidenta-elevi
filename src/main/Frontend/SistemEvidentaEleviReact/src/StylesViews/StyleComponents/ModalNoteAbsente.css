@@ -12,3 +12,9 @@ button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+/* Scrollable Table Body */
+.scrollable-table-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
