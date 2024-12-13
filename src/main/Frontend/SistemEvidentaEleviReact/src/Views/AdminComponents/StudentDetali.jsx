@@ -8,3 +8,8 @@ const StudentDetali = ({ student, onSave, onClose }) => {
     const handleEdit = () => {
         setIsEditable(true); // Enable editing
     };
+
+    const handleSave = () => {
+        onSave(editedStudent); // Save changes
+        setIsEditable(false); // Disable editing
+    };
