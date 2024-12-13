@@ -88,15 +88,6 @@ const AdminDashboard = () => {
         setEditingItem(null);
     };
 
-    // Handle form submissions
-    const handleAccountSubmit = (e) => {
-        e.preventDefault();
-        const newId = accounts.length + 1;
-        setAccounts([
-            ...accounts,
-            { id: newId, ...newAccount },
-        ]);
-        setNewAccount({ username: '', email: '', role: '' }); // Reset form
     };
 
     const handleStudentSubmit = (e) => {
