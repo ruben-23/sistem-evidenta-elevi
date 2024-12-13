@@ -222,6 +222,28 @@ const AdminDashboard = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
+                </div>
+                <AdaugaForm
+                    type={currentView}
+                    forms={{ [currentView]: {} }}
+                    setForms={(newForms) =>
+                        setData({
+                            ...data,
+                            [currentView]: [...data[currentView], newForms[currentView]],
+                        })
+                    }
+                />
+                <Table
+                    type={currentView}
+                    data={currentView === 'students' ? filteredStudents : currentView === 'teachers' ? filteredTeachers : filteredAccounts}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onDetails={handleDetails}
+                    onNote={handleNote}
+                    onAbsente={handleAbsente}
+                />
+            </div>
+        );
     };
 
     return (
