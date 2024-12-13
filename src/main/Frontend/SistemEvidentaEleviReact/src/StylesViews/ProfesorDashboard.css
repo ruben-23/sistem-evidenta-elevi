@@ -147,3 +147,26 @@
 .lgbutton:hover {
   background-color: #c0392b;
 }
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.filter-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.filter-select:hover, .filter-input:hover {
+  border-color: #3498db;
+}
