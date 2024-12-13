@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../StylesViews/ProfesorDashboard.css';
@@ -13,6 +14,7 @@ const ProfesorDashboard = () => {
     { id: 5, username: 'Elena Stanescu', class: '10B' },
   ]);
 
+  
   const [grades, setGrades] = useState({
     1: { 'Module 1': [{ grade: '8', date: '2024-12-01' }] },
     2: { 'Module 1': [{ grade: '9', date: '2024-12-02' }] },
