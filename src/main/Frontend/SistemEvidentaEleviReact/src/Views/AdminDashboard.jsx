@@ -88,6 +88,9 @@ const AdminDashboard = () => {
         setEditingItem(null);
     };
 
+    const handleDelete = (type, id) => {
+        setItemToDelete({ type, id }); // Store the item to delete
+        setIsConfirmDeleteOpen(true); // Show the confirmation modal
     };
 
     const handleStudentSubmit = (e) => {
