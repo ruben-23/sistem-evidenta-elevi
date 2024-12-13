@@ -214,6 +214,14 @@ const AdminDashboard = () => {
                         selectedSubject={selectedSubject}
                         setSelectedSubject={setSelectedSubject}
                     />
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
     };
 
     return (
