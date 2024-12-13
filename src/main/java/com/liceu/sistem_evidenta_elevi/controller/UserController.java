@@ -42,6 +42,7 @@ public class UserController {
         userResponse.setIdUser(userSalvat.getIdUser());
         userResponse.setUsername(userSalvat.getUsername());
         userResponse.setEmail(userSalvat.getEmail());
+        userResponse.setRol(userSalvat.getRol().toString());
 
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
