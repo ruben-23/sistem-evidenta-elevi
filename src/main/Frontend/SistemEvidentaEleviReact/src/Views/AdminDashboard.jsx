@@ -145,6 +145,18 @@ const AdminDashboard = () => {
         });
     };
 
+    const filterData = (dataList, searchQuery, additionalFilters = {}) => {
+        return dataList.filter((item) => {
+            const searchMatch = Object.values(item)
+                .join(' ')
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+            const additionalMatch = Object.keys(additionalFilters).every(
+                (key) => !additionalFilters[key] || item[key] === additionalFilters[key]
+            );
+            return searchMatch && additionalMatch;
+        });
+    };
 
                         {showAddStudent && (
                             <div className="add-student-form">
