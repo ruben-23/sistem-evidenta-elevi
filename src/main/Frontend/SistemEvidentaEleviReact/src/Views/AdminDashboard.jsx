@@ -137,6 +137,13 @@ const AdminDashboard = () => {
         setItemToDelete(null); // Clear the item to delete
     };
 
+    const handleSaveStudentDetails = (updatedStudent) => {
+        const newStudent = { id: uuidv4(), ...updatedStudent };
+        setData({
+            ...data,
+            students: [newStudent, ...data.students],
+        });
+    };
 
                         <table>
                             <tbody>
