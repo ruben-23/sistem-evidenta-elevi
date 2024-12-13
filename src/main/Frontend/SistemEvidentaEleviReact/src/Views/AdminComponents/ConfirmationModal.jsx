@@ -9,3 +9,10 @@ const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
             <div className="modal-content">
                 <h3>{message}</h3>
                 <div className="modal-actions">
+                    <button className="confirm-btn" onClick={onConfirm}>Confirm</button>
+                    <button className="cancel-btn" onClick={onCancel}>Cancel</button>
+                </div>
+            </div>
+        </div>
+    );
+};
