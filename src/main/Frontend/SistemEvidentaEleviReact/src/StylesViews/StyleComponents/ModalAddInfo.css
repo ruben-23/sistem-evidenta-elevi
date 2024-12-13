@@ -46,3 +46,12 @@
 .modal-close-btn:hover {
     color: #444;
 }
+
+.modal-body input, .modal-body select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
