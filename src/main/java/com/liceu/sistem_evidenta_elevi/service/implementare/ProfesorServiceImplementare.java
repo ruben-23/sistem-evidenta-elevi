@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfesorServiceImplementare implements ProfesorService {
@@ -28,26 +27,22 @@ public class ProfesorServiceImplementare implements ProfesorService {
 
     @Override
     public Profesor getProfesorById(Integer id){
-        Optional<Profesor> profesor = profesorRepository.findById(id);
-        return profesor.get();
+        return  profesorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Profesorul nu a fost gasit"));
     }
 
     @Override
     public Profesor actualizareProfesor(ProfesorRequestDTO profesorRequest){
-        // verifica daca profesorul cu id-ul dat exista in db
-        Optional<Profesor> profesor = profesorRepository.findById(profesorRequest.getIdProfesor());
-        if(profesor.isPresent()) {
-            Profesor profesorActual = profesor.get();
-            profesorActual.setNume(profesorRequest.getNume());
-            profesorActual.setPrenume(profesorRequest.getPrenume());
-            profesorActual.setAdresa(profesorRequest.getAdresa());
-            profesorActual.setCNP(profesorRequest.getCNP());
-            profesorActual.setNumarTelefon(profesorRequest.getNumarTelefon());
+        // returnare profesor cu id ul dorit
+        Profesor profesorActual = getProfesorById(profesorRequest.getIdProfesor());
 
-            return profesorRepository.save(profesorActual);
-        } else {
-            throw new IllegalArgumentException("Profesorul nu exista");
-        }
+        profesorActual.setNume(profesorRequest.getNume());
+        profesorActual.setPrenume(profesorRequest.getPrenume());
+        profesorActual.setAdresa(profesorRequest.getAdresa());
+        profesorActual.setCNP(profesorRequest.getCNP());
+        profesorActual.setNumarTelefon(profesorRequest.getNumarTelefon());
+
+        return profesorRepository.save(profesorActual);
     }
 
     @Override

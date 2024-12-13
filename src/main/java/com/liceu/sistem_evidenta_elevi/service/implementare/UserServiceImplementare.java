@@ -33,13 +33,13 @@ public class UserServiceImplementare implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.get();
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Userul nu a fost gasit"));
     }
 
     @Override
     public User actualizeazaUser(User user) {
-        User userActual = userRepository.findById(user.getIdUser()).get();
+        User userActual = getUserById(user.getIdUser());
         userActual.setUsername(user.getUsername());
         userActual.setParola(user.getParola());
         userActual.setEmail(user.getEmail());

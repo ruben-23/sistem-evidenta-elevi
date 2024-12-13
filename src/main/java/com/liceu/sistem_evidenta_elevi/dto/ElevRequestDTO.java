@@ -12,7 +12,7 @@ public class ElevRequestDTO {
     private String numarTelefon;
     private String adresa;
     private LocalDate dataNasterii;
-    private int idClasa;
+    private Integer idClasa;
 
     public Integer getIdElev() {
         return idElev;
