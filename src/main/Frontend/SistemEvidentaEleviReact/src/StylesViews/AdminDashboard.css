@@ -157,4 +157,6 @@ button:disabled {
     color: #ffffff;
 }
 
+.edit-btn:hover {
+    background-color: #45a049;
 }
