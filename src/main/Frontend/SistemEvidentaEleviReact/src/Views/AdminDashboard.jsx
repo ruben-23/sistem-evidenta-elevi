@@ -72,6 +72,11 @@ const AdminDashboard = () => {
     const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false); // State for confirmation modal
     const [itemToDelete, setItemToDelete] = useState(null); // Store the item to be deleted
 
+    const navigate = useNavigate();
+
+    const handleLogout = () => navigate('/');
+
+    const handleEdit = (type, item) => setEditingItem({ type, item });
     };
 
     // Handle form submissions
