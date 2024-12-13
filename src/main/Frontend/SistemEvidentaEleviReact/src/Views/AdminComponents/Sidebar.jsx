@@ -17,3 +17,11 @@ const Sidebar = ({ currentView, setCurrentView, onLogout }) => (
         </div>
     </div>
 );
+
+Sidebar.propTypes = {
+    currentView: PropTypes.string.isRequired,
+    setCurrentView: PropTypes.func.isRequired,
+    onLogout: PropTypes.func.isRequired,
+};
+
+export default Sidebar;
