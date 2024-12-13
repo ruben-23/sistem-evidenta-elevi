@@ -16,6 +16,8 @@ import '../StylesViews/StyleComponents/Table.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
+    const [currentView, setCurrentView] = useState('accounts');
+    const [data, setData] = useState({
     });
 
     const [editingItem, setEditingItem] = useState(null); // Track which item is being edited
