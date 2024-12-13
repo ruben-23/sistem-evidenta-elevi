@@ -132,15 +132,6 @@ const AdminDashboard = () => {
         setItemToDelete(null); // Clear the item to delete
     };
 
-    // Handle Delete
-    const handleDelete = (type, id) => {
-        if (type === 'accounts') {
-            setAccounts(accounts.filter((account) => account.id !== id));
-        } else if (type === 'students') {
-            setStudents(students.filter((student) => student.id !== id));
-        } else if (type === 'teachers') {
-            setTeachers(teachers.filter((teacher) => teacher.id !== id));
-        }
     };
 
     // Render the appropriate section based on the currentView state
