@@ -48,3 +48,10 @@ const AdaugaForm = ({ type, forms, setForms }) => {
     );
 };
 
+AdaugaForm.propTypes = {
+    type: PropTypes.string.isRequired,
+    forms: PropTypes.objectOf(PropTypes.object).isRequired,
+    setForms: PropTypes.func.isRequired,
+};
+
+export default AdaugaForm;
