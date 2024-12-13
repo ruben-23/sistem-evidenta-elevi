@@ -11,6 +11,9 @@ import ModalAbsente from "./AdminComponents/ModalAbsente.jsx";
 import ModalAddInfo from "./AdminComponents/ModalAddInfo.jsx";
 import ConfirmationModal from "./AdminComponents/ConfirmationModal.jsx";
 import '../StylesViews/AdminDashboard.css';
+import '../StylesViews/StyleComponents/Dropdown Search.css';
+import '../StylesViews/StyleComponents/Table.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
