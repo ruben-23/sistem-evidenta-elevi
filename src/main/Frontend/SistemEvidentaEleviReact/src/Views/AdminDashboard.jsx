@@ -145,65 +145,6 @@ const AdminDashboard = () => {
         });
     };
 
-                        <table>
-                            <tbody>
-                            {accounts.map((account) => (
-                                <tr key={account.id}>
-                                    <td>
-                                        {editingItem && editingItem.type === 'accounts' && editingItem.item.id === account.id ? (
-                                            <input
-                                                type="text"
-                                                value={editingItem.item.username}
-                                                onChange={(e) => setEditingItem({ ...editingItem, item: { ...editingItem.item, username: e.target.value } })}
-                                            />
-                                        ) : (
-                                            account.username
-                                        )}
-                                    </td>
-                                    <td>
-                                        {editingItem && editingItem.type === 'accounts' && editingItem.item.id === account.id ? (
-                                            <input
-                                                type="email"
-                                                value={editingItem.item.email}
-                                                onChange={(e) => setEditingItem({ ...editingItem, item: { ...editingItem.item, email: e.target.value } })}
-                                            />
-                                        ) : (
-                                            account.email
-                                        )}
-                                    </td>
-                                    <td>
-                                        {editingItem && editingItem.type === 'accounts' && editingItem.item.id === account.id ? (
-                                            <select
-                                                value={editingItem.item.role}
-                                                onChange={(e) => setEditingItem({ ...editingItem, item: { ...editingItem.item, role: e.target.value } })}
-                                            >
-                                                <option value="ADMIN">Admin</option>
-                                                <option value="PROFESOR">Profesor</option>
-                                                <option value="ELEV">Elev</option>
-                                            </select>
-                                        ) : (
-                                            account.role
-                                        )}
-                                    </td>
-                                    <td>
-                                        {editingItem && editingItem.type === 'accounts' && editingItem.item.id === account.id ? (
-                                            <button onClick={() => handleSave('accounts')}>Salveaza</button>
-                                        ) : (
-                                            <button onClick={() => handleEdit('accounts', account)}>Edit</button>
-                                        )}
-                                        <button onClick={() => handleDelete('accounts', account.id)}>Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                );
-            case 'students':
-                return (
-                    <div className="manage-students">
-                        <h2>Gestioneaza Elevi</h2>
-                        <button onClick={() => setShowAddStudent(true)}>Adauga Elev</button>
 
                         {showAddStudent && (
                             <div className="add-student-form">
