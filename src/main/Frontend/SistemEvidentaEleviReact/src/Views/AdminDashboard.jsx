@@ -250,6 +250,33 @@ const AdminDashboard = () => {
         <div className="admin-dashboard">
             <Sidebar currentView={currentView} setCurrentView={setCurrentView} onLogout={handleLogout} />
             <div className="main-content">
+                {renderContent()}
+                {renderModal(ModalNote, isModalNoteOpen, setIsModalNoteOpen, () => {
+                    console.log('Grades saved');
+                })}
+                {renderModal(ModalAbsente, isModalAbsenteOpen, setIsModalAbsenteOpen, (updatedStudent) => {
+                    setData({
+                        ...data,
+                        students: data.students.map((student) =>
+                            student.id === updatedStudent.id ? updatedStudent : student
+                        ),
+                    });
+                })}
+                {isModalAddInfoOpen && (
+                    <ModalAddInfo
+                        onClose={() => setIsModalAddInfoOpen(false)}
+                        onSave={(newStudent) => {
+                            setData((prevData) => ({
+                                ...prevData,
+                                students: [
+                                    { id: uuidv4(), ...newStudent },
+                                    ...prevData.students,
+                                ],
+                            }));
+                            setIsModalAddInfoOpen(false);
+                        }}
+                    />
+                )}
             </div>
         </div>
     );
