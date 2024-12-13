@@ -165,6 +165,17 @@ const AdminDashboard = () => {
     });
     const filteredTeachers = filterData(data.teachers, searchQuery);
     const filteredAccounts = filterData(data.accounts, searchQuery);
+
+    const renderModal = (ModalComponent, modalState, setModalState, onSave) => {
+        return modalState && (
+            <ModalComponent
+                student={currentStudent}
+                onClose={() => setModalState(false)}
+                onSave={onSave}
+            />
+        );
+    };
+
         }
     };
 
