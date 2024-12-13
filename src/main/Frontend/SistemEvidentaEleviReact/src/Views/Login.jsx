@@ -11,32 +11,41 @@ const Login = ({ onLoginSuccess }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);  
   const navigate = useNavigate();
 
-  const mockLogin = (username, password) => {
-    const mockUsers = {
-      Admin: { role: 'ADMIN' },
-      Profesor: { role: 'PROFESOR' },
-      Elev: { role: 'ELEV' },
-    };
+  const loginUser  = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:8080/liceu/autentificare/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, parola: password }),
+      });
 
-    if (mockUsers[username] && password === 'password') {
-      return mockUsers[username];
-    } else {
-      throw new Error('Nume Utilizator sau parola invalid');
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("eroare:", errorData);
+        throw new Error(errorData.message || 'eroare necunoscuta');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Eroare login:', error);
+      throw error;
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const user = mockLogin(username, password);
+      const user = await loginUser(username, password);
 
       onLoginSuccess(user);
 
-      if (user.role === 'ADMIN') {
+      if (user.rol === 'ROLE_ADMIN') {
         navigate('/admin');
-      } else if (user.role === 'PROFESOR') {
+      } else if (user.rol === 'ROLE_PROFESOR') {
         navigate('/profesor');
-      } else if (user.role === 'ELEV') {
+      } else if (user.rol === 'ROLE_ELEV') {
         navigate('/elev');
       }
     } catch (err) {
