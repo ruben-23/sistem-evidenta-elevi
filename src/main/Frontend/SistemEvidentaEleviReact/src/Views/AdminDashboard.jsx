@@ -93,6 +93,9 @@ const AdminDashboard = () => {
         setIsConfirmDeleteOpen(true); // Show the confirmation modal
     };
 
+    const handleDetails = (student) => {
+        setCurrentStudent(student);
+        setDetailsMode(true);
     };
 
     const handleTeacherSubmit = (e) => {
