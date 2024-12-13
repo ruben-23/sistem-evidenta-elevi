@@ -20,3 +20,12 @@
     z-index: 10000;
     animation: fadeIn 0.3s ease-in-out;
 }
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
