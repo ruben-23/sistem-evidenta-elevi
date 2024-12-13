@@ -4,3 +4,12 @@ form {
     gap: 15px;
     margin-bottom: 20px;
 }
+
+form input,
+form select,
+form button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
