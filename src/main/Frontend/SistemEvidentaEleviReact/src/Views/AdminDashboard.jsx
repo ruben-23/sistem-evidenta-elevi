@@ -204,6 +204,16 @@ const AdminDashboard = () => {
                 />
             );
         }
+        return (
+            <div>
+                <h2>Manage {currentView}</h2>
+                <div className="upper-dropdowns">
+                    <Dropdowns
+                        selectedClass={selectedClass}
+                        setSelectedClass={setSelectedClass}
+                        selectedSubject={selectedSubject}
+                        setSelectedSubject={setSelectedSubject}
+                    />
     };
 
     return (
