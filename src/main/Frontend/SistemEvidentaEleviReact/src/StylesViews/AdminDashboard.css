@@ -1,12 +1,11 @@
-/* General Layout */
 .admin-dashboard {
-    display: flex;
     font-family: Arial, sans-serif;
-    background-color: #4bdd12; /* Lighter green background */
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-    position: relative; /* To allow content to flow beside the sidebar */
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    height: 100vh; /* Ensures full height */
 }
 
 /* Sidebar (Navigation Buttons) */
