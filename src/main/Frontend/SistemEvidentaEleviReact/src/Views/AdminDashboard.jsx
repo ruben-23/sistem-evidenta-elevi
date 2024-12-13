@@ -116,11 +116,7 @@ const AdminDashboard = () => {
         if (type === 'students') {
             updatedData = data.students.filter((item) => item.id !== id); // Filter out the student with the given id
         } else if (type === 'teachers') {
-            setTeachers(teachers.map((teacher) =>
-                teacher.id === editingItem.item.id ? editingItem.item : teacher
-            ));
         }
-        setEditingItem(null); // Clear editing state after saving
     };
 
     // Handle Delete
