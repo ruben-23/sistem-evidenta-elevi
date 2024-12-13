@@ -127,23 +127,20 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Editable Cell Inputs */
-table td input,
-table td select {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
+/* Adjusting Modal Appearance */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
-table td input[type="text"],
-table td input[type="email"] {
-    width: 200px;
+.cancel-btn {
+    background-color: #f5f5f5;
+    color: #333333;
 }
 
-table td select {
-    width: 120px;
+.cancel-btn:hover {
+    background-color: #dddddd;
 }
 
 /* Logout Button */
