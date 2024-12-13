@@ -103,6 +103,9 @@ const AdminDashboard = () => {
         setIsModalNoteOpen(true);
     };
 
+    const handleAbsente = (student) => {
+        setCurrentStudent(student);
+        setIsModalAbsenteOpen(true);
     };
 
     // Handle Save (After Editing)
