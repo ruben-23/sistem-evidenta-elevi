@@ -16,40 +16,6 @@ import '../StylesViews/StyleComponents/Table.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
-    const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
-    const [accounts, setAccounts] = useState([
-        { id: 1, username: 'admin', email: 'admin@example.com', role: 'ADMIN' },
-        { id: 2, username: 'professor1', email: 'professor1@example.com', role: 'PROFESOR' },
-    ]); // Temporary accounts data
-    const [students, setStudents] = useState([
-        { id: 1, name: 'John Doe', email: 'john.doe@example.com', grade: '10A' },
-        { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', grade: '11B' },
-    ]); // Temporary students data
-    const [teachers, setTeachers] = useState([
-        { id: 1, name: 'Mr. White', email: 'mr.white@example.com', subject: 'Math' },
-        { id: 2, name: 'Mrs. Green', email: 'mrs.green@example.com', subject: 'History' },
-    ]); // Temporary teachers data
-
-    const [newAccount, setNewAccount] = useState({
-        username: '',
-        email: '',
-        role: '',
-    });
-    const [newStudent, setNewStudent] = useState({
-        name: '',
-        prenume: '',
-        cnp: '',
-        adresa: '',
-        dataNasterii: '',
-        numarTelefon: '',
-        parinteNumarTelefon: '',
-        elevNumarTelefon: '',
-        sex: '',
-    });
-    const [newTeacher, setNewTeacher] = useState({
-        name: '',
-        email: '',
-        subject: '',
     });
 
     const [editingItem, setEditingItem] = useState(null); // Track which item is being edited
