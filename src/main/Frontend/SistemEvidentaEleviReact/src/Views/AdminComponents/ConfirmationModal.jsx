@@ -16,3 +16,11 @@ const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
         </div>
     );
 };
+
+ConfirmationModal.propTypes = {
+    message: PropTypes.string.isRequired,
+    onConfirm: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+};
+
+export default ConfirmationModal;
