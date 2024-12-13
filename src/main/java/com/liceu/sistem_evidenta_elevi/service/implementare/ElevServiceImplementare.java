@@ -1,6 +1,7 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
+import com.liceu.sistem_evidenta_elevi.entity.Clasa;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ElevServiceImplementare implements ElevService {
@@ -29,27 +29,28 @@ public class ElevServiceImplementare implements ElevService {
 
     @Override
     public Elev getElevById(Integer id){
-        Optional<Elev> elev = elevRepository.findById(id);
-        return elev.get();
+        return elevRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Elevul nu a fost gasit"));
     }
 
     @Override
-    public Elev actualizareElev(Elev elev){
-        Elev elevActual = elevRepository.findById(elev.getIdElev()).get();
-        elevActual.setNume(elev.getNume());
-        elevActual.setPrenume(elev.getPrenume());
-        elevActual.setCNP(elev.getCNP());
-        elevActual.setSex(elev.getSex());
-        elevActual.setNumarTelefon(elev.getNumarTelefon());
-        elevActual.setAdresa(elev.getAdresa());
-        elevActual.setDataNasterii(elev.getDataNasterii());
+    public Elev actualizareElev(ElevRequestDTO elevRequest){
+        Elev elevActual = getElevById(elevRequest.getIdElev());
+        elevActual.setNume(elevRequest.getNume());
+        elevActual.setPrenume(elevRequest.getPrenume());
+        elevActual.setCNP(elevRequest.getCNP());
+        elevActual.setSex(elevRequest.getSex());
+        elevActual.setNumarTelefon(elevRequest.getNumarTelefon());
+        elevActual.setAdresa(elevRequest.getAdresa());
+        elevActual.setDataNasterii(elevRequest.getDataNasterii());
 
         return elevRepository.save(elevActual);
     }
 
     @Override
-    public Elev adaugaElev(ElevRequestDTO elevRequestDTO){
+    public Elev adaugaElev(Clasa clasa, ElevRequestDTO elevRequestDTO){
 
+        // creare elev
         Elev elev = new Elev();
         elev.setNume(elevRequestDTO.getNume());
         elev.setPrenume(elevRequestDTO.getPrenume());
@@ -57,9 +58,15 @@ public class ElevServiceImplementare implements ElevService {
         elev.setNumarTelefon(elevRequestDTO.getNumarTelefon());
         elev.setAdresa(elevRequestDTO.getAdresa());
         elev.setDataNasterii(elevRequestDTO.getDataNasterii());
-        /* TODO: legatura cu clasa */
+
+        // creare legatura cu clasa din care face parte
+        elev.setClasa(clasa);
 
         return elevRepository.save(elev);
     }
 
+    @Override
+    public void stergeElev(Integer idElev){
+       elevRepository.deleteById(idElev);
+    }
 }

@@ -11,6 +11,7 @@ public class ProfesorRequestDTO {
     private String CNP;
 //    private String sex;
 //    private LocalDate dataNasterii;
+    private Integer idUser;
 
 
     public Integer getIdProfesor() {
@@ -59,5 +60,13 @@ public class ProfesorRequestDTO {
 
     public void setCNP(String CNP) {
         this.CNP = CNP;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 }

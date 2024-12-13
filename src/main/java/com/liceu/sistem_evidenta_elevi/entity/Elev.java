@@ -3,6 +3,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 
@@ -33,13 +34,18 @@ public class Elev {
     @Column(nullable = false)
     private LocalDate dataNasterii;
 
-    @Column(nullable = false)
-    private int idClasa;
+    // clasa din care face parte elevul
+    @ManyToOne
+    @JoinColumn(name="id_clasa", referencedColumnName = "idClasa")
+    private Clasa clasa;
 
-    // pentru a stii carui user ii apartine entitatea
-    @OneToOne
-    @JoinColumn(name="id_user")
-    private User user;
+    // notele primite de elev
+    @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Nota> note;
+
+    // notele primite de elev
+    @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Absenta> absente;
 
     public Integer getIdElev() {
         return idElev;
@@ -105,11 +111,27 @@ public class Elev {
         this.dataNasterii = dataNasterii;
     }
 
-    public User getUser() {
-        return user;
+    public Clasa getClasa() {
+        return clasa;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClasa(Clasa clasa) {
+        this.clasa = clasa;
+    }
+
+    public List<Nota> getNote() {
+        return note;
+    }
+
+    public void setNote(List<Nota> note) {
+        this.note = note;
+    }
+
+    public List<Absenta> getAbsente() {
+        return absente;
+    }
+
+    public void setAbsente(List<Absenta> absente) {
+        this.absente = absente;
     }
 }
