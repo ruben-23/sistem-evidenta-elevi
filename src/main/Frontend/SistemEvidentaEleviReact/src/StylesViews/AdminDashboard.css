@@ -1,349 +1,162 @@
-/* General Layout */
 .admin-dashboard {
-    display: flex;
     font-family: Arial, sans-serif;
-    background-color: #4bdd12; /* Lighter green background */
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-    position: relative; /* To allow content to flow beside the sidebar */
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    height: 100vh; /* Ensures full height */
 }
 
-/* Sidebar (Navigation Buttons) */
-.dashboard-buttons {
-    position: fixed; /* Fix the sidebar to the left */
-    top: 0;
-    left: 0;
-    width: 250px; /* Set a width for the sidebar */
-    height: 100%; /* Sidebar will take full height */
-    background-color: #007bff; /* Main Blue */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Sidebar Styles */
+.dashboard-sidebar {
     display: flex;
-    flex-direction: column; /* Make the buttons stack vertically */
-    gap: 15px;
-    align-items: flex-start; /* Align buttons to the left */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 200px; /* Fixed width for the sidebar */
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    position: fixed;
+    top: 50%; /* Vertically centered */
+    left: 10px; /* Position it on the left */
+    transform: translateY(-50%); /* Center it vertically */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /* Sidebar Buttons */
-.dashboard-button {
-    padding: 10px 15px;
-    background-color: white;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: left;
-    transition: all 0.3s ease;
-}
-
-.dashboard-button:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
-/* Specific Buttons */
-.manage-accounts {
-    /* Additional styles for Manage Accounts button */
-}
-
-.manage-students {
-    /* Additional styles for Manage Students button */
-}
-
-.manage-teachers {
-    /* Additional styles for Manage Teachers button */
-}
-
-.logout-button {
-    /* Additional styles for Logout button */
-}
-
-/* Main Content Area */
-.dashboard-content {
-    flex-grow: 1;
-    margin-left: 270px; /* Create space for the fixed sidebar */
-    background-color: #f5f5f5; /* Neutral background for content */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 100vh;
-}
-
-/* Section Headers */
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-/* Filters */
-.filters {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.filters select,
-.filters input {
-    padding: 10px;
-    border: 1px solid #71f646; /* Lighter green for input borders */
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.filters input[type="text"] {
-    width: 250px;
-}
-
-/* Forms */
-form {
+.dashboard-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-form input,
-form select {
-    padding: 10px;
-    border: 1px solid #e31d1d; /* Red border for forms */
-    border-radius: 5px;
-    font-size: 16px;
+    gap: 15px; /* Space between buttons */
     width: 100%;
 }
 
-form button {
+.dashboard-buttons button {
     padding: 10px 20px;
-    background-color: #28a745; /* Green button */
-    color: #f3f3f3;
+    background-color: #333333; /* Slightly lighter black */
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    align-self: flex-start;
-    transition: all 0.3s ease;
-}
-
-form button:hover {
-    background-color: #218838;
-}
-
-/* Tables */
-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
 }
 
-table thead {
-    background-color: #007bff; /* Blue header */
-    color: white;
+.dashboard-buttons button:hover {
+    background-color: #0056b3; /* Blue hover effect */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 220px; /* Space to the left for the sidebar */
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: calc(100% - 240px); /* Adjust width to fit beside the sidebar */
+    height: 100%; /* Full height */
+    overflow-y: auto; /* Scrollable if content is long */
+    scrollbar-width: thin; /* Firefox scrollbar */
+    scrollbar-color: #888 #f0f0f0; /* Scroll thumb and track */
+}
+
+.main-content h2 {
+    font-size: 24px;
     font-weight: bold;
+    color: #000000; /* Ensures the header is black */
+    margin-bottom: 20px; /* Adds spacing below the header */
 }
 
-table thead th {
-    padding: 10px;
-    text-align: left;
+.main-content::-webkit-scrollbar {
+    width: 8px;
 }
 
-table tbody tr {
-    border-bottom: 1px solid #ccc;
+.main-content::-webkit-scrollbar-thumb {
+    background: #888; /* Scroll thumb */
+    border-radius: 4px;
 }
 
-table tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
-table td {
-    padding: 10px;
-}
-
-table td button {
-    padding: 5px 10px;
-    background-color: #007bff; /* Blue buttons for table */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-table td button:hover {
-    background-color: #0056b3;
-}
-
-/* Editable Cell Inputs */
-table td input,
-table td select {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-}
-
-table td input[type="text"],
-table td input[type="email"] {
-    width: 200px;
-}
-
-table td select {
-    width: 120px;
-}
-
-/* Logout Button */
-.logout-container {
-    margin-top: 20px;
-}
-
-.logout-button {
-    padding: 10px 20px;
-    background-color: #dc3545; /* Red for logout */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.logout-button:hover {
-    background-color: #c82333;
+.main-content::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Scroll track */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .admin-dashboard {
-        flex-direction: column;
+    .dashboard-sidebar {
+        position: static; /* Make the sidebar flow with content */
+        width: 100%; /* Full width on small screens */
+        transform: none; /* Remove centering */
+        margin-bottom: 20px; /* Add spacing below */
     }
 
-    .dashboard-buttons {
-        position: relative;
-        flex-direction: row;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-
-    .dashboard-content {
+    .main-content {
         margin-left: 0;
-        width: 100%;
+        width: 100%; /* Full width for content */
     }
+}
 
-    table {
-        font-size: 14px;
-    }
+/* General Form and Modal Styles */
+input,
+button {
+    font-family: inherit;
+}
 
-    form input,
-    form select {
-        font-size: 14px;
-    }
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px 0;
+    width: 100%; /* Make inputs full width */
+    box-sizing: border-box; /* Prevent overflow */
+}
 
-    .dashboard-button,
-    form button,
-    table td button,
-    .logout-button {
-        font-size: 14px;
-    }
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    .filters input[type="text"] {
-        width: 180px;
-    }
-    /* Button at the bottom */
-    .add-student-button {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 15px 25px;
-        background-color: #28a745;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 100;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+button:disabled {
+    background-color: #cccccc; /* Disabled button color */
+    cursor: not-allowed;
+}
 
-    .add-student-button:hover {
-        background-color: #218838;
-    }
+/* Adjusting Modal Appearance */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
-    /* Overlay form container */
-    .overlay-form-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 200;
-        display: none; /* Hidden by default */
-    }
+.cancel-btn {
+    background-color: #f5f5f5;
+    color: #333333;
+}
 
-    /* Form styles */
-    .add-student-form {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 80%;
-        max-width: 600px;
-    }
+.cancel-btn:hover {
+    background-color: #dddddd;
+}
 
-    .add-student-form input,
-    .add-student-form select {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
+.save-btn {
+    background-color: #0056b3;
+    color: #ffffff;
+}
 
-    .add-student-form button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 15px;
-        width: 100%;
-    }
+.save-btn:hover {
+    background-color: #004494;
+}
 
-    .add-student-form button:hover {
-        background-color: #0056b3;
-    }
+.edit-btn {
+    background-color: #4caf50;
+    color: #ffffff;
+}
 
-    /* Close button */
-    .close-form-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: #dc3545;
-        color: white;
-        font-size: 18px;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .close-form-btn:hover {
-        background-color: #c82333;
-    }
+.edit-btn:hover {
+    background-color: #45a049;
 }
