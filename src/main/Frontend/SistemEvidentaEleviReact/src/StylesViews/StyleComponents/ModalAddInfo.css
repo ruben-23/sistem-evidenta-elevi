@@ -10,3 +10,13 @@
     justify-content: center;
     z-index: 9999;
 }
+
+.modal-container {
+    background-color: #757575;
+    border-radius: 8px;
+    width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-in-out;
+}
