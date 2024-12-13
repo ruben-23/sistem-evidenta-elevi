@@ -98,14 +98,6 @@ const AdminDashboard = () => {
         setDetailsMode(true);
     };
 
-    const handleTeacherSubmit = (e) => {
-        e.preventDefault();
-        const newId = teachers.length + 1;
-        setTeachers([
-            ...teachers,
-            { id: newId, ...newTeacher },
-        ]);
-        setNewTeacher({ name: '', email: '', subject: '' }); // Reset form
     };
 
     // Handle Edit
