@@ -116,7 +116,20 @@ const AdminDashboard = () => {
         if (type === 'students') {
             updatedData = data.students.filter((item) => item.id !== id); // Filter out the student with the given id
         } else if (type === 'teachers') {
+            updatedData = data.teachers.filter((item) => item.id !== id); // Filter out the teacher with the given id
+        } else if (type === 'accounts') {
+            updatedData = data.accounts.filter((item) => item.id !== id); // Filter out the account with the given id
         }
+
+        // Update the state with the remaining data after deletion
+        setData({
+            ...data,
+            [type]: updatedData,
+        });
+
+        // Close the confirmation modal
+        setIsConfirmDeleteOpen(false);
+        setItemToDelete(null); // Clear the item to delete
     };
 
     // Handle Delete
