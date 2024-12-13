@@ -14,3 +14,11 @@ const AdaugaForm = ({ type, forms, setForms }) => {
             [type]: { ...forms[type], [key]: value },
         });
     };
+
+    // Function to handle the data save from the modal
+    const handleSaveData = (data) => {
+        setForms({
+            ...forms,
+            [type]: data,
+        });
+    };
