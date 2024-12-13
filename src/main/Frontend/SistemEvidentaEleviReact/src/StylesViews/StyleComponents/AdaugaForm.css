@@ -1,0 +1,53 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+form input,
+form select,
+form button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    background-color: #28a745;
+    color: #a81010;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+/* Student Details AdaugaForm */
+.student-details {
+    margin-top: 20px;
+}
+
+.student-details form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-details form input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.student-details form button {
+    background-color: #28a745;
+    color: #000000;
+    cursor: pointer;
+}
+
+.student-details form button:hover {
+    background-color: #218838;
+}
