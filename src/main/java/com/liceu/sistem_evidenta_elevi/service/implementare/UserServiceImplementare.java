@@ -8,22 +8,26 @@ import com.liceu.sistem_evidenta_elevi.entity.User;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImplementare implements UserService {
 
     private UserRepository userRepository;
     private ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService) {
+    public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService,
+                                   PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.profesorService = profesorService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -41,12 +45,13 @@ public class UserServiceImplementare implements UserService {
     public User actualizeazaUser(User user) {
         User userActual = getUserById(user.getIdUser());
         userActual.setUsername(user.getUsername());
-        userActual.setParola(user.getParola());
+        userActual.setParola(passwordEncoder.encode(user.getParola()));
         userActual.setEmail(user.getEmail());
         userActual.setRol(user.getRol());
         return userRepository.save(userActual);
     }
 
+    @Transactional
     @Override
     public User adaugaUser(UserRequestDTO userRequest) {
         if (userRequest == null) {
@@ -56,7 +61,7 @@ public class UserServiceImplementare implements UserService {
         // creare user nou din DTO
         User user = new User();
         user.setUsername(userRequest.getUsername());
-        user.setParola(userRequest.getParola());
+        user.setParola(passwordEncoder.encode(userRequest.getParola()));
         user.setEmail(userRequest.getEmail());
 
         // verifica daca rolul exista in enum
