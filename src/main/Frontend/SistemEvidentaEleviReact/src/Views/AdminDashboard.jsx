@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
-import '../StylesViews/AdminDashboard.css'; // Assuming you will create specific styling for this page
+import { useNavigate } from 'react-router-dom';
+import Sidebar from "./AdminComponents/Sidebar.jsx";
+import Dropdowns from "./AdminComponents/Dropdowns.jsx";
 
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
