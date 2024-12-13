@@ -21,3 +21,23 @@ table tr:hover {
     background-color: #9a0101; /* Highlight row on hover */
     color: #ffffff; /* White text for hovered rows */
 }
+
+/* Button Styles */
+button {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-right: 5px;
+    border-radius: 3px;
+    border: none; /* Remove default borders */
+    cursor: pointer; /* Pointer cursor for buttons */
+    transition: background-color 0.3s, opacity 0.2s; /* Smooth hover effects */
+}
+
+button:hover {
+    opacity: 0.8; /* Slight transparency on hover */
+}
+
+button:focus {
+    outline: none; /* Remove default focus outline */
+}
+
