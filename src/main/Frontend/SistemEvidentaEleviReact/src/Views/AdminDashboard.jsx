@@ -38,6 +38,26 @@ const AdminDashboard = () => {
                 media: '8.5',
                 totalAbsente: 3,
             },
+            {
+                id: 2,
+                name: 'Jane Smith',
+                prenume: 'Jane',
+                cnp: '9876543210987',
+                adresa: 'Street 2',
+                dataNasterii: '2006-02-02',
+                parinteNumarTelefon: '887654321',
+                elevNumarTelefon: '223456789',
+                sex: 'female',
+                class: '10B',
+                subject: 'Literature',
+                media: '9.2',
+                totalAbsente: 1,
+            },
+        ],
+        teachers: [
+            { id: 1, name: 'Mr. White', email: 'mr.white@example.com', subject: 'Math' },
+            { id: 2, name: 'Mrs. Green', email: 'mrs.green@example.com', subject: 'History' },
+        ],
     });
 
     const [editingItem, setEditingItem] = useState(null); // Track which item is being edited
