@@ -132,6 +132,9 @@ const AdminDashboard = () => {
         setItemToDelete(null); // Clear the item to delete
     };
 
+    const cancelDelete = () => {
+        setIsConfirmDeleteOpen(false); // Close the confirmation modal without deleting
+        setItemToDelete(null); // Clear the item to delete
     };
 
     // Render the appropriate section based on the currentView state
