@@ -248,16 +248,6 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-dashboard">
-            {/* Sidebar buttons */}
-            <div className="dashboard-buttons">
-                <button className="dashboard-button" onClick={() => setCurrentView('accounts')}>Gestioneaza Conturi
-                </button>
-                <button className="dashboard-button" onClick={() => setCurrentView('students')}>Gestioneaza Elevi
-                </button>
-                <button className="dashboard-button" onClick={() => setCurrentView('teachers')}>Gestioneaza Profesori
-                </button>
-                <button className="logout-button" onClick={handleLogout}>Logout</button>
-            </div>
             <div className="main-content">
                 {renderView()}
             </div>
