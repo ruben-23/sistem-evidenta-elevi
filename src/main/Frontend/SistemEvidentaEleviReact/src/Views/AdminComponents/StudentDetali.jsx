@@ -5,3 +5,6 @@ import PropTypes from 'prop-types';
 const StudentDetali = ({ student, onSave, onClose }) => {
     const [isEditable, setIsEditable] = useState(false); // To track if the fields are editable
     const [editedStudent, setEditedStudent] = useState(student); // Store the edited student data
+    const handleEdit = () => {
+        setIsEditable(true); // Enable editing
+    };
