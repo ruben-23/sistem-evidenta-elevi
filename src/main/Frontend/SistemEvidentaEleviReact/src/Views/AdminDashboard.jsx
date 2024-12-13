@@ -176,6 +176,33 @@ const AdminDashboard = () => {
         );
     };
 
+    const renderContent = () => {
+        if (editingItem) {
+            return (
+                <div>
+                    <h3>Edit {editingItem.type}</h3>
+                    <AdaugaForm
+                        type={editingItem.type}
+                        forms={{ [editingItem.type]: editingItem.item }}
+                        setForms={(newForms) =>
+                            setEditingItem({
+                                ...editingItem,
+                                item: newForms[editingItem.type],
+                            })
+                        }
+                    />
+                    <button onClick={handleSave}>Save</button>
+                </div>
+            );
+        }
+        if (detailsMode) {
+            return (
+                <StudentDetali
+                    student={currentStudent}
+                    onSave={handleSaveStudentDetails}
+                    onClose={() => setDetailsMode(false)} // Close modal
+                />
+            );
         }
     };
 
