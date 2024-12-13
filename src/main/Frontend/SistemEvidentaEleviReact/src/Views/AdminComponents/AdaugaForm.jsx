@@ -22,3 +22,6 @@ const AdaugaForm = ({ type, forms, setForms }) => {
             [type]: data,
         });
     };
+
+    return (
+                <button type="button" onClick={() => setShowModal(true)}>Adauga</button>
