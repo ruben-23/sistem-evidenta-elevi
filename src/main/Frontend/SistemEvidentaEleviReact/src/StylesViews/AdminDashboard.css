@@ -11,6 +11,17 @@
 /* Sidebar Styles */
 .dashboard-sidebar {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 200px; /* Fixed width for the sidebar */
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    position: fixed;
+    top: 50%; /* Vertically centered */
+    left: 10px; /* Position it on the left */
+    transform: translateY(-50%); /* Center it vertically */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /* Sidebar Buttons */
