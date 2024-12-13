@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from "./AdminComponents/Sidebar.jsx";
 import Dropdowns from "./AdminComponents/Dropdowns.jsx";
+import AdaugaForm from './AdminComponents/AdaugaForm.jsx';
+import Table from './AdminComponents/Table';
 
 const AdminDashboard = () => {
     const [currentView, setCurrentView] = useState('accounts'); // Default view is 'accounts'
