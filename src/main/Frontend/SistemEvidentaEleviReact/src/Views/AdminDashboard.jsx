@@ -250,7 +250,6 @@ const AdminDashboard = () => {
         <div className="admin-dashboard">
             <Sidebar currentView={currentView} setCurrentView={setCurrentView} onLogout={handleLogout} />
             <div className="main-content">
-                {renderView()}
             </div>
         </div>
     );
