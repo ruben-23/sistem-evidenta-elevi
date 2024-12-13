@@ -13,3 +13,14 @@ form button {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+form button {
+    background-color: #28a745;
+    color: #a81010;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
