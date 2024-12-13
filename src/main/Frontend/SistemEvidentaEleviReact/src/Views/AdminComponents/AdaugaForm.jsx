@@ -37,3 +37,14 @@ const AdaugaForm = ({ type, forms, setForms }) => {
                 ))}
                 <button type="button" onClick={() => setShowModal(true)}>Adauga</button>
             </form>
+
+            {showModal && (
+                <ModalAddInfo
+                    onClose={() => setShowModal(false)}
+                    onSave={handleSaveData}
+                />
+            )}
+        </>
+    );
+};
+
