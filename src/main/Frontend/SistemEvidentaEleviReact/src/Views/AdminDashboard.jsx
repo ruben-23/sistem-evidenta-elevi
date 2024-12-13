@@ -60,9 +60,17 @@ const AdminDashboard = () => {
         ],
     });
 
-    const [editingItem, setEditingItem] = useState(null); // Track which item is being edited
-    const [showAddStudent, setShowAddStudent] = useState(false); // Manage the visibility of the add student form
-    const navigate = useNavigate(); // Hook to navigate programmatically
+    const [selectedClass, setSelectedClass] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('');
+    const [editingItem, setEditingItem] = useState(null);
+    const [currentStudent, setCurrentStudent] = useState(null);
+    const [detailsMode, setDetailsMode] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isModalNoteOpen, setIsModalNoteOpen] = useState(false);
+    const [isModalAbsenteOpen, setIsModalAbsenteOpen] = useState(false);
+    const [isModalAddInfoOpen, setIsModalAddInfoOpen] = useState(false);
+    const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false); // State for confirmation modal
+    const [itemToDelete, setItemToDelete] = useState(null); // Store the item to be deleted
 
     // Handle logout (redirect to login page)
     const handleLogout = () => {
