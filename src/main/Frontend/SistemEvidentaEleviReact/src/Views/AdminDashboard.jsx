@@ -159,53 +159,6 @@ const AdminDashboard = () => {
     };
 
 
-            case 'teachers':
-                return (
-                    <div className="manage-teachers">
-                        <h2>Manage Teachers</h2>
-                        <form onSubmit={handleTeacherSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Name"
-                                value={newTeacher.name}
-                                onChange={(e) => setNewTeacher({ ...newTeacher, name: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={newTeacher.email}
-                                onChange={(e) => setNewTeacher({ ...newTeacher, email: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="text"
-                                placeholder="Subject"
-                                value={newTeacher.subject}
-                                onChange={(e) => setNewTeacher({ ...newTeacher, subject: e.target.value })}
-                                required
-                            />
-                            <button type="submit">Add Teacher</button>
-                        </form>
-
-                        <table>
-                            <tbody>
-                            {teachers.map((teacher) => (
-                                <tr key={teacher.id}>
-                                    <td>{teacher.name}</td>
-                                    <td>{teacher.email}</td>
-                                    <td>{teacher.subject}</td>
-                                    <td>
-                                        <button onClick={() => handleDelete('teachers', teacher.id)}>Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                );
-            default:
-                return <div>Select a view</div>;
         }
     };
 
