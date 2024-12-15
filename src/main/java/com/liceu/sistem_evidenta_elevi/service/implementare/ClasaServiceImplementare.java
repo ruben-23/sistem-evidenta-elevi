@@ -5,6 +5,7 @@ import com.liceu.sistem_evidenta_elevi.dto.ClasaDTO;
 import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
 import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.*;
+import com.liceu.sistem_evidenta_elevi.mapper.ClasaMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ClasaRepository;
 import com.liceu.sistem_evidenta_elevi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,13 @@ public class ClasaServiceImplementare implements ClasaService {
     private final AbsentaService absentaService;
     private final ClasaMaterieProfesorService clasaMaterieProfesorService ;
 
+    private ClasaMapper clasaMapper;
+
     @Autowired
     public ClasaServiceImplementare(ClasaRepository clasaRepository, ElevService elevService,
                                      ProfesorService profesorService, SpecializareService specializareService,
                                     NotaService notaService, AbsentaService absentaService, MaterieService materieService,
-                                    ClasaMaterieProfesorService clasaMaterieProfesorService) {
+                                    ClasaMaterieProfesorService clasaMaterieProfesorService, ClasaMapper clasaMapper) {
         this.clasaRepository = clasaRepository;
         this.elevService = elevService;
         this.profesorService = profesorService;
@@ -40,48 +43,44 @@ public class ClasaServiceImplementare implements ClasaService {
         this.notaService = notaService;
         this.absentaService = absentaService;
         this.clasaMaterieProfesorService = clasaMaterieProfesorService;
+        this.clasaMapper = clasaMapper;
     }
 
     @Override
-    public List<Clasa> getAllClase(){
-        return clasaRepository.findAll();
+    public List<ClasaDTO> getAllClase(){
+        List<Clasa> clase = clasaRepository.findAll();
+        return clasaMapper.toDTOList(clase);
     }
 
     @Override
-    public Clasa getClasaById(Integer id){
-        return clasaRepository.findById(id).
+    public ClasaDTO getClasaById(Integer id){
+        Clasa clasa = clasaRepository.findById(id).
                 orElseThrow(()->new RuntimeException("Clasa nu a fost gasita"));
+
+        return clasaMapper.toDTO(clasa);
     }
 
     @Override
-    public Clasa actualizareClasa(ClasaDTO clasaDTO){
-        Clasa clasaActuala = getClasaById(clasaDTO.getIdClasa());
+    public ClasaDTO actualizareClasa(ClasaDTO clasaDTO){
+        Clasa clasaActuala = clasaMapper.toEntity(getClasaById(clasaDTO.getIdClasa()));
         clasaActuala.setNume(clasaDTO.getNume());
-        return clasaRepository.save(clasaActuala);
+        return clasaMapper.toDTO(clasaRepository.save(clasaActuala));
     }
 
     @Override
-    public Clasa adaugaClasa(ClasaDTO clasaDTO){
-
-        Profesor diriginte = profesorService.getProfesorById(clasaDTO.getIdProfesor());
-        Specializare specializare = specializareService.getSpecializareById(clasaDTO.getIdSpecializare());
-
-        Clasa clasa = new Clasa();
-        clasa.setNume(clasaDTO.getNume());
-        clasa.setSpecializare(specializare);
-        clasa.setDiriginte(diriginte);
-
-        return clasaRepository.save(clasa);
+    public ClasaDTO adaugaClasa(ClasaDTO clasaDTO){
+        Clasa clasa = clasaMapper.toEntity(clasaDTO);
+        return clasaMapper.toDTO(clasaRepository.save(clasa));
     }
 
     @Override
     public void stergeClasa(Integer idClasa){
-        clasaRepository.delete(getClasaById(idClasa));
+        clasaRepository.deleteById(idClasa);
     }
 
     @Override
     public Set<Elev> getEleviByClasa(Integer clasaId) {
-        Clasa clasa = getClasaById(clasaId);
+        Clasa clasa = clasaMapper.toEntity(getClasaById(clasaId));
         return clasa.getElevi();
     }
 
@@ -92,7 +91,7 @@ public class ClasaServiceImplementare implements ClasaService {
 
     @Override
     public Elev adaugaElevInClasa(ElevDTO elevDTO){
-        Clasa clasa = getClasaById(elevDTO.getIdClasa());
+        Clasa clasa = clasaMapper.toEntity(getClasaById(elevDTO.getIdClasa()));
         return elevService.adaugaElev(clasa, elevDTO);
     }
 
@@ -161,7 +160,7 @@ public class ClasaServiceImplementare implements ClasaService {
 
     @Override
     public ClasaMaterieProfesor adaugaMaterieSiProfesorLaClasa(Integer idClasa, Integer idProfesor, Integer idMaterie) {
-        Clasa clasa = getClasaById(idClasa);
+        Clasa clasa = clasaMapper.toEntity(getClasaById(idClasa));
         Profesor profesor = profesorService.getProfesorById(idProfesor);
         Materie materie = materieService.getMaterieById(idMaterie);
         return clasaMaterieProfesorService.adaugaMaterieSiProfesorLaClasa(clasa, profesor, materie);

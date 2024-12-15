@@ -23,18 +23,24 @@ public class ClasaController {
     public ClasaController(ClasaService clasaService) {
         this.clasaService = clasaService;
     }
+
+    @GetMapping
+    public ResponseEntity<List<ClasaDTO>> getAllClase() {
+        return ResponseEntity.ok(clasaService.getAllClase());
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Clasa> getClasaById(@PathVariable Integer id) {
+    public ResponseEntity<ClasaDTO> getClasaById(@PathVariable Integer id) {
         return ResponseEntity.ok(clasaService.getClasaById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Clasa> adaugaClasa(@RequestBody ClasaDTO clasaDTO) {
+    public ResponseEntity<ClasaDTO> adaugaClasa(@RequestBody ClasaDTO clasaDTO) {
         return ResponseEntity.ok(clasaService.adaugaClasa(clasaDTO));
     }
 
     @PutMapping
-    public ResponseEntity<Clasa> actualizareClasa(@RequestBody ClasaDTO clasaDTO) {
+    public ResponseEntity<ClasaDTO> actualizareClasa(@RequestBody ClasaDTO clasaDTO) {
         return ResponseEntity.ok(clasaService.actualizareClasa(clasaDTO));
     }
 
