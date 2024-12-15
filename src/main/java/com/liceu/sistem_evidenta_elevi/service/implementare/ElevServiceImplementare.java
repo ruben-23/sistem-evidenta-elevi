@@ -1,25 +1,30 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
-import com.liceu.sistem_evidenta_elevi.entity.Clasa;
+import com.liceu.sistem_evidenta_elevi.entity.Absenta;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.entity.Nota;
+import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ElevServiceImplementare implements ElevService {
 
     private ElevRepository elevRepository;
+    private ElevMapper elevMapper;
 
     public ElevServiceImplementare() {}
 
     @Autowired
-    public ElevServiceImplementare(ElevRepository elevRepository) {
+    public ElevServiceImplementare(ElevRepository elevRepository, ElevMapper elevMapper) {
         this.elevRepository = elevRepository;
+        this.elevMapper = elevMapper;
     }
 
     @Override
@@ -36,32 +41,13 @@ public class ElevServiceImplementare implements ElevService {
     @Override
     public Elev actualizareElev(ElevDTO elevDTO){
         Elev elevActual = getElevById(elevDTO.getIdElev());
-        elevActual.setNume(elevDTO.getNume());
-        elevActual.setPrenume(elevDTO.getPrenume());
-        elevActual.setCNP(elevDTO.getCNP());
-        elevActual.setSex(elevDTO.getSex());
-        elevActual.setNumarTelefon(elevDTO.getNumarTelefon());
-        elevActual.setAdresa(elevDTO.getAdresa());
-        elevActual.setDataNasterii(elevDTO.getDataNasterii());
-
+        elevMapper.updateEntityFromDTO(elevDTO, elevActual);
         return elevRepository.save(elevActual);
     }
 
     @Override
-    public Elev adaugaElev(Clasa clasa, ElevDTO elevDTO){
-
-        // creare elev
-        Elev elev = new Elev();
-        elev.setNume(elevDTO.getNume());
-        elev.setPrenume(elevDTO.getPrenume());
-        elev.setCNP(elevDTO.getCNP());
-        elev.setNumarTelefon(elevDTO.getNumarTelefon());
-        elev.setAdresa(elevDTO.getAdresa());
-        elev.setDataNasterii(elevDTO.getDataNasterii());
-
-        // creare legatura cu clasa din care face parte
-        elev.setClasa(clasa);
-
+    public Elev adaugaElev(ElevDTO elevDTO){
+        Elev elev = elevMapper.toEntity(elevDTO);
         return elevRepository.save(elev);
     }
 
@@ -69,4 +55,24 @@ public class ElevServiceImplementare implements ElevService {
     public void stergeElev(Integer idElev){
        elevRepository.deleteById(idElev);
     }
+
+    @Override
+    public List<Nota> getNoteElevMaterie(Integer idElev, Integer idMaterie){
+        Elev elev = getElevById(idElev);
+        return elev.getNote().stream()
+                .filter(nota -> nota.getMaterie().getIdMaterie().equals(idMaterie))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Absenta> getAbsenteElevMaterie(Integer idElev, Integer idMaterie){
+
+        Elev elev = getElevById(idElev);
+        return elev.getAbsente()
+                .stream()
+                .filter(absenta -> absenta.getMaterie().getIdMaterie().equals(idMaterie))
+                .collect(Collectors.toList());
+    }
+
+
 }

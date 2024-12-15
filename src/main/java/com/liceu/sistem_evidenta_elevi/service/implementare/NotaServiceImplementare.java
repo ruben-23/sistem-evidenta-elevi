@@ -4,6 +4,7 @@ import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.entity.Materie;
 import com.liceu.sistem_evidenta_elevi.entity.Nota;
+import com.liceu.sistem_evidenta_elevi.mapper.NotaMapper;
 import com.liceu.sistem_evidenta_elevi.repository.NotaRepository;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import com.liceu.sistem_evidenta_elevi.service.MaterieService;
@@ -17,21 +18,17 @@ import java.util.List;
 public class NotaServiceImplementare implements NotaService {
 
     private final NotaRepository notaRepository;
-    private final ElevService elevService;
-    private final MaterieService materieService;
-    private NotaRepository repository;
+    private final NotaMapper notaMapper;
 
     @Autowired
-    public NotaServiceImplementare(NotaRepository repository, NotaRepository notaRepository, ElevService elevService, MaterieService materieService) {
-        this.repository = repository;
+    public NotaServiceImplementare(NotaRepository notaRepository, NotaMapper notaMapper) {
         this.notaRepository = notaRepository;
-        this.elevService = elevService;
-        this.materieService = materieService;
+        this.notaMapper = notaMapper;
     }
 
     @Override
     public List<Nota> getAllNote(){
-        return repository.findAll();
+        return notaRepository.findAll();
     }
 
     @Override
@@ -43,28 +40,19 @@ public class NotaServiceImplementare implements NotaService {
     @Override
     public Nota actualizareNota(NotaDTO notaDTO){
         Nota notaActuala = getNotaById(notaDTO.getIdNota());
-        notaActuala.setData(notaDTO.getData());
-        notaActuala.setValoare(notaDTO.getValoare());
+        notaMapper.updateEntityFromDTO(notaDTO, notaActuala);
         return notaRepository.save(notaActuala);
     }
 
     @Override
     public Nota adaugaNota(NotaDTO notaDTO){
-
-        Elev elev = elevService.getElevById(notaDTO.getIdElev());
-        Materie materie = materieService.getMaterieById(notaDTO.getIdMaterie());
-
-        Nota nota = new Nota();
-        nota.setData(notaDTO.getData());
-        nota.setValoare(notaDTO.getValoare());
-        nota.setMaterie(materie);
-        nota.setElev(elev);
+        Nota nota = notaMapper.toEntity(notaDTO);
         return notaRepository.save(nota);
     }
 
     @Override
     public void stergeNota(Integer idNota) {
-        notaRepository.delete(getNotaById(idNota));
+        notaRepository.deleteById(idNota);
     }
 
 }
