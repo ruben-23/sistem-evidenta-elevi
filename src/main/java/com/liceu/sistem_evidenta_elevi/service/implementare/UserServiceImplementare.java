@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.entity.Rol;
@@ -79,7 +79,7 @@ public class UserServiceImplementare implements UserService {
 
             case ROLE_PROFESOR:
                 // obtinem profesorDTO din userDTO
-                ProfesorRequestDTO profesorRequest = userRequest.getProfesor();
+                ProfesorDTO profesorRequest = userRequest.getProfesor();
                 // adaugare profesor in baza de date
 
                 // obtinem profesorul adaugat anterior

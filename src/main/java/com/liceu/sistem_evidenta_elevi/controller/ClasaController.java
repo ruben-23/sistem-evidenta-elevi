@@ -1,9 +1,9 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-import com.liceu.sistem_evidenta_elevi.dto.AbsentaRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.ClasaRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.NotaRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.AbsentaDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ClasaDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
+import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.*;
 import com.liceu.sistem_evidenta_elevi.service.ClasaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +23,19 @@ public class ClasaController {
     public ClasaController(ClasaService clasaService) {
         this.clasaService = clasaService;
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Clasa> getClasaById(@PathVariable Integer id) {
         return ResponseEntity.ok(clasaService.getClasaById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Clasa> adaugaClasa(@RequestBody ClasaRequestDTO clasaRequest) {
-        return ResponseEntity.ok(clasaService.adaugaClasa(clasaRequest));
+    public ResponseEntity<Clasa> adaugaClasa(@RequestBody ClasaDTO clasaDTO) {
+        return ResponseEntity.ok(clasaService.adaugaClasa(clasaDTO));
     }
 
     @PutMapping
-    public ResponseEntity<Clasa> actualizareClasa(@RequestBody ClasaRequestDTO clasaRequest) {
-        return ResponseEntity.ok(clasaService.actualizareClasa(clasaRequest));
+    public ResponseEntity<Clasa> actualizareClasa(@RequestBody ClasaDTO clasaDTO) {
+        return ResponseEntity.ok(clasaService.actualizareClasa(clasaDTO));
     }
 
     @DeleteMapping("/{id}")
@@ -51,13 +50,13 @@ public class ClasaController {
     }
 
     @PostMapping("/elevi")
-    public ResponseEntity<Elev> adaugaElevInClasa(@RequestBody ElevRequestDTO elevRequest) {
-        return ResponseEntity.ok(clasaService.adaugaElevInClasa(elevRequest));
+    public ResponseEntity<Elev> adaugaElevInClasa(@RequestBody ElevDTO elevDTO) {
+        return ResponseEntity.ok(clasaService.adaugaElevInClasa(elevDTO));
     }
 
     @PutMapping("/elevi")
-    public ResponseEntity<Elev> actualizareElev(@RequestBody ElevRequestDTO elevRequest) {
-        return ResponseEntity.ok(clasaService.actualizareElev(elevRequest));
+    public ResponseEntity<Elev> actualizareElev(@RequestBody ElevDTO elevDTO) {
+        return ResponseEntity.ok(clasaService.actualizareElev(elevDTO));
     }
 
     @DeleteMapping("/elevi/{id}")
@@ -67,13 +66,13 @@ public class ClasaController {
     }
 
     @PostMapping("/note")
-    public ResponseEntity<Nota> adaugaNotaElev(@RequestBody NotaRequestDTO notaRequest) {
-        return ResponseEntity.ok(clasaService.adaugaNotaElev(notaRequest));
+    public ResponseEntity<Nota> adaugaNotaElev(@RequestBody NotaDTO notaDTO) {
+        return ResponseEntity.ok(clasaService.adaugaNotaElev(notaDTO));
     }
 
     @PutMapping("/note")
-    public ResponseEntity<Nota> actualizareNotaElev(@RequestBody NotaRequestDTO notaRequest) {
-        return ResponseEntity.ok(clasaService.actualizareNotaElev(notaRequest));
+    public ResponseEntity<Nota> actualizareNotaElev(@RequestBody NotaDTO notaDTO) {
+        return ResponseEntity.ok(clasaService.actualizareNotaElev(notaDTO));
     }
 
     @DeleteMapping("/note/{id}")
@@ -83,13 +82,13 @@ public class ClasaController {
     }
 
     @PostMapping("/absente")
-    public ResponseEntity<Absenta> adaugaAbsentaElev(@RequestBody AbsentaRequestDTO absentaRequest) {
-        return ResponseEntity.ok(clasaService.adaugaAbsentaElev(absentaRequest));
+    public ResponseEntity<Absenta> adaugaAbsentaElev(@RequestBody AbsentaDTO absentaDTO) {
+        return ResponseEntity.ok(clasaService.adaugaAbsentaElev(absentaDTO));
     }
 
     @PutMapping("/absente")
-    public ResponseEntity<Absenta> actualizareAbsentaElev(@RequestBody AbsentaRequestDTO absentaRequest) {
-        return ResponseEntity.ok(clasaService.actualizareAbsentaElev(absentaRequest));
+    public ResponseEntity<Absenta> actualizareAbsentaElev(@RequestBody AbsentaDTO absentaDTO) {
+        return ResponseEntity.ok(clasaService.actualizareAbsentaElev(absentaDTO));
     }
 
     @DeleteMapping("/absente/{id}")

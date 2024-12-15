@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
-public class ElevRequestDTO {
+public class ElevDTO {
 
     private Integer idElev;
     private String nume;

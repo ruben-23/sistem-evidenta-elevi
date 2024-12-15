@@ -11,27 +11,27 @@ public interface ClasaService {
     // CRUD pentru clasa
     List<Clasa> getAllClase();
     Clasa getClasaById(Integer id);
-    Clasa adaugaClasa(ClasaRequestDTO clasaRequest);
-    Clasa actualizareClasa(ClasaRequestDTO clasa);
+    Clasa adaugaClasa(ClasaDTO clasaDTO);
+    Clasa actualizareClasa(ClasaDTO clasa);
     void stergeClasa(Integer idClasa);
 
     // Gestionare elev
     Set<Elev> getEleviByClasa(Integer idClasa);
     Elev getElevById(Integer id);
-    Elev adaugaElevInClasa(ElevRequestDTO elevRequest);
-    Elev actualizareElev(ElevRequestDTO elevRequest);
+    Elev adaugaElevInClasa(ElevDTO elevDTO);
+    Elev actualizareElev(ElevDTO elevDTO);
     void stergeElev(Integer idElev);
 
     // Gestionare note
     List<Nota> getNoteElevMaterie(Integer idElev, Integer idMaterie);
-    Nota adaugaNotaElev(NotaRequestDTO notaRequest);
-    Nota actualizareNotaElev(NotaRequestDTO notaRequest);
+    Nota adaugaNotaElev(NotaDTO notaDTO);
+    Nota actualizareNotaElev(NotaDTO notaDTO);
     void stergeNotaElev(Integer idNota);
 
     // Gestionare absente
     List<Absenta> getAbsenteElevMaterie(Integer idElev, Integer idMaterie);
-    Absenta adaugaAbsentaElev(AbsentaRequestDTO absentaRequest);
-    Absenta actualizareAbsentaElev(AbsentaRequestDTO absentaRequest);
+    Absenta adaugaAbsentaElev(AbsentaDTO absentaDTO);
+    Absenta actualizareAbsentaElev(AbsentaDTO absentaDTO);
     void stergeAbsentaElev(Integer idAbsenta);
 
     ClasaMaterieProfesor adaugaMaterieSiProfesorLaClasa(Integer idClasa, Integer idProfesor, Integer idMaterie);

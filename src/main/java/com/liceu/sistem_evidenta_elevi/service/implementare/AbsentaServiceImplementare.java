@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.AbsentaRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.AbsentaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Absenta;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.entity.Materie;
@@ -39,19 +39,19 @@ public class AbsentaServiceImplementare implements AbsentaService {
     }
 
     @Override
-    public Absenta actualizareAbsenta(AbsentaRequestDTO absentaRequest){
-        Absenta absentaActuala = getAbsentaById(absentaRequest.getIdAbsenta());
-        absentaActuala.setData(absentaRequest.getData());
+    public Absenta actualizareAbsenta(AbsentaDTO afsentaDTO){
+        Absenta absentaActuala = getAbsentaById(afsentaDTO.getIdAbsenta());
+        absentaActuala.setData(afsentaDTO.getData());
         return absentaRepository.save(absentaActuala);
     }
 
     @Override
-    public Absenta adaugaAbsenta(AbsentaRequestDTO absentaRequest){
-        Elev elev = elevService.getElevById(absentaRequest.getIdElev());
-        Materie materie = materieService.getMaterieById(absentaRequest.getIdMaterie());
+    public Absenta adaugaAbsenta(AbsentaDTO afsentaDTO){
+        Elev elev = elevService.getElevById(afsentaDTO.getIdElev());
+        Materie materie = materieService.getMaterieById(afsentaDTO.getIdMaterie());
 
         Absenta absenta = new Absenta();
-        absenta.setData(absentaRequest.getData());
+        absenta.setData(afsentaDTO.getData());
         absenta.setElev(elev);
         absenta.setMaterie(materie);
         return absentaRepository.save(absenta);

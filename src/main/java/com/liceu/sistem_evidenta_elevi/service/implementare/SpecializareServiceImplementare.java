@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.SpecializareRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.SpecializareDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Specializare;
 import com.liceu.sistem_evidenta_elevi.repository.SpecializareRepository;
 import com.liceu.sistem_evidenta_elevi.service.SpecializareService;
@@ -31,16 +31,16 @@ public class SpecializareServiceImplementare implements SpecializareService {
     }
 
     @Override
-    public Specializare actualizareSpecializare(SpecializareRequestDTO specializareRequest){
-        Specializare specializareActuala = getSpecializareById(specializareRequest.getIdSpecializare());
-        specializareActuala.setNume(specializareRequest.getNume());
+    public Specializare actualizareSpecializare(SpecializareDTO specializareDTO){
+        Specializare specializareActuala = getSpecializareById(specializareDTO.getIdSpecializare());
+        specializareActuala.setNume(specializareDTO.getNume());
         return specializareRepository.save(specializareActuala);
     }
 
     @Override
-    public Specializare adaugaSpecializare(SpecializareRequestDTO specializareRequest){
+    public Specializare adaugaSpecializare(SpecializareDTO specializareDTO){
         Specializare specializare = new Specializare();
-        specializare.setNume(specializareRequest.getNume());
+        specializare.setNume(specializareDTO.getNume());
         return specializareRepository.save(specializare);
 }
 

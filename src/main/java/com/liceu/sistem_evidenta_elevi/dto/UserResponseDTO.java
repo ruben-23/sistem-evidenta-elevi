@@ -5,7 +5,7 @@ public class UserResponseDTO {
     private String username;
     private String email;
     private String rol;
-    private ProfesorResponseDTO profesor; // pentru a transmite si informatiile despre profesor
+    private ProfesorDTO profesor; // pentru a transmite si informatiile despre profesor
 
     public Integer getIdUser() {
         return idUser;
@@ -31,11 +31,11 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public ProfesorResponseDTO getProfesor() {
+    public ProfesorDTO getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(ProfesorResponseDTO profesor) {
+    public void setProfesor(ProfesorDTO profesor) {
         this.profesor = profesor;
     }
 

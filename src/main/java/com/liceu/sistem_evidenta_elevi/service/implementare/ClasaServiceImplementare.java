@@ -1,15 +1,16 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.AbsentaRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.ClasaRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
-import com.liceu.sistem_evidenta_elevi.dto.NotaRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.AbsentaDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ClasaDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
+import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.*;
 import com.liceu.sistem_evidenta_elevi.repository.ClasaRepository;
 import com.liceu.sistem_evidenta_elevi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,20 +54,20 @@ public class ClasaServiceImplementare implements ClasaService {
     }
 
     @Override
-    public Clasa actualizareClasa(ClasaRequestDTO clasaRequest){
-        Clasa clasaActuala = getClasaById(clasaRequest.getIdClasa());
-        clasaActuala.setNume(clasaRequest.getNume());
+    public Clasa actualizareClasa(ClasaDTO clasaDTO){
+        Clasa clasaActuala = getClasaById(clasaDTO.getIdClasa());
+        clasaActuala.setNume(clasaDTO.getNume());
         return clasaRepository.save(clasaActuala);
     }
 
     @Override
-    public Clasa adaugaClasa(ClasaRequestDTO clasaRequest){
+    public Clasa adaugaClasa(ClasaDTO clasaDTO){
 
-        Profesor diriginte = profesorService.getProfesorById(clasaRequest.getIdProfesor());
-        Specializare specializare = specializareService.getSpecializareById(clasaRequest.getIdSpecializare());
+        Profesor diriginte = profesorService.getProfesorById(clasaDTO.getIdProfesor());
+        Specializare specializare = specializareService.getSpecializareById(clasaDTO.getIdSpecializare());
 
         Clasa clasa = new Clasa();
-        clasa.setNume(clasaRequest.getNume());
+        clasa.setNume(clasaDTO.getNume());
         clasa.setSpecializare(specializare);
         clasa.setDiriginte(diriginte);
 
@@ -90,14 +91,14 @@ public class ClasaServiceImplementare implements ClasaService {
     }
 
     @Override
-    public Elev adaugaElevInClasa(ElevRequestDTO elevRequest){
-        Clasa clasa = getClasaById(elevRequest.getIdClasa());
-        return elevService.adaugaElev(clasa, elevRequest);
+    public Elev adaugaElevInClasa(ElevDTO elevDTO){
+        Clasa clasa = getClasaById(elevDTO.getIdClasa());
+        return elevService.adaugaElev(clasa, elevDTO);
     }
 
     @Override
-    public Elev actualizareElev(ElevRequestDTO elevRequest){
-        return elevService.actualizareElev(elevRequest);
+    public Elev actualizareElev(ElevDTO elevDTO){
+        return elevService.actualizareElev(elevDTO);
     }
 
     @Override
@@ -114,13 +115,13 @@ public class ClasaServiceImplementare implements ClasaService {
     }
 
     @Override
-    public Nota adaugaNotaElev(NotaRequestDTO notaRequest){
-        return notaService.adaugaNota(notaRequest);
+    public Nota adaugaNotaElev(NotaDTO notaDTO){
+        return notaService.adaugaNota(notaDTO);
     }
 
     @Override
-    public Nota actualizareNotaElev(NotaRequestDTO notaRequest){
-        return notaService.actualizareNota(notaRequest);
+    public Nota actualizareNotaElev(NotaDTO notaDTO){
+        return notaService.actualizareNota(notaDTO);
     }
 
     @Override
@@ -139,13 +140,13 @@ public class ClasaServiceImplementare implements ClasaService {
     }
 
     @Override
-    public Absenta adaugaAbsentaElev(AbsentaRequestDTO absentaRequest){
-        return absentaService.adaugaAbsenta(absentaRequest);
+    public Absenta adaugaAbsentaElev(AbsentaDTO absentaDTO){
+        return absentaService.adaugaAbsenta(absentaDTO);
     }
 
     @Override
-    public Absenta actualizareAbsentaElev(AbsentaRequestDTO absentaRequest){
-        return absentaService.actualizareAbsenta(absentaRequest);
+    public Absenta actualizareAbsentaElev(AbsentaDTO absentaDTO){
+        return absentaService.actualizareAbsenta(absentaDTO);
     }
 
     @Override

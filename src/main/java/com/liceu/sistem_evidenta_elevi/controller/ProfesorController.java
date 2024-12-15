@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +34,15 @@ public class ProfesorController {
     }
 
     @PostMapping
-    public ResponseEntity<Profesor> adaugaProfesor(@RequestBody ProfesorRequestDTO profesorRequest){
-        Profesor profesorSalvat = profesorService.adaugaProfesor(profesorRequest);
+    public ResponseEntity<Profesor> adaugaProfesor(@RequestBody ProfesorDTO profesorDTO){
+        Profesor profesorSalvat = profesorService.adaugaProfesor(profesorDTO);
         return new ResponseEntity<>(profesorSalvat, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Profesor> actualizeazaProfesor(@PathVariable("id") Integer idProfesor, @RequestBody ProfesorRequestDTO profesorRequest){
-        profesorRequest.setIdProfesor(idProfesor);
-        Profesor profesorActualizat = profesorService.actualizareProfesor(profesorRequest);
+    public ResponseEntity<Profesor> actualizeazaProfesor(@PathVariable("id") Integer idProfesor, @RequestBody ProfesorDTO profesorDTO){
+        profesorDTO.setIdProfesor(idProfesor);
+        Profesor profesorActualizat = profesorService.actualizareProfesor(profesorDTO);
         return new ResponseEntity<>(profesorActualizat, HttpStatus.OK);
     }
 

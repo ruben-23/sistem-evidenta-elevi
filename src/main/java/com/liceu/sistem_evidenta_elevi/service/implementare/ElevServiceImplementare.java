@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Clasa;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
@@ -34,30 +34,30 @@ public class ElevServiceImplementare implements ElevService {
     }
 
     @Override
-    public Elev actualizareElev(ElevRequestDTO elevRequest){
-        Elev elevActual = getElevById(elevRequest.getIdElev());
-        elevActual.setNume(elevRequest.getNume());
-        elevActual.setPrenume(elevRequest.getPrenume());
-        elevActual.setCNP(elevRequest.getCNP());
-        elevActual.setSex(elevRequest.getSex());
-        elevActual.setNumarTelefon(elevRequest.getNumarTelefon());
-        elevActual.setAdresa(elevRequest.getAdresa());
-        elevActual.setDataNasterii(elevRequest.getDataNasterii());
+    public Elev actualizareElev(ElevDTO elevDTO){
+        Elev elevActual = getElevById(elevDTO.getIdElev());
+        elevActual.setNume(elevDTO.getNume());
+        elevActual.setPrenume(elevDTO.getPrenume());
+        elevActual.setCNP(elevDTO.getCNP());
+        elevActual.setSex(elevDTO.getSex());
+        elevActual.setNumarTelefon(elevDTO.getNumarTelefon());
+        elevActual.setAdresa(elevDTO.getAdresa());
+        elevActual.setDataNasterii(elevDTO.getDataNasterii());
 
         return elevRepository.save(elevActual);
     }
 
     @Override
-    public Elev adaugaElev(Clasa clasa, ElevRequestDTO elevRequestDTO){
+    public Elev adaugaElev(Clasa clasa, ElevDTO elevDTO){
 
         // creare elev
         Elev elev = new Elev();
-        elev.setNume(elevRequestDTO.getNume());
-        elev.setPrenume(elevRequestDTO.getPrenume());
-        elev.setCNP(elevRequestDTO.getCNP());
-        elev.setNumarTelefon(elevRequestDTO.getNumarTelefon());
-        elev.setAdresa(elevRequestDTO.getAdresa());
-        elev.setDataNasterii(elevRequestDTO.getDataNasterii());
+        elev.setNume(elevDTO.getNume());
+        elev.setPrenume(elevDTO.getPrenume());
+        elev.setCNP(elevDTO.getCNP());
+        elev.setNumarTelefon(elevDTO.getNumarTelefon());
+        elev.setAdresa(elevDTO.getAdresa());
+        elev.setDataNasterii(elevDTO.getDataNasterii());
 
         // creare legatura cu clasa din care face parte
         elev.setClasa(clasa);

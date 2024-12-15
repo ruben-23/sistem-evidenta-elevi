@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.repository.ProfesorRepository;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
@@ -32,27 +32,27 @@ public class ProfesorServiceImplementare implements ProfesorService {
     }
 
     @Override
-    public Profesor actualizareProfesor(ProfesorRequestDTO profesorRequest){
+    public Profesor actualizareProfesor(ProfesorDTO profesorDTO){
         // returnare profesor cu id ul dorit
-        Profesor profesorActual = getProfesorById(profesorRequest.getIdProfesor());
+        Profesor profesorActual = getProfesorById(profesorDTO.getIdProfesor());
 
-        profesorActual.setNume(profesorRequest.getNume());
-        profesorActual.setPrenume(profesorRequest.getPrenume());
-        profesorActual.setAdresa(profesorRequest.getAdresa());
-        profesorActual.setCNP(profesorRequest.getCNP());
-        profesorActual.setNumarTelefon(profesorRequest.getNumarTelefon());
+        profesorActual.setNume(profesorDTO.getNume());
+        profesorActual.setPrenume(profesorDTO.getPrenume());
+        profesorActual.setAdresa(profesorDTO.getAdresa());
+        profesorActual.setCNP(profesorDTO.getCNP());
+        profesorActual.setNumarTelefon(profesorDTO.getNumarTelefon());
 
         return profesorRepository.save(profesorActual);
     }
 
     @Override
-    public Profesor adaugaProfesor(ProfesorRequestDTO profesorRequest){
+    public Profesor adaugaProfesor(ProfesorDTO profesorDTO){
         Profesor profesor = new Profesor();
-        profesor.setNume(profesorRequest.getNume());
-        profesor.setPrenume(profesorRequest.getPrenume());
-        profesor.setAdresa(profesorRequest.getAdresa());
-        profesor.setCNP(profesorRequest.getCNP());
-        profesor.setNumarTelefon(profesorRequest.getNumarTelefon());
+        profesor.setNume(profesorDTO.getNume());
+        profesor.setPrenume(profesorDTO.getPrenume());
+        profesor.setAdresa(profesorDTO.getAdresa());
+        profesor.setCNP(profesorDTO.getCNP());
+        profesor.setNumarTelefon(profesorDTO.getNumarTelefon());
 
         return profesorRepository.save(profesor);
     }

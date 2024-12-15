@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
-public class ClasaRequestDTO {
+public class ClasaDTO {
     private Integer idClasa;
     private String nume;
     private Integer idSpecializare;

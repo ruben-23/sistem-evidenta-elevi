@@ -8,7 +8,7 @@ public class UserRequestDTO {
     private String rol;
 
     // pentru a include informatii despre profesor(daca userul e profesor)
-    private ProfesorRequestDTO profesor;
+    private ProfesorDTO profesor;
 
     // alte variabile pentru celelalte tipuri de useri
 
@@ -44,11 +44,11 @@ public class UserRequestDTO {
         this.rol = role;
     }
 
-    public ProfesorRequestDTO getProfesor() {
+    public ProfesorDTO getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(ProfesorRequestDTO profesor) {
+    public void setProfesor(ProfesorDTO profesor) {
         this.profesor = profesor;
     }
 

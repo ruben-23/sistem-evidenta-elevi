@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class ElevController {
 
 
     @PutMapping("{id}")
-    public ResponseEntity<Elev> actualizareElev(@PathVariable("id") Integer idElev, @RequestBody ElevRequestDTO elev) {
+    public ResponseEntity<Elev> actualizareElev(@PathVariable("id") Integer idElev, @RequestBody ElevDTO elev) {
         elev.setIdElev(idElev);
         Elev elevActualizat = elevService.actualizareElev(elev);
         return new ResponseEntity<>(elevActualizat, HttpStatus.OK);

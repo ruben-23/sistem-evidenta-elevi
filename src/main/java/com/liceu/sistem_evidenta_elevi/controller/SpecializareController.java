@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.controller;
 
-import com.liceu.sistem_evidenta_elevi.dto.SpecializareRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.SpecializareDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Specializare;
 import com.liceu.sistem_evidenta_elevi.service.SpecializareService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class SpecializareController {
     }
 
     @PostMapping
-    public ResponseEntity<Specializare> getSpecializare(@RequestBody SpecializareRequestDTO specializareRequest) {
-        return ResponseEntity.ok(specializareService.adaugaSpecializare(specializareRequest));
+    public ResponseEntity<Specializare> getSpecializare(@RequestBody SpecializareDTO specializareDTO) {
+        return ResponseEntity.ok(specializareService.adaugaSpecializare(specializareDTO));
     }
 
 

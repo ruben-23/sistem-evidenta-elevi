@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
-public class NotaRequestDTO {
+public class NotaDTO {
 
     private Integer idNota;
     private Integer idClasa;

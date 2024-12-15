@@ -1,8 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
-import java.time.LocalDate;
-
-public class ProfesorRequestDTO {
+public class ProfesorDTO {
     private Integer idProfesor;
     private String nume;
     private String prenume;

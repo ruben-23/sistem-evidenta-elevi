@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.NotaRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.entity.Materie;
 import com.liceu.sistem_evidenta_elevi.entity.Nota;
@@ -41,22 +41,22 @@ public class NotaServiceImplementare implements NotaService {
     }
 
     @Override
-    public Nota actualizareNota(NotaRequestDTO notaRequest){
-        Nota notaActuala = getNotaById(notaRequest.getIdNota());
-        notaActuala.setData(notaRequest.getData());
-        notaActuala.setValoare(notaRequest.getValoare());
+    public Nota actualizareNota(NotaDTO notaDTO){
+        Nota notaActuala = getNotaById(notaDTO.getIdNota());
+        notaActuala.setData(notaDTO.getData());
+        notaActuala.setValoare(notaDTO.getValoare());
         return notaRepository.save(notaActuala);
     }
 
     @Override
-    public Nota adaugaNota(NotaRequestDTO notaRequest){
+    public Nota adaugaNota(NotaDTO notaDTO){
 
-        Elev elev = elevService.getElevById(notaRequest.getIdElev());
-        Materie materie = materieService.getMaterieById(notaRequest.getIdMaterie());
+        Elev elev = elevService.getElevById(notaDTO.getIdElev());
+        Materie materie = materieService.getMaterieById(notaDTO.getIdMaterie());
 
         Nota nota = new Nota();
-        nota.setData(notaRequest.getData());
-        nota.setValoare(notaRequest.getValoare());
+        nota.setData(notaDTO.getData());
+        nota.setValoare(notaDTO.getValoare());
         nota.setMaterie(materie);
         nota.setElev(elev);
         return notaRepository.save(nota);
