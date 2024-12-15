@@ -2,6 +2,7 @@ package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.MaterieDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Materie;
+import com.liceu.sistem_evidenta_elevi.mapper.MaterieMapper;
 import com.liceu.sistem_evidenta_elevi.repository.MaterieRepository;
 import com.liceu.sistem_evidenta_elevi.service.MaterieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import java.util.List;
 public class MaterieServiceImplementare implements MaterieService {
 
     private MaterieRepository materieRepository;
+    private MaterieMapper materieMapper;
 
     @Autowired
-    public MaterieServiceImplementare(MaterieRepository materieRepository) {
+    public MaterieServiceImplementare(MaterieRepository materieRepository, MaterieMapper materieMapper) {
         this.materieRepository = materieRepository;
+        this.materieMapper = materieMapper;
     }
 
     @Override
@@ -33,14 +36,13 @@ public class MaterieServiceImplementare implements MaterieService {
     @Override
     public Materie actualizareMaterie(MaterieDTO materieDTO){
         Materie materieActuala = getMaterieById(materieDTO.getIdMaterie());
-        materieActuala.setNume(materieDTO.getNume());
+        materieMapper.updateEntityFromDTO(materieDTO, materieActuala);
         return materieRepository.save(materieActuala);
     }
 
     @Override
     public Materie adaugaMaterie(MaterieDTO materieDTO){
-        Materie materie = new Materie();
-        materie.setNume(materieDTO.getNume());
+        Materie materie = materieMapper.toEntity(materieDTO);
         return materieRepository.save(materie);
 }
 
