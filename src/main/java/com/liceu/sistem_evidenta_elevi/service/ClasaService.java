@@ -9,10 +9,10 @@ import java.util.Set;
 public interface ClasaService {
 
     // CRUD pentru clasa
-    List<Clasa> getAllClase();
-    Clasa getClasaById(Integer id);
-    Clasa adaugaClasa(ClasaDTO clasaDTO);
-    Clasa actualizareClasa(ClasaDTO clasa);
+    List<ClasaDTO> getAllClase();
+    ClasaDTO getClasaById(Integer id);
+    ClasaDTO adaugaClasa(ClasaDTO clasaDTO);
+    ClasaDTO actualizareClasa(ClasaDTO clasa);
     void stergeClasa(Integer idClasa);
 
     // Gestionare elev
