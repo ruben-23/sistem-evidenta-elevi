@@ -11,5 +11,5 @@ public interface ProfesorService {
     Profesor getProfesorById(Integer id);
     Profesor actualizareProfesor(ProfesorDTO profesorDTO);
     Profesor adaugaProfesor(ProfesorDTO profesorDTO);
-    
+    void stergeProfesor(Integer idProfesor);
 }

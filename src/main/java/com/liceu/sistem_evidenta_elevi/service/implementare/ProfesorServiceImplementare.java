@@ -2,6 +2,7 @@ package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
+import com.liceu.sistem_evidenta_elevi.mapper.ProfesorMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ProfesorRepository;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import java.util.List;
 public class ProfesorServiceImplementare implements ProfesorService {
 
     private ProfesorRepository profesorRepository;
+    private ProfesorMapper profesorMapper;
 
     @Autowired
-    public ProfesorServiceImplementare(ProfesorRepository profesorRepository) {
+    public ProfesorServiceImplementare(ProfesorRepository profesorRepository, ProfesorMapper profesorMapper) {
         this.profesorRepository = profesorRepository;
+        this.profesorMapper = profesorMapper;
     }
     public ProfesorServiceImplementare() {}
 
@@ -33,29 +36,21 @@ public class ProfesorServiceImplementare implements ProfesorService {
 
     @Override
     public Profesor actualizareProfesor(ProfesorDTO profesorDTO){
-        // returnare profesor cu id ul dorit
+        // returnare profesor cu id ul din dto
         Profesor profesorActual = getProfesorById(profesorDTO.getIdProfesor());
-
-        profesorActual.setNume(profesorDTO.getNume());
-        profesorActual.setPrenume(profesorDTO.getPrenume());
-        profesorActual.setAdresa(profesorDTO.getAdresa());
-        profesorActual.setCNP(profesorDTO.getCNP());
-        profesorActual.setNumarTelefon(profesorDTO.getNumarTelefon());
-
+        profesorMapper.updateEntityFromDTO(profesorDTO, profesorActual);
         return profesorRepository.save(profesorActual);
     }
 
     @Override
     public Profesor adaugaProfesor(ProfesorDTO profesorDTO){
-        Profesor profesor = new Profesor();
-        profesor.setNume(profesorDTO.getNume());
-        profesor.setPrenume(profesorDTO.getPrenume());
-        profesor.setAdresa(profesorDTO.getAdresa());
-        profesor.setCNP(profesorDTO.getCNP());
-        profesor.setNumarTelefon(profesorDTO.getNumarTelefon());
-
+        Profesor profesor = profesorMapper.toEntity(profesorDTO);
         return profesorRepository.save(profesor);
     }
 
+    @Override
+    public void stergeProfesor(Integer idProfesor){
+        profesorRepository.deleteById(idProfesor);
+    }
 
 }

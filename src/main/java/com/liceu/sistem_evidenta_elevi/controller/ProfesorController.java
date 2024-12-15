@@ -2,9 +2,9 @@ package com.liceu.sistem_evidenta_elevi.controller;
 
 import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
+import com.liceu.sistem_evidenta_elevi.mapper.ProfesorMapper;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,36 +15,43 @@ import java.util.List;
 public class ProfesorController {
 
     private final ProfesorService profesorService;
+    private final ProfesorMapper profesorMapper;
 
     @Autowired
-    public ProfesorController(ProfesorService profesorService) {
+    public ProfesorController(ProfesorService profesorService, ProfesorMapper profesorMapper) {
         this.profesorService = profesorService;
+        this.profesorMapper = profesorMapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<Profesor>> getAllProfesori(){
+    public ResponseEntity<List<ProfesorDTO>> getAllProfesori(){
         List<Profesor> profesori = profesorService.getAllProfesori();
-        return new ResponseEntity<>(profesori, HttpStatus.OK);
+        return ResponseEntity.ok(profesorMapper.toDTOList(profesori));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Profesor> getProfesorById(@PathVariable("id") Integer idProfesor){
+    public ResponseEntity<ProfesorDTO> getProfesorById(@PathVariable("id") Integer idProfesor){
         Profesor profesor = profesorService.getProfesorById(idProfesor);
-        return new ResponseEntity<>(profesor, HttpStatus.OK);
+        return ResponseEntity.ok(profesorMapper.toDTO(profesor));
     }
 
     @PostMapping
-    public ResponseEntity<Profesor> adaugaProfesor(@RequestBody ProfesorDTO profesorDTO){
+    public ResponseEntity<ProfesorDTO> adaugaProfesor(@RequestBody ProfesorDTO profesorDTO){
         Profesor profesorSalvat = profesorService.adaugaProfesor(profesorDTO);
-        return new ResponseEntity<>(profesorSalvat, HttpStatus.CREATED);
+        return ResponseEntity.ok(profesorMapper.toDTO(profesorSalvat));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Profesor> actualizeazaProfesor(@PathVariable("id") Integer idProfesor, @RequestBody ProfesorDTO profesorDTO){
+    public ResponseEntity<ProfesorDTO> actualizeazaProfesor(@PathVariable("id") Integer idProfesor, @RequestBody ProfesorDTO profesorDTO){
         profesorDTO.setIdProfesor(idProfesor);
         Profesor profesorActualizat = profesorService.actualizareProfesor(profesorDTO);
-        return new ResponseEntity<>(profesorActualizat, HttpStatus.OK);
+        return ResponseEntity.ok(profesorMapper.toDTO(profesorActualizat));
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> stergeProfesor(@PathVariable("id") Integer idProfesor){
+        profesorService.stergeProfesor(idProfesor);
+        return ResponseEntity.noContent().build();
+    }
 
 }

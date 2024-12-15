@@ -7,10 +7,7 @@ public class ProfesorDTO {
     private String numarTelefon;
     private String adresa;
     private String CNP;
-//    private String sex;
-//    private LocalDate dataNasterii;
     private Integer idUser;
-
 
     public Integer getIdProfesor() {
         return idProfesor;
