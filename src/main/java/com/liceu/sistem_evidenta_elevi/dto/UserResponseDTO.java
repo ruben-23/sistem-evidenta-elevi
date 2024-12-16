@@ -4,7 +4,9 @@ public class UserResponseDTO {
     private Integer idUser ;
     private String username;
     private String email;
-    private ProfesorResponseDTO profesor; // pentru a transmite si informatiile despre profesor
+    private String rol;
+    private ProfesorDTO profesor; // pentru a transmite si informatiile despre profesor
+    private SecretaraDTO secretara;
 
     public Integer getIdUser() {
         return idUser;
@@ -30,11 +32,27 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public ProfesorResponseDTO getProfesor() {
+    public ProfesorDTO getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(ProfesorResponseDTO profesor) {
+    public void setProfesor(ProfesorDTO profesor) {
         this.profesor = profesor;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public SecretaraDTO getSecretara() {
+        return secretara;
+    }
+
+    public void setSecretara(SecretaraDTO secretara) {
+        this.secretara = secretara;
     }
 }

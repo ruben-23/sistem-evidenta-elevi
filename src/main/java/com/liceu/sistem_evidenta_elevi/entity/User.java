@@ -22,8 +22,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Profesor profesor;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Secretara secretara;
 
     public int getIdUser() {
         return idUser;
@@ -75,5 +78,13 @@ public class User {
 
     public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
+    }
+
+    public Secretara getSecretara() {
+        return secretara;
+    }
+
+    public void setSecretara(Secretara secretara) {
+        this.secretara = secretara;
     }
 }

@@ -7,12 +7,11 @@ import java.util.List;
 public interface ClasaMaterieProfesorService {
 
     ClasaMaterieProfesor getClasaMaterieProfesorById(ClasaMaterieProfesorId id);
-    ClasaMaterieProfesor adaugaMaterieSiProfesorLaClasa(Clasa clasa, Profesor profesor, Materie materie);
-    ClasaMaterieProfesor stergereMaterieSiProfesorDinClasa(Integer idClasa, Integer idProfesor, Integer idMaterie);
+    ClasaMaterieProfesor adaugaMaterieSiProfesorLaClasa(Integer idClasa, Integer idProfesor, Integer idMaterie);
+    void stergereMaterieSiProfesorDinClasa(Integer idClasa, Integer idProfesor, Integer idMaterie);
 
     List<Materie> getMateriiDinClasa(Integer idClasa);
     List<Materie> getMateriiPredateDeProfesorInClasa(Integer idProfesor, Integer idClasa);
     List<Clasa> getClaseProfesor(Integer idProfesor);
     List<Profesor> getProfesoriDinClasa(Integer idClasa);
-
 }

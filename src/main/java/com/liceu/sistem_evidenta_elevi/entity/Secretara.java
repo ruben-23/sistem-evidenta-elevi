@@ -1,25 +1,42 @@
-package com.liceu.sistem_evidenta_elevi.dto;
+package com.liceu.sistem_evidenta_elevi.entity;
 
-import java.time.LocalDate;
 
-public class ProfesorRequestDTO {
-    private Integer idProfesor;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="secretara")
+public class Secretara {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idSecretara;
+
+    @Column(nullable=false)
     private String nume;
+
+    @Column(nullable=false)
     private String prenume;
+
+    @Column(nullable=false)
     private String numarTelefon;
+
+    @Column(nullable=false)
     private String adresa;
+
+    @Column(nullable=false)
     private String CNP;
-//    private String sex;
-//    private LocalDate dataNasterii;
-    private Integer idUser;
 
+    // pentru a stii carui user este asociata secretara
+    @OneToOne
+    @JoinColumn(name="id_user")
+    private User user;
 
-    public Integer getIdProfesor() {
-        return idProfesor;
+    public Integer getIdSecretara() {
+        return idSecretara;
     }
 
-    public void setIdProfesor(Integer idProfesor) {
-        this.idProfesor = idProfesor;
+    public void setIdSecretara(Integer idSecretara) {
+        this.idSecretara = idSecretara;
     }
 
     public String getNume() {
@@ -62,11 +79,11 @@ public class ProfesorRequestDTO {
         this.CNP = CNP;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

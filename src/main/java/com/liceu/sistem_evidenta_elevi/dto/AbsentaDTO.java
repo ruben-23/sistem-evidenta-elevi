@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
-public class AbsentaRequestDTO {
+public class AbsentaDTO {
 
     private Integer idAbsenta;
     private Integer idClasa;

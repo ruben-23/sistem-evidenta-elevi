@@ -1,29 +1,38 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.ProfesorDTO;
+import com.liceu.sistem_evidenta_elevi.dto.SecretaraDTO;
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.entity.Rol;
+import com.liceu.sistem_evidenta_elevi.entity.Secretara;
 import com.liceu.sistem_evidenta_elevi.entity.User;
 import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
+import com.liceu.sistem_evidenta_elevi.service.SecretaraService;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImplementare implements UserService {
 
-    private UserRepository userRepository;
-    private ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
+    private final UserRepository userRepository;
+    private final ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
+    private final SecretaraService secretaraService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService) {
+    public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService,
+                                   PasswordEncoder passwordEncoder, SecretaraService secretaraService) {
         this.userRepository = userRepository;
         this.profesorService = profesorService;
+        this.passwordEncoder = passwordEncoder;
+        this.secretaraService = secretaraService;
     }
 
     @Override
@@ -37,16 +46,28 @@ public class UserServiceImplementare implements UserService {
                 .orElseThrow(() -> new RuntimeException("Userul nu a fost gasit"));
     }
 
+    @Transactional
     @Override
-    public User actualizeazaUser(User user) {
+    public User actualizeazaUser(UserRequestDTO user) {
         User userActual = getUserById(user.getIdUser());
         userActual.setUsername(user.getUsername());
-        userActual.setParola(user.getParola());
+        userActual.setParola(passwordEncoder.encode(user.getParola()));
         userActual.setEmail(user.getEmail());
-        userActual.setRol(user.getRol());
+        userActual.setRol(Rol.valueOf(user.getRol()));
+
+        if(user.getProfesor() != null) {
+            // setare id user in profesorDTO
+            user.getProfesor().setIdUser(user.getIdUser());
+            profesorService.actualizareProfesor(user.getProfesor());
+        } else if (user.getSecretara() != null) {
+            user.getSecretara().setIdUser(user.getIdUser());
+            secretaraService.actualizareSecretara(user.getSecretara());
+        }
+
         return userRepository.save(userActual);
     }
 
+    @Transactional
     @Override
     public User adaugaUser(UserRequestDTO userRequest) {
         if (userRequest == null) {
@@ -56,7 +77,7 @@ public class UserServiceImplementare implements UserService {
         // creare user nou din DTO
         User user = new User();
         user.setUsername(userRequest.getUsername());
-        user.setParola(userRequest.getParola());
+        user.setParola(passwordEncoder.encode(userRequest.getParola()));
         user.setEmail(userRequest.getEmail());
 
         // verifica daca rolul exista in enum
@@ -74,22 +95,35 @@ public class UserServiceImplementare implements UserService {
 
             case ROLE_PROFESOR:
                 // obtinem profesorDTO din userDTO
-                ProfesorRequestDTO profesorRequest = userRequest.getProfesor();
-                // adaugare profesor in baza de date
+                ProfesorDTO profesorRequest = userRequest.getProfesor();
 
-                // obtinem profesorul adaugat anterior
-                Profesor profesor = profesorService.adaugaProfesor(profesorRequest);
+                // obtinem profesorul dupa adaugare
+                Profesor profesor = profesorService.adaugaProfesor(profesorRequest, user);
 
-                // facem legatura intre user si profesor
+                // legatura intre user si profesor
                 profesor.setUser(user);
                 user.setProfesor(profesor);
                 break;
-            // TODO adaugare cazuri si pentru celelalte roluri
+
+            case ROLE_SECRETARA:
+                SecretaraDTO secretaraDTO = userRequest.getSecretara();
+                secretaraDTO.setIdUser(user.getIdUser());
+
+                Secretara secretara = secretaraService.adaugaSecretara(secretaraDTO);
+                secretara.setUser(user);
+                user.setSecretara(secretara);
+                break;
+
             default:
                 throw new IllegalArgumentException("Rol invalid: " + userRequest.getRol());
         }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public void stergeUser(Integer idUser){
+        userRepository.deleteById(idUser);
     }
 
 }

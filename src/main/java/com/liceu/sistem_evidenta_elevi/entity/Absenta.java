@@ -19,7 +19,7 @@ public class Absenta {
 
     // elev caruia ii apartine absenta
     @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "idElev")
+    @JoinColumn(name = "id_elev", referencedColumnName = "idElev")
     private Elev elev;
 
     // materia la care a fost absent

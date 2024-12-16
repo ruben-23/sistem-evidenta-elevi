@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
-public class ElevResponseDTO {
+public class ElevDTO {
 
     private Integer idElev;
     private String nume;
@@ -12,7 +12,7 @@ public class ElevResponseDTO {
     private String numarTelefon;
     private String adresa;
     private LocalDate dataNasterii;
-    private int idClasa;
+    private Integer idClasa;
 
     public Integer getIdElev() {
         return idElev;
@@ -46,12 +46,12 @@ public class ElevResponseDTO {
         this.CNP = CNP;
     }
 
-    public String getAdresa() {
-        return adresa;
+    public String getSex() {
+        return sex;
     }
 
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getNumarTelefon() {
@@ -62,20 +62,20 @@ public class ElevResponseDTO {
         this.numarTelefon = numarTelefon;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public LocalDate getDataNasterii() {
         return dataNasterii;
     }
 
     public void setDataNasterii(LocalDate dataNasterii) {
         this.dataNasterii = dataNasterii;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 
     public int getIdClasa() {

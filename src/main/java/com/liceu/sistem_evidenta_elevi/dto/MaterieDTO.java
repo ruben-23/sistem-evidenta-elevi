@@ -1,6 +1,6 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
-public class MaterieRequestDTO {
+public class MaterieDTO {
     private Integer idMaterie;
     private String nume;
 

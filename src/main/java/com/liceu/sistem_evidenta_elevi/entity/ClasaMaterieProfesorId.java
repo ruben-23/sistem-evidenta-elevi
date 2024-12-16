@@ -1,5 +1,7 @@
 package com.liceu.sistem_evidenta_elevi.entity;
 
+import com.liceu.sistem_evidenta_elevi.config.SecurityConfig;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,7 +9,7 @@ import java.util.Objects;
  * Clasa folosita ca si cheie primara compusa pentru entitatea ClasaMaterieProfesor
  */
 
-public class ClasaMaterieProfesorId implements Serializable {
+public class ClasaMaterieProfesorId extends SecurityConfig implements Serializable {
 
     private Integer idClasa;
     private Integer idProfesor;

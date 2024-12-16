@@ -9,5 +9,6 @@ public interface UserService {
     List<User> getAllUseri();
     User getUserById(Integer id);
     User adaugaUser(UserRequestDTO userRequest);
-    User actualizeazaUser(User user);
+    User actualizeazaUser(UserRequestDTO user);
+    void stergeUser(Integer idUser);
 }

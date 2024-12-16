@@ -1,13 +1,11 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
-import com.liceu.sistem_evidenta_elevi.dto.AbsentaRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.AbsentaDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Absenta;
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
-import com.liceu.sistem_evidenta_elevi.entity.Materie;
+import com.liceu.sistem_evidenta_elevi.mapper.AbsentaMapper;
 import com.liceu.sistem_evidenta_elevi.repository.AbsentaRepository;
 import com.liceu.sistem_evidenta_elevi.service.AbsentaService;
-import com.liceu.sistem_evidenta_elevi.service.ElevService;
-import com.liceu.sistem_evidenta_elevi.service.MaterieService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +14,13 @@ import java.util.List;
 @Service
 public class AbsentaServiceImplementare implements AbsentaService {
 
-    private final ElevService elevService;
-    private final MaterieService materieService;
     private final AbsentaRepository absentaRepository;
+    private final AbsentaMapper absentaMapper;
 
     @Autowired
-    public AbsentaServiceImplementare(AbsentaRepository absentaRepository, ElevService elevService, MaterieService materieService) {
+    public AbsentaServiceImplementare(AbsentaRepository absentaRepository, AbsentaMapper absentaMapper) {
         this.absentaRepository = absentaRepository;
-        this.elevService = elevService;
-        this.materieService = materieService;
+        this.absentaMapper = absentaMapper;
     }
 
     @Override
@@ -38,28 +34,24 @@ public class AbsentaServiceImplementare implements AbsentaService {
                 .orElseThrow(() -> new RuntimeException("Absenta nu a fost gasita"));
     }
 
+    @Transactional
     @Override
-    public Absenta actualizareAbsenta(AbsentaRequestDTO absentaRequest){
-        Absenta absentaActuala = getAbsentaById(absentaRequest.getIdAbsenta());
-        absentaActuala.setData(absentaRequest.getData());
+    public Absenta actualizareAbsenta(AbsentaDTO absentaDTO){
+        Absenta absentaActuala = getAbsentaById(absentaDTO.getIdAbsenta());
+        absentaMapper.updateEntityFromDTO(absentaDTO, absentaActuala);
         return absentaRepository.save(absentaActuala);
     }
 
+    @Transactional
     @Override
-    public Absenta adaugaAbsenta(AbsentaRequestDTO absentaRequest){
-        Elev elev = elevService.getElevById(absentaRequest.getIdElev());
-        Materie materie = materieService.getMaterieById(absentaRequest.getIdMaterie());
-
-        Absenta absenta = new Absenta();
-        absenta.setData(absentaRequest.getData());
-        absenta.setElev(elev);
-        absenta.setMaterie(materie);
+    public Absenta adaugaAbsenta(AbsentaDTO absentaDTO){
+        Absenta absenta = absentaMapper.toEntity(absentaDTO);
         return absentaRepository.save(absenta);
     }
 
     @Override
     public void stergeAbsenta(Integer idAbsenta) {
-        absentaRepository.delete(getAbsentaById(idAbsenta));
+        absentaRepository.deleteById(idAbsenta);
     }
 
 }
