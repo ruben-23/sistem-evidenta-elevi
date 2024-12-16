@@ -6,6 +6,7 @@ public class UserResponseDTO {
     private String email;
     private String rol;
     private ProfesorDTO profesor; // pentru a transmite si informatiile despre profesor
+    private SecretaraDTO secretara;
 
     public Integer getIdUser() {
         return idUser;
@@ -45,5 +46,13 @@ public class UserResponseDTO {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public SecretaraDTO getSecretara() {
+        return secretara;
+    }
+
+    public void setSecretara(SecretaraDTO secretara) {
+        this.secretara = secretara;
     }
 }

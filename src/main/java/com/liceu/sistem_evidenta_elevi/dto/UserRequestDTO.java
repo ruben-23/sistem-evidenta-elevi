@@ -2,17 +2,23 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 public class UserRequestDTO {
 
+    private Integer idUser;
     private String username;
     private String parola;
     private String email;
     private String rol;
 
-    // pentru a include informatii despre profesor(daca userul e profesor)
+    // pentru a include informatii despre profesor sau secretara
     private ProfesorDTO profesor;
-
     private SecretaraDTO secretara;
 
-    // alte variabile pentru celelalte tipuri de useri
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
 
     public String getUsername() {
         return username;

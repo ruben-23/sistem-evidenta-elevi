@@ -46,13 +46,24 @@ public class UserServiceImplementare implements UserService {
                 .orElseThrow(() -> new RuntimeException("Userul nu a fost gasit"));
     }
 
+    @Transactional
     @Override
-    public User actualizeazaUser(User user) {
+    public User actualizeazaUser(UserRequestDTO user) {
         User userActual = getUserById(user.getIdUser());
         userActual.setUsername(user.getUsername());
         userActual.setParola(passwordEncoder.encode(user.getParola()));
         userActual.setEmail(user.getEmail());
-        userActual.setRol(user.getRol());
+        userActual.setRol(Rol.valueOf(user.getRol()));
+
+        if(user.getProfesor() != null) {
+            // setare id user in profesorDTO
+            user.getProfesor().setIdUser(user.getIdUser());
+            profesorService.actualizareProfesor(user.getProfesor());
+        } else if (user.getSecretara() != null) {
+            user.getSecretara().setIdUser(user.getIdUser());
+            secretaraService.actualizareSecretara(user.getSecretara());
+        }
+
         return userRepository.save(userActual);
     }
 
@@ -85,10 +96,9 @@ public class UserServiceImplementare implements UserService {
             case ROLE_PROFESOR:
                 // obtinem profesorDTO din userDTO
                 ProfesorDTO profesorRequest = userRequest.getProfesor();
-                profesorRequest.setIdUser(user.getIdUser());
 
                 // obtinem profesorul dupa adaugare
-                Profesor profesor = profesorService.adaugaProfesor(profesorRequest);
+                Profesor profesor = profesorService.adaugaProfesor(profesorRequest, user);
 
                 // legatura intre user si profesor
                 profesor.setUser(user);
@@ -109,6 +119,11 @@ public class UserServiceImplementare implements UserService {
         }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public void stergeUser(Integer idUser){
+        userRepository.deleteById(idUser);
     }
 
 }
