@@ -35,12 +35,6 @@ public class ProfesorController {
         return ResponseEntity.ok(profesorMapper.toDTO(profesor));
     }
 
-    @PostMapping
-    public ResponseEntity<ProfesorDTO> adaugaProfesor(@RequestBody ProfesorDTO profesorDTO){
-        Profesor profesorSalvat = profesorService.adaugaProfesor(profesorDTO);
-        return ResponseEntity.ok(profesorMapper.toDTO(profesorSalvat));
-    }
-
     @PutMapping("{id}")
     public ResponseEntity<ProfesorDTO> actualizeazaProfesor(@PathVariable("id") Integer idProfesor, @RequestBody ProfesorDTO profesorDTO){
         profesorDTO.setIdProfesor(idProfesor);

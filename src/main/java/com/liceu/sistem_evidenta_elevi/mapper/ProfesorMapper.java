@@ -17,13 +17,6 @@ import java.util.List;
 @Component
 public class ProfesorMapper {
 
-    private UserService userService;
-
-    @Autowired
-    public ProfesorMapper(UserService userService) {
-        this.userService = userService;
-    }
-
     public ProfesorDTO toDTO(Profesor profesor) {
         ProfesorDTO profesorDTO = new ProfesorDTO();
 
@@ -45,9 +38,7 @@ public class ProfesorMapper {
         return profesorDTOs;
     }
 
-    public Profesor toEntity(ProfesorDTO profesorDTO) {
-
-        User user = userService.getUserById(profesorDTO.getIdProfesor());
+    public Profesor toEntity(ProfesorDTO profesorDTO, User user) {
 
         Profesor profesor = new Profesor();
         profesor.setIdProfesor(profesorDTO.getIdProfesor());
@@ -61,9 +52,7 @@ public class ProfesorMapper {
         return profesor;
     }
 
-    public void updateEntityFromDTO(ProfesorDTO profesorDTO, Profesor profesor) {
-
-        User user = userService.getUserById(profesorDTO.getIdProfesor());
+    public void updateEntityFromDTO(ProfesorDTO profesorDTO, Profesor profesor, User user) {
 
         profesor.setNume(profesorDTO.getNume());
         profesor.setPrenume(profesorDTO.getPrenume());
