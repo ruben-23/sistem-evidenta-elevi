@@ -2,7 +2,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="clase")
@@ -26,8 +26,8 @@ public class Clasa {
     private Profesor diriginte;
 
     // elevii din clasa
-    @OneToMany (mappedBy = "clasa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Elev> elevi;
+    @OneToMany (mappedBy = "clasa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Elev> elevi;
 
     public Integer getIdClasa() {
         return idClasa;
@@ -53,11 +53,11 @@ public class Clasa {
         this.specializare = specializare;
     }
 
-    public Set<Elev> getElevi() {
+    public List<Elev> getElevi() {
         return elevi;
     }
 
-    public void setElevi(Set<Elev> elevi) {
+    public void setElevi(List<Elev> elevi) {
         this.elevi = elevi;
     }
 
