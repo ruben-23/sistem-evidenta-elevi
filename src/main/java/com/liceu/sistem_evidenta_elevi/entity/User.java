@@ -25,6 +25,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Profesor profesor;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Secretara secretara;
+
     public int getIdUser() {
         return idUser;
     }
@@ -75,5 +78,13 @@ public class User {
 
     public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
+    }
+
+    public Secretara getSecretara() {
+        return secretara;
+    }
+
+    public void setSecretara(Secretara secretara) {
+        this.secretara = secretara;
     }
 }

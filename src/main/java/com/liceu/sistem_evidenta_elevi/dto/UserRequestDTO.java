@@ -10,6 +10,8 @@ public class UserRequestDTO {
     // pentru a include informatii despre profesor(daca userul e profesor)
     private ProfesorDTO profesor;
 
+    private SecretaraDTO secretara;
+
     // alte variabile pentru celelalte tipuri de useri
 
     public String getUsername() {
@@ -52,5 +54,11 @@ public class UserRequestDTO {
         this.profesor = profesor;
     }
 
-    
+    public SecretaraDTO getSecretara() {
+        return secretara;
+    }
+
+    public void setSecretara(SecretaraDTO secretara) {
+        this.secretara = secretara;
+    }
 }
