@@ -5,6 +5,7 @@ import com.liceu.sistem_evidenta_elevi.entity.Absenta;
 import com.liceu.sistem_evidenta_elevi.mapper.AbsentaMapper;
 import com.liceu.sistem_evidenta_elevi.repository.AbsentaRepository;
 import com.liceu.sistem_evidenta_elevi.service.AbsentaService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class AbsentaServiceImplementare implements AbsentaService {
 
     private final AbsentaRepository absentaRepository;
-    private AbsentaMapper absentaMapper;
+    private final AbsentaMapper absentaMapper;
 
     @Autowired
     public AbsentaServiceImplementare(AbsentaRepository absentaRepository, AbsentaMapper absentaMapper) {
@@ -33,6 +34,7 @@ public class AbsentaServiceImplementare implements AbsentaService {
                 .orElseThrow(() -> new RuntimeException("Absenta nu a fost gasita"));
     }
 
+    @Transactional
     @Override
     public Absenta actualizareAbsenta(AbsentaDTO absentaDTO){
         Absenta absentaActuala = getAbsentaById(absentaDTO.getIdAbsenta());
@@ -40,6 +42,7 @@ public class AbsentaServiceImplementare implements AbsentaService {
         return absentaRepository.save(absentaActuala);
     }
 
+    @Transactional
     @Override
     public Absenta adaugaAbsenta(AbsentaDTO absentaDTO){
         Absenta absenta = absentaMapper.toEntity(absentaDTO);

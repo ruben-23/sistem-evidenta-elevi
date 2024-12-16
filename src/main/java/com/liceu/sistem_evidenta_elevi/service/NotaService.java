@@ -8,11 +8,9 @@ import java.util.List;
 
 @Service
 public interface NotaService {
-
     List<Nota> getAllNote();
     Nota getNotaById(Integer id);
     Nota actualizareNota(NotaDTO notaDTO);
     Nota adaugaNota(NotaDTO notaDTO);
     void stergeNota(Integer idNota);
-
 }

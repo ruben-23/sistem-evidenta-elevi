@@ -21,10 +21,10 @@ import java.util.List;
 @Service
 public class UserServiceImplementare implements UserService {
 
+    private final UserRepository userRepository;
+    private final ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
     private final SecretaraService secretaraService;
-    private UserRepository userRepository;
-    private ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImplementare(UserRepository userRepository, ProfesorService profesorService,

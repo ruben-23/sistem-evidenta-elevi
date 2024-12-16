@@ -14,8 +14,8 @@ import java.util.List;
 @RequestMapping("liceu/absente")
 public class AbsentaController {
 
-    private AbsentaService absentaService;
-    private AbsentaMapper absentaMapper;
+    private final AbsentaService absentaService;
+    private final AbsentaMapper absentaMapper;
 
     @Autowired
     public AbsentaController(AbsentaService absentaService, AbsentaMapper absentaMapper) {

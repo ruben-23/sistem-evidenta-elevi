@@ -1,14 +1,12 @@
 package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.NotaDTO;
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
-import com.liceu.sistem_evidenta_elevi.entity.Materie;
+
 import com.liceu.sistem_evidenta_elevi.entity.Nota;
 import com.liceu.sistem_evidenta_elevi.mapper.NotaMapper;
 import com.liceu.sistem_evidenta_elevi.repository.NotaRepository;
-import com.liceu.sistem_evidenta_elevi.service.ElevService;
-import com.liceu.sistem_evidenta_elevi.service.MaterieService;
 import com.liceu.sistem_evidenta_elevi.service.NotaService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +35,7 @@ public class NotaServiceImplementare implements NotaService {
                 .orElseThrow(() -> new RuntimeException("Nota nu a fost gasita"));
     }
 
+    @Transactional
     @Override
     public Nota actualizareNota(NotaDTO notaDTO){
         Nota notaActuala = getNotaById(notaDTO.getIdNota());
@@ -44,6 +43,7 @@ public class NotaServiceImplementare implements NotaService {
         return notaRepository.save(notaActuala);
     }
 
+    @Transactional
     @Override
     public Nota adaugaNota(NotaDTO notaDTO){
         Nota nota = notaMapper.toEntity(notaDTO);

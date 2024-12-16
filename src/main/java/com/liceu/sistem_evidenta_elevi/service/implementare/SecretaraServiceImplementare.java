@@ -7,6 +7,7 @@ import com.liceu.sistem_evidenta_elevi.mapper.SecretaraMapper;
 import com.liceu.sistem_evidenta_elevi.repository.SecretaraRepository;
 import com.liceu.sistem_evidenta_elevi.service.SecretaraService;
 import com.liceu.sistem_evidenta_elevi.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class SecretaraServiceImplementare implements SecretaraService {
                 .orElseThrow(() -> new RuntimeException("Secretara nu a fost gasita"));
     }
 
+    @Transactional
     @Override
     public Secretara actualizareSecretara(SecretaraDTO secretaraDTO){
         Secretara secretara = getSecretaraById(secretaraDTO.getIdSecretara());
@@ -48,6 +50,7 @@ public class SecretaraServiceImplementare implements SecretaraService {
         return secretara;
     }
 
+    @Transactional
     @Override
     public Secretara adaugaSecretara(SecretaraDTO secretaraDTO){
         User user = userService.getUserById(secretaraDTO.getIdUser());

@@ -7,6 +7,7 @@ import com.liceu.sistem_evidenta_elevi.entity.Nota;
 import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class ElevServiceImplementare implements ElevService {
 
-    private ElevRepository elevRepository;
-    private ElevMapper elevMapper;
-
-    public ElevServiceImplementare() {}
+    private final ElevRepository elevRepository;
+    private final ElevMapper elevMapper;
 
     @Autowired
     public ElevServiceImplementare(ElevRepository elevRepository, ElevMapper elevMapper) {
@@ -38,6 +37,7 @@ public class ElevServiceImplementare implements ElevService {
                 .orElseThrow(() -> new RuntimeException("Elevul nu a fost gasit"));
     }
 
+    @Transactional
     @Override
     public Elev actualizareElev(ElevDTO elevDTO){
         Elev elevActual = getElevById(elevDTO.getIdElev());
@@ -45,6 +45,7 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elevActual);
     }
 
+    @Transactional
     @Override
     public Elev adaugaElev(ElevDTO elevDTO){
         Elev elev = elevMapper.toEntity(elevDTO);
@@ -66,7 +67,6 @@ public class ElevServiceImplementare implements ElevService {
 
     @Override
     public List<Absenta> getAbsenteElevMaterie(Integer idElev, Integer idMaterie){
-
         Elev elev = getElevById(idElev);
         return elev.getAbsente()
                 .stream()

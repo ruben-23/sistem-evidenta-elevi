@@ -20,7 +20,7 @@ public class Nota {
 
     // elev caruia ii apartine nota
     @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "idElev")
+    @JoinColumn(name = "id_elev", referencedColumnName = "idElev")
     private Elev elev;
 
     // materia la care elevul a luat nota
