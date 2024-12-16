@@ -11,7 +11,6 @@ import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.mapper.NotaMapper;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +20,10 @@ import java.util.List;
 @RequestMapping("liceu/elevi")
 public class ElevController {
 
-    private ElevService elevService;
-    private ElevMapper elevMapper;
-    private NotaMapper notaMapper;
-    private AbsentaMapper absentaMapper;
+    private final ElevService elevService;
+    private final ElevMapper elevMapper;
+    private final NotaMapper notaMapper;
+    private final AbsentaMapper absentaMapper;
 
     @Autowired
     public ElevController(ElevService elevService, ElevMapper elevMapper,
@@ -34,8 +33,6 @@ public class ElevController {
         this.notaMapper = notaMapper;
         this.absentaMapper = absentaMapper;
     }
-
-    public ElevController() {}
 
     @GetMapping
     public ResponseEntity<List<ElevDTO>> getAllElevi() {

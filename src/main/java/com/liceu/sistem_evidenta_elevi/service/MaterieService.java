@@ -11,5 +11,5 @@ public interface MaterieService {
     Materie getMaterieById(Integer id);
     Materie actualizareMaterie(MaterieDTO materieDTO);
     Materie adaugaMaterie(MaterieDTO materieDTO);
-
+    void stergeMaterie(Integer idMaterie);
 }
