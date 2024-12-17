@@ -47,6 +47,15 @@ public class Elev {
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Absenta> absente;
 
+
+    @ManyToMany
+    @JoinTable(
+            name="elevi_burse",
+            joinColumns = @JoinColumn(name = "id_elev"),
+            inverseJoinColumns = @JoinColumn(name = "id_bursa")
+    )
+    private List<Bursa> burse;
+
     public Integer getIdElev() {
         return idElev;
     }
