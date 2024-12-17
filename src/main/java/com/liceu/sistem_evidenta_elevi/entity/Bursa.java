@@ -2,6 +2,8 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="burse")
 public class Bursa {
@@ -10,8 +12,14 @@ public class Bursa {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idBursa;
 
+    @Column(nullable=false)
     private String tip;
+
+    @Column(nullable=false)
     private Integer suma;
+
+    @ManyToMany(mappedBy = "burse")
+    private List<Elev> elevi;
 
     public Integer getIdBursa() {
         return idBursa;

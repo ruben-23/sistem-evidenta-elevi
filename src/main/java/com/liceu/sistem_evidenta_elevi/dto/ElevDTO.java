@@ -85,4 +85,8 @@ public class ElevDTO {
     public void setIdClasa(int idClasa) {
         this.idClasa = idClasa;
     }
+
+    public void setIdClasa(Integer idClasa) {
+        this.idClasa = idClasa;
+    }
 }

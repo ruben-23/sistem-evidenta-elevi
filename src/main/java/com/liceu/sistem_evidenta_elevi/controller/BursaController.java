@@ -36,7 +36,7 @@ public class BursaController {
     }
 
     @PostMapping
-    public ResponseEntity<BursaDTO> adaugaBursa(BursaDTO bursaDTO) {
+    public ResponseEntity<BursaDTO> adaugaBursa(@RequestBody BursaDTO bursaDTO) {
         Bursa bursa = bursaService.adaugaBursa(bursaDTO);
         return ResponseEntity.ok(bursaMapper.toDTO(bursa));
     }

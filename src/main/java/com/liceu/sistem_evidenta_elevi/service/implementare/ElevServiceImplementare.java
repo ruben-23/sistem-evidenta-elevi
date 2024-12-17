@@ -2,10 +2,12 @@ package com.liceu.sistem_evidenta_elevi.service.implementare;
 
 import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Absenta;
+import com.liceu.sistem_evidenta_elevi.entity.Bursa;
 import com.liceu.sistem_evidenta_elevi.entity.Elev;
 import com.liceu.sistem_evidenta_elevi.entity.Nota;
 import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
+import com.liceu.sistem_evidenta_elevi.service.BursaService;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,14 @@ public class ElevServiceImplementare implements ElevService {
 
     private final ElevRepository elevRepository;
     private final ElevMapper elevMapper;
+    private final BursaService bursaService;
 
     @Autowired
-    public ElevServiceImplementare(ElevRepository elevRepository, ElevMapper elevMapper) {
+    public ElevServiceImplementare(ElevRepository elevRepository, ElevMapper elevMapper,
+                                   BursaService bursaService) {
         this.elevRepository = elevRepository;
         this.elevMapper = elevMapper;
+        this.bursaService = bursaService;
     }
 
     @Override
@@ -74,5 +79,28 @@ public class ElevServiceImplementare implements ElevService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Bursa> getBurseElev(Integer idElev){
+        Elev elev = getElevById(idElev);
+        return elev.getBurse();
+    }
 
+    @Transactional
+    @Override
+    public Elev adaugaBursaLaElev(Integer idElev, Integer idBursa){
+        Elev elev = getElevById(idElev);
+        Bursa bursa = bursaService.getBursaById(idBursa);
+
+        elev.getBurse().add(bursa);
+        return elevRepository.save(elev);
+    }
+
+    @Transactional
+    @Override
+    public void stergeBursaLaElev(Integer idElev, Integer idBursa){
+        Elev elev = getElevById(idElev);
+        Bursa bursa = bursaService.getBursaById(idBursa);
+        elev.getBurse().remove(bursa);
+        elevRepository.save(elev);
+    }
 }
