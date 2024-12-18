@@ -4,7 +4,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="secretara")
+@Table(name="secretare")
 public class Secretara {
 
     @Id

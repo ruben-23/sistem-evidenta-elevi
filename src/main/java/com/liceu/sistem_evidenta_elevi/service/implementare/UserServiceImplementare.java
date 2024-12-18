@@ -107,9 +107,8 @@ public class UserServiceImplementare implements UserService {
 
             case ROLE_SECRETARA:
                 SecretaraDTO secretaraDTO = userRequest.getSecretara();
-                secretaraDTO.setIdUser(user.getIdUser());
 
-                Secretara secretara = secretaraService.adaugaSecretara(secretaraDTO);
+                Secretara secretara = secretaraService.adaugaSecretara(secretaraDTO, user);
                 secretara.setUser(user);
                 user.setSecretara(secretara);
                 break;

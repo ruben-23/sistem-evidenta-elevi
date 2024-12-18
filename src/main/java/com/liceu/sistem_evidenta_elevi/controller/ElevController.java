@@ -63,10 +63,16 @@ public class ElevController {
         return ResponseEntity.ok(absentaMapper.toDTOList(absente));
     }
 
-    @GetMapping("/elevi/{idElev}")
+    @GetMapping("/{idElev}/burse")
     public ResponseEntity<List<BursaDTO>> getBurseElev(@PathVariable int idElev) {
         List<Bursa> burse = elevService.getBurseElev(idElev);
         return ResponseEntity.ok(bursaMapper.toDTOList(burse));
+    }
+
+    @PostMapping
+    public ResponseEntity<ElevDTO> creareElev(@RequestBody ElevDTO elev) {
+        Elev elevNou = elevService.adaugaElev(elev);
+        return ResponseEntity.ok(elevMapper.toDTO(elevNou));
     }
 
     @PutMapping("{id}")
@@ -82,12 +88,6 @@ public class ElevController {
         return ResponseEntity.ok(elevMapper.toDTO(elev));
     }
 
-    @PostMapping
-    public ResponseEntity<ElevDTO> creareElev(@RequestBody ElevDTO elev) {
-        Elev elevNou = elevService.adaugaElev(elev);
-        return ResponseEntity.ok(elevMapper.toDTO(elevNou));
-    }
-
     @DeleteMapping("{id}")
     public ResponseEntity<Void> stergereElev(@PathVariable("id") Integer idElev) {
         elevService.stergeElev(idElev);
@@ -99,8 +99,5 @@ public class ElevController {
         elevService.stergeBursaLaElev(idElev, idBursa);
         return ResponseEntity.noContent().build();
     }
-
-
-
 
 }
