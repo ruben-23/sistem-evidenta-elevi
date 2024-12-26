@@ -27,6 +27,9 @@ public class Absenta {
     @JoinColumn(name = "id_materie", referencedColumnName = "idMaterie")
     private Materie materie;
 
+    @Column(nullable = false)
+    private String modul;
+
     public Integer getIdAbsenta() {
         return idAbsenta;
     }
@@ -57,5 +60,13 @@ public class Absenta {
 
     public void setMaterie(Materie materie) {
         this.materie = materie;
+    }
+
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
     }
 }

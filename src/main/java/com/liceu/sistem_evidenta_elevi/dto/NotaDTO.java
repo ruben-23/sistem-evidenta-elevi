@@ -10,6 +10,7 @@ public class NotaDTO {
     private Integer idMaterie;
     private Double valoare;
     private LocalDate data;
+    private String modul;
 
     public Integer getIdNota() {
         return idNota;
@@ -58,4 +59,12 @@ public class NotaDTO {
     public void setIdMaterie(Integer idMaterie) {
         this.idMaterie = idMaterie;
 }
+
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
+    }
 }
