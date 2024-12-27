@@ -51,6 +51,12 @@ public class ElevController {
         return ResponseEntity.ok(elevMapper.toDTO(elev));
     }
 
+    @GetMapping("{idElev}/note")
+    public ResponseEntity<List<NotaDTO>> getNoteElev(@PathVariable Integer idElev ) {
+        List<Nota> note = elevService.getNoteElev(idElev);
+        return ResponseEntity.ok(notaMapper.toDTOList(note));
+    }
+
     @GetMapping("{idElev}/{idMaterie}/note")
     public ResponseEntity<List<NotaDTO>> getNoteElevMaterie(@PathVariable Integer idElev, @PathVariable Integer idMaterie) {
         List<Nota> note = elevService.getNoteElevMaterie(idElev, idMaterie);

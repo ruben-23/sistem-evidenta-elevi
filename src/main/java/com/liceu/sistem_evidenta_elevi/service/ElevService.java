@@ -12,6 +12,7 @@ public interface ElevService {
     Elev adaugaElev(ElevDTO elevDTO);
     void stergeElev(Integer idElev);
 
+    List<Nota> getNoteElev(Integer idElev);
     List<Nota> getNoteElevMaterie(Integer idElev, Integer idMaterie);
     List<Absenta> getAbsenteElevMaterie(Integer idElev, Integer idMaterie);
     List<Bursa> getBurseElev(Integer idElev);

@@ -9,6 +9,7 @@ import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.BursaService;
 import com.liceu.sistem_evidenta_elevi.service.ElevService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,9 +58,15 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elev);
     }
 
+    @Transactional
     @Override
     public void stergeElev(Integer idElev){
-       elevRepository.deleteById(idElev);
+       elevRepository.deleteByIdElev(idElev);
+    }
+
+    public List<Nota> getNoteElev(Integer idElev){
+        Elev elev = getElevById(idElev);
+        return elev.getNote();
     }
 
     @Override
