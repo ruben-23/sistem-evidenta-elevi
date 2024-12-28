@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUseri();
     User getUserById(Integer id);
+    User getUserByUsername(String username);
     User adaugaUser(UserRequestDTO userRequest);
     User actualizeazaUser(UserRequestDTO user);
     void stergeUser(Integer idUser);

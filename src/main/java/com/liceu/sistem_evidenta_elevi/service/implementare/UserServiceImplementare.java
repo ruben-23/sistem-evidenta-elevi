@@ -22,7 +22,7 @@ import java.util.List;
 public class UserServiceImplementare implements UserService {
 
     private final UserRepository userRepository;
-    private final ProfesorService profesorService; // pentru a adauga profesorul asociat user-ului
+    private final ProfesorService profesorService;
     private final SecretaraService secretaraService;
     private final PasswordEncoder passwordEncoder;
 
@@ -44,6 +44,11 @@ public class UserServiceImplementare implements UserService {
     public User getUserById(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Userul nu a fost gasit"));
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Transactional
@@ -101,7 +106,6 @@ public class UserServiceImplementare implements UserService {
                 Profesor profesor = profesorService.adaugaProfesor(profesorRequest, user);
 
                 // legatura intre user si profesor
-                profesor.setUser(user);
                 user.setProfesor(profesor);
                 break;
 
@@ -109,7 +113,6 @@ public class UserServiceImplementare implements UserService {
                 SecretaraDTO secretaraDTO = userRequest.getSecretara();
 
                 Secretara secretara = secretaraService.adaugaSecretara(secretaraDTO, user);
-                secretara.setUser(user);
                 user.setSecretara(secretara);
                 break;
 
