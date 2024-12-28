@@ -63,6 +63,12 @@ public class ElevController {
         return ResponseEntity.ok(notaMapper.toDTOList(note));
     }
 
+    @GetMapping("{idElev}/absente")
+    public ResponseEntity<List<AbsentaDTO>> getAbsenteElev(@PathVariable Integer idElev ) {
+        List<Absenta> absente = elevService.getAbsenteElev(idElev);
+        return ResponseEntity.ok(absentaMapper.toDTOList(absente));
+    }
+
     @GetMapping("{idElev}/{idMaterie}/absente")
     public ResponseEntity<List<AbsentaDTO>> getAbsenteElevMaterie(@PathVariable Integer idElev, @PathVariable Integer idMaterie) {
         List<Absenta> absente = elevService.getAbsenteElevMaterie(idElev, idMaterie);
