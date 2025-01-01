@@ -1,63 +1,26 @@
-.upper-dropdowns {
-    display: flex;
-    justify-content: center; /* Space dropdowns and search bar */
-    gap: 20px; /* Space between the dropdowns and the search bar */
-    margin-bottom: 20px;
-    align-items: center; /* Align items in the center vertically */
-}
-
-/* Adjust the dropdowns for a good fit */
 .upper-dropdowns select {
     padding: 10px;
     font-size: 14px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    width: 150px;
+    width: 200px;
 }
 
-/* Search bar styling */
-.search-bar {
-    width: 300px; /* Adjust the width of the search bar */
-    margin-bottom: 38px;
+.search-and-dropdowns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.search-bar input {
-    padding: 10px;
-    width: 100%; /* Make input take up full width of its container */
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-
-/* Main container for dropdowns and search bar */
 .upper-dropdowns {
     display: flex;
-    justify-content: center; /* Space dropdowns and search bar */
-    gap: 20px; /* Space between the dropdowns and the search bar */
-    margin-bottom: 20px;
-    align-items: center; /* Align items in the center vertically */
+    gap: 10px;
 }
 
-/* Adjust the dropdowns for a good fit */
-.upper-dropdowns select {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    width: 150px;
-}
-
-/* Search bar styling */
 .search-bar {
-    width: 300px; /* Adjust the width of the search bar */
-    margin-bottom: 38px;
-}
-
-.search-bar input {
-    padding: 10px;
-    width: 100%; /* Make input take up full width of its container */
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 20px;
+    width: 400px;
 }
