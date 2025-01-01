@@ -1,27 +1,42 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import PropTypes from 'prop-types';
-const Sidebar = ({ currentView, setCurrentView, onLogout }) => (
-    <div className="dashboard-sidebar">
-        <div className="dashboard-buttons">
-            {['accounts', 'students', 'teachers'].map((view) => (
-                <button
-                    key={view}
-                    onClick={() => setCurrentView(view)}
-                    className={currentView === view ? 'active' : ''}
-                >
-                    Gestioneaza {view}
-                </button>
-            ))}
-            <button onClick={onLogout}>Logout</button>
-        </div>
-    </div>
-);
+import '../../StylesViews/StyleComponents/Sidebar.css';
+import {useUser} from "../../UserContext.jsx";
 
-Sidebar.propTypes = {
-    currentView: PropTypes.string.isRequired,
-    setCurrentView: PropTypes.func.isRequired,
-    onLogout: PropTypes.func.isRequired,
+const Sidebar = ({ vedereCurenta, setVedereCurenta, onLogout }) => {
+    const { user } = useUser ();
+
+    return (
+        <div className="dashboard-sidebar">
+
+            <div className="dashboard-buttons">
+                <button
+                    onClick={() => setVedereCurenta('elevi')}
+                    className={vedereCurenta === 'elevi' ? 'active' : ''}
+                >
+                    Gestionare Elevi
+                </button>
+
+                {user && user.rol === 'ROLE_SECRETARA' && (
+                    <>
+                        <button
+                            onClick={() => setVedereCurenta('profesori')}
+                            className={vedereCurenta === 'profesori' ? 'active' : ''}
+
+                        >
+                            Gestionare Profesori
+                        </button>
+                        <button
+                            onClick={() => setVedereCurenta('conturi')}
+                            className={vedereCurenta === 'conturi' ? 'active' : ''}
+                        >
+                            Gestionare Conturi
+                        </button>
+                    </>
+                )}
+                <button >Rapoarte</button>
+            </div>
+        </div>
+    );
 };
 
 export default Sidebar;
