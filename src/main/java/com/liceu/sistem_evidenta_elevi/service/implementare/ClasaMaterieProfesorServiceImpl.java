@@ -62,7 +62,7 @@ public class ClasaMaterieProfesorServiceImpl implements ClasaMaterieProfesorServ
 
     @Override
     public List<Materie> getMateriiDinClasa(Integer idClasa){
-        return repository.findMateriiByClasaId(idClasa);
+        return repository.findMateriiByIdClasa(idClasa);
     }
 
     // materiile predate de un profesor intr-o clasa

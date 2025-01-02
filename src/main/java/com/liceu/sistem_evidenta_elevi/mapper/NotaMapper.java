@@ -35,6 +35,7 @@ public class NotaMapper {
         notaDTO.setIdNota(nota.getIdNota());
         notaDTO.setData(nota.getData());
         notaDTO.setValoare(nota.getValoare());
+        notaDTO.setModul(nota.getModul());
         notaDTO.setIdMaterie(nota.getMaterie().getIdMaterie());
         notaDTO.setIdElev(nota.getElev().getIdElev());
 
@@ -58,6 +59,7 @@ public class NotaMapper {
         nota.setIdNota(notaDTO.getIdNota());
         nota.setData(notaDTO.getData());
         nota.setValoare(notaDTO.getValoare());
+        nota.setModul(notaDTO.getModul());
         nota.setElev(elev);
         nota.setMaterie(materie);
 
@@ -72,6 +74,7 @@ public class NotaMapper {
         nota.setIdNota(notaDTO.getIdNota());
         nota.setData(notaDTO.getData());
         nota.setValoare(notaDTO.getValoare());
+        nota.setModul(notaDTO.getModul());
         nota.setElev(elev);
         nota.setMaterie(materie);
 

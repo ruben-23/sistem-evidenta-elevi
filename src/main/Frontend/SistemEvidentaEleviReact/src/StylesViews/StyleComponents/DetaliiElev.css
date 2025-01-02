@@ -1,0 +1,30 @@
+.student-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-span-2 {
+    grid-column: span 2;
+}
+
+.custom-modal-header .btn-close {
+    width: 1rem;
+    height: 1rem;
+    color: white;
+    background-color: #FF1A1A;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-modal-header .btn-close:hover {
+    background-color: #d31616;
+    color: white;
+}

@@ -1,35 +1,71 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../../StylesViews/StyleComponents/Dropdown Search.css'
 
-const Dropdowns = ({ selectedClass, setSelectedClass, selectedSubject, setSelectedSubject }) => (
-    <div className="upper-dropdowns">
-        <select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
-            <option value="">Select Class</option>
-            <option value="9A">9A</option>
-            <option value="9B">9B</option>
-            <option value="10A">10A</option>
-            <option value="10B">10B</option>
-            <option value="11A">11A</option>
-            <option value="11B">11B</option>
-            <option value="12A">12A</option>
-            <option value="12B">12B</option>
-        </select>
-        <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
-            <option value="">Select Subject</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Literature">Literature</option>
-            <option value="Physics">Physics</option>
-            <option value="Biology">Biology</option>
-        </select>
-    </div>
-);
+const Dropdowns = ({ clasaSelectata, setClasaSelectata, materieSelectata, setMaterieSelectata, clase, materii }) => {
+
+    return (
+        <div className="upper-dropdowns">
+            <select
+                value={clasaSelectata?.idClasa || ''}
+                className="custom-select"
+                onChange={(e) => {
+                    const clsSelectata = clase.find((cls) => cls.idClasa === parseInt(e.target.value));
+                    setClasaSelectata(clsSelectata || null);
+                }}
+            >
+                <option value="">Selectați clasa</option>
+                {clase.map((cls) => (
+                    <option key={cls.idClasa} value={cls.idClasa}>{cls.nume}</option>
+                ))}
+            </select>
+
+            {/*<select*/}
+            {/*    value={materieSelectata?.idMaterie || ''}*/}
+            {/*    onChange={(e) => {*/}
+            {/*        const matSelectata = materii.find(materie => materie.idMaterie === parseInt(e.target.value));*/}
+            {/*        setMaterieSelectata(matSelectata || null)}*/}
+            {/*    }*/}
+            {/*        >*/}
+            {/*    <option value="">Selectați materia</option>*/}
+            {/*    {materii.map((materie) => (*/}
+            {/*        <option key={materie.idMaterie} value={materie.idMaterie}>{materie.nume}</option>*/}
+            {/*    ))}*/}
+            {/*</select>*/}
+        </div>
+    )
+};
 
 Dropdowns.propTypes = {
-    selectedClass: PropTypes.string.isRequired,
-    setSelectedClass: PropTypes.func.isRequired,
-    selectedSubject: PropTypes.string.isRequired,
-    setSelectedSubject: PropTypes.func.isRequired,
+    clasaSelectata: PropTypes.oneOfType([
+        PropTypes.shape({
+            idClasa: PropTypes.number,
+            nume: PropTypes.string,
+        }),
+        PropTypes.string,
+    ]),
+    setClasaSelectata: PropTypes.func.isRequired,
+    materieSelectata: PropTypes.oneOfType([
+        PropTypes.shape({
+            idMaterie: PropTypes.number,
+            nume: PropTypes.string,
+        }),
+        PropTypes.string,
+    ]),
+    setMaterieSelectata: PropTypes.func.isRequired,
+    clase: PropTypes.arrayOf(
+        PropTypes.shape({
+            idClasa: PropTypes.number.isRequired,
+            nume: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    materii: PropTypes.arrayOf(
+        PropTypes.shape({
+            idMaterie: PropTypes.number.isRequired,
+            nume: PropTypes.string.isRequired,
+        })
+    ).isRequired,
 };
 
 export default Dropdowns;

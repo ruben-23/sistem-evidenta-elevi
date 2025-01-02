@@ -28,6 +28,9 @@ public class Nota {
     @JoinColumn(name = "id_materie", referencedColumnName = "idMaterie")
     private Materie materie;
 
+    @Column(nullable = false)
+    private String modul;
+
     public Integer getIdNota() {
         return idNota;
     }
@@ -68,4 +71,11 @@ public class Nota {
         this.materie = materie;
     }
 
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
+    }
 }

@@ -9,6 +9,7 @@ public class AbsentaDTO {
     private Integer idElev;
     private Integer idMaterie;
     private LocalDate data;
+    private String modul;
 
     public Integer getIdAbsenta() {
         return idAbsenta;
@@ -49,4 +50,12 @@ public class AbsentaDTO {
     public void setIdElev(Integer idElev) {
         this.idElev =idElev;
 }
+
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
+    }
 }

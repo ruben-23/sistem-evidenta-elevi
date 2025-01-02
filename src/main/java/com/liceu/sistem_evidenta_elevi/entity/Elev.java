@@ -47,6 +47,14 @@ public class Elev {
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Absenta> absente;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="elevi_burse",
+            joinColumns = @JoinColumn(name = "id_elev"),
+            inverseJoinColumns = @JoinColumn(name = "id_bursa")
+    )
+    private List<Bursa> burse;
+
     public Integer getIdElev() {
         return idElev;
     }
@@ -133,5 +141,13 @@ public class Elev {
 
     public void setAbsente(List<Absenta> absente) {
         this.absente = absente;
+    }
+
+    public List<Bursa> getBurse() {
+        return burse;
+    }
+
+    public void setBurse(List<Bursa> burse) {
+        this.burse = burse;
     }
 }

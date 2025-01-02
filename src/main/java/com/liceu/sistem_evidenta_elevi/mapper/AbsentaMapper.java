@@ -20,8 +20,8 @@ import java.util.List;
 @Component
 public class AbsentaMapper {
 
-    private ElevService elevService;
-    private MaterieService materieService;
+    private final ElevService elevService;
+    private final MaterieService materieService;
 
     @Autowired
     public AbsentaMapper(ElevService elevService, MaterieService materieService) {
@@ -34,6 +34,7 @@ public class AbsentaMapper {
 
         absentaDTO.setIdAbsenta(absenta.getIdAbsenta());
         absentaDTO.setData(absenta.getData());
+        absentaDTO.setModul(absenta.getModul());
         absentaDTO.setIdMaterie(absenta.getMaterie().getIdMaterie());
         absentaDTO.setIdElev(absenta.getElev().getIdElev());
 
@@ -56,6 +57,7 @@ public class AbsentaMapper {
         Absenta absenta = new Absenta();
         absenta.setIdAbsenta(absentaDTO.getIdAbsenta());
         absenta.setData(absentaDTO.getData());
+        absenta.setModul(absentaDTO.getModul());
         absenta.setElev(elev);
         absenta.setMaterie(materie);
 
@@ -69,6 +71,7 @@ public class AbsentaMapper {
 
         absenta.setIdAbsenta(absentaDTO.getIdAbsenta());
         absenta.setData(absentaDTO.getData());
+        absenta.setModul(absentaDTO.getModul());
         absenta.setElev(elev);
         absenta.setMaterie(materie);
 

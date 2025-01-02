@@ -1,0 +1,28 @@
+.dashboard-sidebar {
+    display: flex;
+    width: 250px;
+    background-color: #d8d7d7;
+    color: #fff;
+}
+.dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: stretch;
+    background-color: #eaeaea;
+}
+
+.dashboard-buttons button {
+    width: 100%;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    border: 2px solid #dfdbdb;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-buttons button:hover {
+    background-color: #d6d5d5;
+
+}

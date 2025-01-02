@@ -3,7 +3,8 @@ package com.liceu.sistem_evidenta_elevi.controller;
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
 import com.liceu.sistem_evidenta_elevi.dto.UserResponseDTO;
 import com.liceu.sistem_evidenta_elevi.entity.User;
-import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
+import com.liceu.sistem_evidenta_elevi.mapper.UserMapper;
+import com.liceu.sistem_evidenta_elevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,15 @@ import org.springframework.web.bind.annotation.*;
 public class AutentificareController {
 
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public AutentificareController(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    public AutentificareController(AuthenticationManager authenticationManager,UserService userService,
+                                   UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
+        this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/login")
@@ -45,21 +49,13 @@ public class AutentificareController {
 
             // returnare user din baza de date
             String username = principal.getUsername();
-            User userAutentificat = userRepository.findByUsername(username);
+            User userAutentificat = userService.getUserByUsername(username);
 
-            // creare DTO pentru a trimite raspunsul
-            UserResponseDTO userDTO = new UserResponseDTO();
-            userDTO.setIdUser(userAutentificat.getIdUser());
-            userDTO.setUsername(userAutentificat.getUsername());
-            userDTO.setEmail(userAutentificat.getEmail());
-            userDTO.setRol(userAutentificat.getRol().name());
-
-            return ResponseEntity.ok(userDTO);
+            return ResponseEntity.ok(userMapper.toResponseDTO(userAutentificat));
 
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
-
 
 }

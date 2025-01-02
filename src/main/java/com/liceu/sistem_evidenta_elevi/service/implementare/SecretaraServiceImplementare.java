@@ -52,9 +52,9 @@ public class SecretaraServiceImplementare implements SecretaraService {
 
     @Transactional
     @Override
-    public Secretara adaugaSecretara(SecretaraDTO secretaraDTO){
-        User user = userService.getUserById(secretaraDTO.getIdUser());
-        return secretaraMapper.toEntity(secretaraDTO, user);
+    public Secretara adaugaSecretara(SecretaraDTO secretaraDTO, User user){
+        Secretara secretara = secretaraMapper.toEntity(secretaraDTO, user);
+        return secretaraRepository.save(secretara);
     }
 
     @Override
