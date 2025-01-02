@@ -21,7 +21,7 @@ const Dropdowns = ({ clasaSelectata, setClasaSelectata, materieSelectata, setMat
                 ))}
             </select>
 
-            {/<select/}
+            {/*<select*/}
             {/*    value={materieSelectata?.idMaterie || ''}*/}
             {/*    onChange={(e) => {*/}
             {/*        const matSelectata = materii.find(materie => materie.idMaterie === parseInt(e.target.value));*/}
@@ -32,7 +32,7 @@ const Dropdowns = ({ clasaSelectata, setClasaSelectata, materieSelectata, setMat
             {/*    {materii.map((materie) => (*/}
             {/*        <option key={materie.idMaterie} value={materie.idMaterie}>{materie.nume}</option>*/}
             {/*    ))}*/}
-            {/</select>/}
+            {/*</select>*/}
         </div>
     )
 };

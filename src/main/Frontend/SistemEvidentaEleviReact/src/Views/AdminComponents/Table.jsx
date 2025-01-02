@@ -58,7 +58,7 @@ const Table = ({ tip, date, clase, onEditare, onStergere, onDetalii, onNote, onA
                             </>
                         )}
 
-                        {/afisare buton de stergere doar pentru secretara/}
+                        {/*afisare buton de stergere doar pentru secretara*/}
                         {user.rol === "ROLE_SECRETARA" &&
                             <button className="btn btn-danger" onClick={() => onStergere(element.idElev)}>Șterge</button>
                         }
