@@ -1,0 +1,23 @@
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap:30px;
+}
+
+.actions-container button{
+    flex:1;
+    width: 100%;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    border: 2px solid #dfdbdb;
+}
+
+.search-bar {
+    flex: 4;
+    padding: 8px;
+    font-size: 20px;
+    width: 400px;
+}
