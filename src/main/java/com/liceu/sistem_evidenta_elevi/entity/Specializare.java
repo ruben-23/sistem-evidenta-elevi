@@ -2,7 +2,9 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name="specializari")
@@ -17,7 +19,7 @@ public class Specializare {
 
     // clasele care au specializarea
     @OneToMany(mappedBy = "specializare")
-    private Set<Clasa> clase;
+    private List<Clasa> clase = new ArrayList<>();
 
     public Integer getIdSpecializare() {
         return idSpecializare;
@@ -35,11 +37,11 @@ public class Specializare {
         this.nume = nume;
     }
 
-    public Set<Clasa> getClase() {
+    public List<Clasa> getClase() {
         return clase;
     }
 
-    public void setClase(Set<Clasa> clase) {
+    public void setClase(List<Clasa> clase) {
         this.clase = clase;
     }
 }

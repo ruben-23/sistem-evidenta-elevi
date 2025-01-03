@@ -3,6 +3,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,11 +42,11 @@ public class Elev {
 
     // notele primite de elev
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Nota> note;
+    private List<Nota> note = new ArrayList<>();
 
     // absentele primite de elev
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
-    private List<Absenta> absente;
+    private List<Absenta> absente = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -53,7 +54,7 @@ public class Elev {
             joinColumns = @JoinColumn(name = "id_elev"),
             inverseJoinColumns = @JoinColumn(name = "id_bursa")
     )
-    private List<Bursa> burse;
+    private List<Bursa> burse = new ArrayList<>();
 
     public Integer getIdElev() {
         return idElev;

@@ -2,6 +2,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Bursa {
     private Integer suma;
 
     @ManyToMany(mappedBy = "burse")
-    private List<Elev> elevi;
+    private List<Elev> elevi = new ArrayList<>();
 
     public Integer getIdBursa() {
         return idBursa;

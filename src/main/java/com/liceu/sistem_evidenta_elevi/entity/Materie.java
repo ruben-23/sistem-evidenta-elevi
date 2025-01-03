@@ -2,6 +2,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +18,11 @@ public class Materie {
 
     // notele primite la materie
     @OneToMany(mappedBy = "materie")
-    private List<Nota> note;
+    private List<Nota> note = new ArrayList<>();
 
     // absentele primite la materie
     @OneToMany(mappedBy = "materie")
-    private List<Absenta> absente;
+    private List<Absenta> absente = new ArrayList<>();
 
     public Integer getIdMaterie() {
         return idMaterie;

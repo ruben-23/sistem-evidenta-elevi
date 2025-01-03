@@ -2,6 +2,7 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Clasa {
 
     // elevii din clasa
     @OneToMany (mappedBy = "clasa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Elev> elevi;
+    private List<Elev> elevi = new ArrayList<>();
 
     public Integer getIdClasa() {
         return idClasa;
