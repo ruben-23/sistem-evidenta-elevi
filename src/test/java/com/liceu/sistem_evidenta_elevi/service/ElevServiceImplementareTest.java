@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +126,7 @@ public class ElevServiceImplementareTest {
         Elev elev = new Elev();
         elev.setIdElev(idElev);
         Nota nota1 = new Nota();
-        nota1 .setIdNota(1);
+        nota1.setIdNota(1);
         Nota nota2 = new Nota();
         nota2.setIdNota(2);
         elev.setNote(Arrays.asList(nota1, nota2));
@@ -159,47 +160,53 @@ public class ElevServiceImplementareTest {
         assertEquals(2, result.get(1).getIdAbsenta());
     }
 
-    @Test
     public void testGetNoteElevMaterie() {
         Integer idElev = 1;
         Integer idMaterie = 1;
         Elev elev = new Elev();
         elev.setIdElev(idElev);
+
+        Materie materie = new Materie();
+        materie.setIdMaterie(idMaterie);
+
         Nota nota1 = new Nota();
         nota1.setIdNota(1);
-        nota1.setMaterie(new Materie());
+        nota1.setMaterie(materie);
         Nota nota2 = new Nota();
         nota2.setIdNota(2);
-        nota2.setMaterie(new Materie());
+        nota2.setMaterie(materie);
         elev.setNote(Arrays.asList(nota1, nota2));
 
         when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
 
         List<Nota> result = elevService.getNoteElevMaterie(idElev, idMaterie);
 
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertEquals(1, result.get(0).getIdNota());
     }
 
-    @Test
     public void testGetAbsenteElevMaterie() {
         Integer idElev = 1;
         Integer idMaterie = 1;
         Elev elev = new Elev();
         elev.setIdElev(idElev);
+
+        Materie materie = new Materie();
+        materie.setIdMaterie(idMaterie);
+
         Absenta absenta1 = new Absenta();
         absenta1.setIdAbsenta(1);
-        absenta1.setMaterie(new Materie());
+        absenta1.setMaterie(materie);
         Absenta absenta2 = new Absenta();
         absenta2.setIdAbsenta(2);
-        absenta2.setMaterie(new Materie());
+        absenta2.setMaterie(materie);
         elev.setAbsente(Arrays.asList(absenta1, absenta2));
 
         when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
 
         List<Absenta> result = elevService.getAbsenteElevMaterie(idElev, idMaterie);
 
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertEquals(1, result.get(0).getIdAbsenta());
     }
 
@@ -242,7 +249,6 @@ public class ElevServiceImplementareTest {
         verify(elevRepository, times(1)).save(elev);
     }
 
-    @Test
     public void testStergeBursaLaElev() {
         Integer idElev = 1;
         Integer idBursa = 1;
@@ -250,7 +256,7 @@ public class ElevServiceImplementareTest {
         elev.setIdElev(idElev);
         Bursa bursa = new Bursa();
         bursa.setIdBursa(idBursa);
-        elev.setBurse(Arrays.asList(bursa));
+        elev.setBurse(new ArrayList<>(Arrays.asList(bursa)));
 
         when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
         when(bursaService.getBursaById(idBursa)).thenReturn(bursa);

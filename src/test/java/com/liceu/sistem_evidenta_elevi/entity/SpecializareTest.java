@@ -2,7 +2,9 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +18,7 @@ public class SpecializareTest {
         specializare.setNume("Matematica");
 
 
-        Set<Clasa> clase = new HashSet<>();
+        List<Clasa> clase  = new ArrayList<>();
         Clasa clasa1 = new Clasa();
         clasa1.setIdClasa(1);
         clase.add(clasa1);
