@@ -44,4 +44,7 @@ public class Bursa {
     public void setSuma(Integer suma) {
         this.suma = suma;
     }
+
+    public List<Elev> getElevi() {return elevi;}
+    public void setElevi(List<Elev> elevi) {this.elevi = elevi;}
 }
