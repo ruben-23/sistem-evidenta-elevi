@@ -1,7 +1,8 @@
 package com.liceu.sistem_evidenta_elevi.service;
 
-import com.liceu.sistem_evidenta_elevi.dto.ElevRequestDTO;
-import com.liceu.sistem_evidenta_elevi.entity.Elev;
+import com.liceu.sistem_evidenta_elevi.dto.ElevDTO;
+import com.liceu.sistem_evidenta_elevi.entity.*;
+import com.liceu.sistem_evidenta_elevi.mapper.ElevMapper;
 import com.liceu.sistem_evidenta_elevi.repository.ElevRepository;
 import com.liceu.sistem_evidenta_elevi.service.implementare.ElevServiceImplementare;
 import org.junit.jupiter.api.Test;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.time.LocalDate;
-import java.util.*;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,102 +26,239 @@ public class ElevServiceImplementareTest {
     @MockBean
     private ElevRepository elevRepository;
 
+    @MockBean
+    private ElevMapper elevMapper;
+
+    @MockBean
+    private BursaService bursaService;
+
     @Autowired
     private ElevServiceImplementare elevService;
 
     @Test
     public void testGetAllElevi() {
-        // Arrange
         Elev elev1 = new Elev();
         elev1.setIdElev(1);
         elev1.setNume("Ion");
-        elev1.setPrenume("Popescu");
 
         when(elevRepository.findAll()).thenReturn(Arrays.asList(elev1));
 
-        // Act
         List<Elev> result = elevService.getAllElevi();
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals("Ion", result.get(0).getNume());
     }
 
     @Test
     public void testGetElevById() {
-        // Arrange
         Elev elev = new Elev();
         elev.setIdElev(1);
         elev.setNume("Ion");
-        elev.setPrenume("Popescu");
 
         when(elevRepository.findById(1)).thenReturn(Optional.of(elev));
 
-        // Act
         Elev result = elevService.getElevById(1);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Ion", result.getNume());
     }
 
     @Test
     public void testGetElevById_NotFound() {
-        // Arrange
         when(elevRepository.findById(1)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThrows(NoSuchElementException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             elevService.getElevById(1);
         });
     }
 
     @Test
     public void testActualizareElev() {
-        // Arrange
-        Elev elev = new Elev();
-        elev.setIdElev(1);
-        elev.setNume("Ion");
-        elev.setPrenume("Popescu");
-        elev.setCNP("1234567890123");
-        elev.setSex("M");
-        elev.setNumarTelefon("0712345678");
-        elev.setAdresa("Strada 1");
-        elev.setDataNasterii(LocalDate.parse("2000-01-01"));
+        ElevDTO elevDTO = new ElevDTO();
+        elevDTO.setIdElev(1);
+        elevDTO.setNume("Ion");
 
-        when(elevRepository.findById(1)).thenReturn(Optional.of(elev));
-        when(elevRepository.save(any(Elev.class))).thenReturn(elev);
+        Elev elevActual = new Elev();
+        elevActual.setIdElev(1);
+        elevActual.setNume("Ion");
 
-        // Act
-        Elev updatedElev = elevService.actualizareElev(elev);
+        when(elevRepository.findById(1)).thenReturn(Optional.of(elevActual));
+        when(elevMapper.toEntity(elevDTO)).thenReturn(elevActual);
+        when(elevRepository.save(any(Elev.class))).thenReturn(elevActual);
 
-        // Assert
+        Elev updatedElev = elevService.actualizareElev(elevDTO);
+
         assertEquals("Ion", updatedElev.getNume());
-        verify(elevRepository, times(1)).save(elev);
+        verify(elevRepository, times(1)).save(elevActual);
     }
 
     @Test
     public void testAdaugaElev() {
-        // Arrange
-        ElevRequestDTO requestDTO = new ElevRequestDTO();
-        requestDTO.setNume("Maria");
-        requestDTO.setPrenume("Ionescu");
-        requestDTO.setCNP("9876543210123");
-        requestDTO.setNumarTelefon("0723456789");
-        requestDTO.setAdresa("Strada 2");
-        requestDTO.setDataNasterii(LocalDate.parse("2001-02-02"));
+        ElevDTO elevDTO = new ElevDTO();
+        elevDTO.setNume("Maria");
 
         Elev elev = new Elev();
+        elev.setIdElev(1);
         elev.setNume("Maria");
-        elev.setPrenume("Ionescu");
 
+        when(elevMapper.toEntity(elevDTO)).thenReturn(elev);
         when(elevRepository.save(any(Elev.class))).thenReturn(elev);
 
-        // Act
-        Elev savedElev = elevService.adaugaElev(requestDTO);
+        Elev savedElev = elevService.adaugaElev(elevDTO);
 
-        // Assert
         assertEquals("Maria", savedElev.getNume());
         verify(elevRepository, times(1)).save(any(Elev.class));
+    }
+
+    @Test
+    public void testStergeElev() {
+        Integer idElev = 1;
+
+        elevService.stergeElev(idElev);
+
+        verify(elevRepository, times(1)).deleteByIdElev(idElev);
+    }
+
+    @Test
+    public void testGetNoteElev() {
+        Integer idElev = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Nota nota1 = new Nota();
+        nota1 .setIdNota(1);
+        Nota nota2 = new Nota();
+        nota2.setIdNota(2);
+        elev.setNote(Arrays.asList(nota1, nota2));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+
+        List<Nota> result = elevService.getNoteElev(idElev);
+
+        assertEquals(2, result.size());
+        assertEquals(1, result.get(0).getIdNota());
+        assertEquals(2, result.get(1).getIdNota());
+    }
+
+    @Test
+    public void testGetAbsenteElev() {
+        Integer idElev = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Absenta absenta1 = new Absenta();
+        absenta1.setIdAbsenta(1);
+        Absenta absenta2 = new Absenta();
+        absenta2.setIdAbsenta(2);
+        elev.setAbsente(Arrays.asList(absenta1, absenta2));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+
+        List<Absenta> result = elevService.getAbsenteElev(idElev);
+
+        assertEquals(2, result.size());
+        assertEquals(1, result.get(0).getIdAbsenta());
+        assertEquals(2, result.get(1).getIdAbsenta());
+    }
+
+    @Test
+    public void testGetNoteElevMaterie() {
+        Integer idElev = 1;
+        Integer idMaterie = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Nota nota1 = new Nota();
+        nota1.setIdNota(1);
+        nota1.setMaterie(new Materie());
+        Nota nota2 = new Nota();
+        nota2.setIdNota(2);
+        nota2.setMaterie(new Materie());
+        elev.setNote(Arrays.asList(nota1, nota2));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+
+        List<Nota> result = elevService.getNoteElevMaterie(idElev, idMaterie);
+
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIdNota());
+    }
+
+    @Test
+    public void testGetAbsenteElevMaterie() {
+        Integer idElev = 1;
+        Integer idMaterie = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Absenta absenta1 = new Absenta();
+        absenta1.setIdAbsenta(1);
+        absenta1.setMaterie(new Materie());
+        Absenta absenta2 = new Absenta();
+        absenta2.setIdAbsenta(2);
+        absenta2.setMaterie(new Materie());
+        elev.setAbsente(Arrays.asList(absenta1, absenta2));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+
+        List<Absenta> result = elevService.getAbsenteElevMaterie(idElev, idMaterie);
+
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIdAbsenta());
+    }
+
+    @Test
+    public void testGetBurseElev() {
+        Integer idElev = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Bursa bursa1 = new Bursa();
+        bursa1.setIdBursa(1);
+        Bursa bursa2 = new Bursa();
+        bursa2.setIdBursa(2);
+        elev.setBurse(Arrays.asList(bursa1, bursa2));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+
+        List<Bursa> result = elevService.getBurseElev(idElev);
+
+        assertEquals(2, result.size());
+        assertEquals(1, result.get(0).getIdBursa());
+        assertEquals(2, result.get(1).getIdBursa());
+    }
+
+    @Test
+    public void testAdaugaBursaLaElev() {
+        Integer idElev = 1;
+        Integer idBursa = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Bursa bursa = new Bursa();
+        bursa.setIdBursa(idBursa);
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+        when(bursaService.getBursaById(idBursa)).thenReturn(bursa);
+        when(elevRepository.save(any(Elev.class))).thenReturn(elev);
+
+        Elev updatedElev = elevService.adaugaBursaLaElev(idElev, idBursa);
+
+        assertTrue(updatedElev.getBurse().contains(bursa));
+        verify(elevRepository, times(1)).save(elev);
+    }
+
+    @Test
+    public void testStergeBursaLaElev() {
+        Integer idElev = 1;
+        Integer idBursa = 1;
+        Elev elev = new Elev();
+        elev.setIdElev(idElev);
+        Bursa bursa = new Bursa();
+        bursa.setIdBursa(idBursa);
+        elev.setBurse(Arrays.asList(bursa));
+
+        when(elevRepository.findById(idElev)).thenReturn(Optional.of(elev));
+        when(bursaService.getBursaById(idBursa)).thenReturn(bursa);
+        when(elevRepository.save(any(Elev.class))).thenReturn(elev);
+
+        elevService.stergeBursaLaElev(idElev, idBursa);
+
+        assertFalse(elev.getBurse().contains(bursa));
+        verify(elevRepository, times(1)).save(elev);
     }
 }
