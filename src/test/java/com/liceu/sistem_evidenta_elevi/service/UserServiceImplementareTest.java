@@ -1,26 +1,32 @@
 package com.liceu.sistem_evidenta_elevi.service;
 
-import com.liceu.sistem_evidenta_elevi.dto.ProfesorRequestDTO;
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Profesor;
-import com.liceu.sistem_evidenta_elevi.entity.Rol;
+import com.liceu.sistem_evidenta_elevi.entity.Secretara;
 import com.liceu.sistem_evidenta_elevi.entity.User;
+import com.liceu.sistem_evidenta_elevi.mapper.ProfesorMapper;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.implementare.UserServiceImplementare;
+import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
+import com.liceu.sistem_evidenta_elevi.service.SecretaraService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class UserServiceImplementareTest {
-
-    @Autowired
-    private UserServiceImplementare userService;
 
     @MockBean
     private UserRepository userRepository;
@@ -28,57 +34,109 @@ public class UserServiceImplementareTest {
     @MockBean
     private ProfesorService profesorService;
 
+    @MockBean
+    private SecretaraService secretaraService;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserServiceImplementare userService;
+
     @Test
-    public void testAdaugaUser_ValidInput() {
-        // Arrange
-        UserRequestDTO userRequest = new UserRequestDTO();
-        userRequest.setUsername("testUser ");
-        userRequest.setParola("password");
-        userRequest.setEmail("test@example.com");
-        userRequest.setRol("ROLE_PROFESOR");
+    public void testGetAllUseri() {
+        User user1 = new User();
+        user1.setIdUser (1);
+        user1.setUsername("ion.popescu");
 
-        ProfesorRequestDTO profesorRequest = new ProfesorRequestDTO();
-        profesorRequest.setIdProfesor(1);
-        userRequest.setProfesor(profesorRequest);
+        when(userRepository.findAll()).thenReturn(Arrays.asList(user1));
 
-        Profesor profesor = new Profesor();
-        profesor.setIdProfesor(1);
-        profesor.setUser (new User());
+        List<User> result = userService.getAllUseri();
 
-        when(profesorService.adaugaProfesor(any(ProfesorRequestDTO.class))).thenReturn(profesor);
-        when(profesorService.getProfesorById(1)).thenReturn(profesor);
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        assertEquals(1, result.size());
+        assertEquals("ion.popescu", result.get(0).getUsername());
+    }
 
-        // Act
-        User result = userService.adaugaUser (userRequest);
+    @Test
+    public void testGetUserById() {
+        User user = new User();
+        user.setIdUser (1);
+        user.setUsername("ion.popescu");
 
-        // Assert
-        assertThat(result).isNotNull();
-        assertThat(result.getUsername()).isEqualTo("testUser ");
-        assertThat(result.getRol()).isEqualTo(Rol.ROLE_PROFESOR);
-        assertThat(result.getProfesor()).isEqualTo(profesor);
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+
+        User result = userService.getUserById(1);
+
+        assertNotNull(result);
+        assertEquals("ion.popescu", result.getUsername());
+    }
+
+    @Test
+    public void testGetUserById_NotFound() {
+        when(userRepository.findById(1)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            userService.getUserById(1);
+        });
+    }
+
+    @Test
+    public void testActualizeazaUser () {
+        UserRequestDTO userRequestDTO = new UserRequestDTO();
+        userRequestDTO.setIdUser (1);
+        userRequestDTO.setUsername("ion.actualizat");
+        userRequestDTO.setParola("parolaNoua");
+        userRequestDTO.setEmail("ion.nou@exemplu.com");
+        userRequestDTO.setRol("ROLE_PROFESOR");
+
+        User userActual = new User();
+        userActual.setIdUser (1);
+        userActual.setUsername("ion.popescu");
+        userActual.setParola("parolaVeche");
+        userActual.setEmail("ion.popescu@exemplu.com");
+
+        when(userRepository.findById(1)).thenReturn(Optional.of(userActual));
+        when(passwordEncoder.encode(userRequestDTO.getParola())).thenReturn("parolaNoua");
+        when(profesorService.actualizareProfesor(any())).thenReturn(new Profesor());
+
+        User updatedUser  = userService.actualizeazaUser(userRequestDTO);
+
+        assertEquals("ion.actualizat", updatedUser .getUsername());
+        assertEquals("parolaNoua", updatedUser .getParola());
+        assertEquals("ion.nou@exemplu.com", updatedUser .getEmail());
+        verify(userRepository, times(1)).save(userActual);
+    }
+
+    @Test
+    public void testAdaugaUser () {
+        UserRequestDTO userRequestDTO = new UserRequestDTO();
+        userRequestDTO.setUsername("maria.ionescu");
+        userRequestDTO.setParola("parola");
+        userRequestDTO.setEmail("maria@exemplu.com");
+        userRequestDTO.setRol("ROLE_SECRETARA");
+
+        User user = new User();
+        user.setIdUser (1);
+        user.setUsername("maria.ionescu");
+        user.setParola("parola");
+        user.setEmail("maria@exemplu.com");
+
+        when(passwordEncoder.encode(userRequestDTO.getParola())).thenReturn("parola");
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(secretaraService.adaugaSecretara(any(), any())).thenReturn(new Secretara());
+
+        User savedUser  = userService.adaugaUser (userRequestDTO);
+
+        assertEquals("maria.ionescu", savedUser .getUsername());
         verify(userRepository, times(1)).save(any(User.class));
     }
 
     @Test
-    public void testAdaugaUser_InvalidRole() {
-        // Arrange
-        UserRequestDTO userRequest = new UserRequestDTO();
-        userRequest.setRol("ROLE_INVALID");
+    public void testStergeUser () {
+        Integer idUser  = 1;
 
-        // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.adaugaUser (userRequest);
-        });
-        assertThat(exception.getMessage()).isEqualTo("Rolul nu exista");
-    }
+        userService.stergeUser (idUser );
 
-    @Test
-    public void testAdaugaUser_NullInput() {
-        // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.adaugaUser (null);
-        });
-        assertThat(exception.getMessage()).isEqualTo("User nu poate fi null");
+        verify(userRepository, times(1)).deleteById(idUser );
     }
 }
