@@ -1,17 +1,11 @@
 package com.liceu.sistem_evidenta_elevi.service;
 
 import com.liceu.sistem_evidenta_elevi.dto.UserRequestDTO;
-import com.liceu.sistem_evidenta_elevi.entity.Profesor;
 import com.liceu.sistem_evidenta_elevi.entity.Secretara;
 import com.liceu.sistem_evidenta_elevi.entity.User;
-import com.liceu.sistem_evidenta_elevi.mapper.ProfesorMapper;
 import com.liceu.sistem_evidenta_elevi.repository.UserRepository;
 import com.liceu.sistem_evidenta_elevi.service.implementare.UserServiceImplementare;
-import com.liceu.sistem_evidenta_elevi.service.ProfesorService;
-import com.liceu.sistem_evidenta_elevi.service.SecretaraService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
