@@ -85,6 +85,7 @@ public class BursaServiceImplementareTest {
 
         when(bursaRepository.findById(1)).thenReturn(Optional.of(bursaActuala));
         when(bursaMapper.toEntity(bursaDTO)).thenReturn(bursaActuala);
+        when(bursaRepository.save(bursaActuala)).thenReturn(bursaActuala);
 
         Bursa updatedBursa = bursaService.actualizareBursa(bursaDTO);
 

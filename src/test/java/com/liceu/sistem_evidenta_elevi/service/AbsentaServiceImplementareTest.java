@@ -38,14 +38,14 @@ public class AbsentaServiceImplementareTest {
         Absenta absenta1 = new Absenta();
         absenta1.setIdAbsenta(1);
         absenta1.setData(LocalDate.parse("2023-10-01"));
-        absenta1.setModul("Matematica");
+        absenta1.setModul("Modul 1");
 
         when(absentaRepository.findAll()).thenReturn(Arrays.asList(absenta1));
 
         List<Absenta> result = absentaService.getAllAbsente();
 
         assertEquals(1, result.size());
-        assertEquals("Matematica", result.get(0).getModul());
+        assertEquals("Modul 1", result.get(0).getModul());
     }
 
     @Test
@@ -53,14 +53,14 @@ public class AbsentaServiceImplementareTest {
         Absenta absenta = new Absenta();
         absenta.setIdAbsenta(1);
         absenta.setData(LocalDate.parse("2023-10-01"));
-        absenta.setModul("Matematica");
+        absenta.setModul("Modul 1");
 
         when(absentaRepository.findById(1)).thenReturn(Optional.of(absenta));
 
         Absenta result = absentaService.getAbsentaById(1);
 
         assertNotNull(result);
-        assertEquals("Matematica", result.getModul());
+        assertEquals("Modul 1", result.getModul());
     }
 
     @Test
@@ -77,12 +77,13 @@ public class AbsentaServiceImplementareTest {
         AbsentaDTO absentaDTO = new AbsentaDTO();
         absentaDTO.setIdAbsenta(1);
         absentaDTO.setData(LocalDate.parse("2023-10-01"));
+
         absentaDTO.setModul("Informatica");
 
         Absenta absentaActuala = new Absenta();
         absentaActuala.setIdAbsenta(1);
         absentaActuala.setData(LocalDate.parse("2023-10-01"));
-        absentaActuala.setModul("Matematica");
+        absentaActuala.setModul("Modul 1");
 
         when(absentaRepository.findById(1)).thenReturn(Optional.of(absentaActuala));
         when(absentaMapper.toEntity(absentaDTO)).thenReturn(absentaActuala);
@@ -90,7 +91,7 @@ public class AbsentaServiceImplementareTest {
 
         Absenta updatedAbsenta = absentaService.actualizareAbsenta(absentaDTO);
 
-        assertEquals("Matematica", updatedAbsenta.getModul());
+        assertEquals("Modul 1", updatedAbsenta.getModul());
         verify(absentaRepository, times(1)).save(absentaActuala);
     }
 
@@ -98,19 +99,19 @@ public class AbsentaServiceImplementareTest {
     public void testAdaugaAbsenta() {
         AbsentaDTO absentaDTO = new AbsentaDTO();
         absentaDTO.setData(LocalDate.parse("2023-10-01"));
-        absentaDTO.setModul("Matematica");
+        absentaDTO.setModul("Modul 1");
 
         Absenta absenta = new Absenta();
         absenta.setIdAbsenta(1);
         absenta.setData(LocalDate.parse("2023-10-01"));
-        absenta.setModul("Matematica");
+        absenta.setModul("Modul 1");
 
         when(absentaMapper.toEntity(absentaDTO)).thenReturn(absenta);
         when(absentaRepository.save(any(Absenta.class))).thenReturn(absenta);
 
         Absenta savedAbsenta = absentaService.adaugaAbsenta(absentaDTO);
 
-        assertEquals("Matematica", savedAbsenta.getModul());
+        assertEquals("Modul 1", savedAbsenta.getModul());
         verify(absentaRepository, times(1)).save(any(Absenta.class));
     }
 

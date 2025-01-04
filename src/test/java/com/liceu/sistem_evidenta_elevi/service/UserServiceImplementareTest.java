@@ -97,9 +97,9 @@ public class UserServiceImplementareTest {
 
         when(userRepository.findById(1)).thenReturn(Optional.of(userActual));
         when(passwordEncoder.encode(userRequestDTO.getParola())).thenReturn("parolaNoua");
-        when(profesorService.actualizareProfesor(any())).thenReturn(new Profesor());
+        when(userRepository.save(any(User.class))).thenReturn(userActual);
 
-        User updatedUser  = userService.actualizeazaUser(userRequestDTO);
+        User updatedUser  = userService.actualizeazaUser (userRequestDTO);
 
         assertEquals("ion.actualizat", updatedUser .getUsername());
         assertEquals("parolaNoua", updatedUser .getParola());
