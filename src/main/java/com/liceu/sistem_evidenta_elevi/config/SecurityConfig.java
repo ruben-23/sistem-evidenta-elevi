@@ -24,9 +24,9 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth ->  auth
-                        .requestMatchers("/liceu/autentificare/**").permitAll() // endpoint public
-                        .anyRequest().authenticated()  // necesita autentificare
+                .authorizeHttpRequests(auth ->  auth.anyRequest().permitAll()
+//                        .requestMatchers("/liceu/autentificare/**").permitAll() // endpoint public
+//                        .anyRequest().authenticated()  // necesita autentificare
                 )
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable());
@@ -37,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5174");
+        configuration.addAllowedOrigin("http://localhost:5173");
         configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:*"));
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
