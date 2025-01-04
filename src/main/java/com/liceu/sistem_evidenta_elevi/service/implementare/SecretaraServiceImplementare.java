@@ -47,7 +47,7 @@ public class SecretaraServiceImplementare implements SecretaraService {
         Secretara secretara = getSecretaraById(secretaraDTO.getIdSecretara());
         User user = userService.getUserById(secretaraDTO.getIdUser());
         secretaraMapper.updateEntityFromDTO(secretaraDTO, secretara, user);
-        return secretara;
+        return secretaraRepository.save(secretara);
     }
 
     @Transactional
