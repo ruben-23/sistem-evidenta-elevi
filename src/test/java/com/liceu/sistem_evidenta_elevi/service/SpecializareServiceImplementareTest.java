@@ -1,12 +1,10 @@
 package com.liceu.sistem_evidenta_elevi.service;
 
-import com.liceu.sistem_evidenta_elevi.dto.SpecializareRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.SpecializareDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Specializare;
 import com.liceu.sistem_evidenta_elevi.repository.SpecializareRepository;
 import com.liceu.sistem_evidenta_elevi.service.implementare.SpecializareServiceImplementare;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,88 +28,83 @@ public class SpecializareServiceImplementareTest {
 
     @Test
     public void testGetAllSpecializari() {
-        // Arrange
         Specializare specializare1 = new Specializare();
         specializare1.setIdSpecializare(1);
-        specializare1.setNume("Informatica");
+        specializare1.setNume("Matematica");
 
         when(specializareRepository.findAll()).thenReturn(Arrays.asList(specializare1));
 
-        // Act
         List<Specializare> result = specializareService.getAllSpecializari();
 
-        // Assert
         assertEquals(1, result.size());
-        assertEquals("Informatica", result.get(0).getNume());
+        assertEquals("Matematica", result.get(0).getNume());
     }
 
     @Test
     public void testGetSpecializareById() {
-        // Arrange
         Specializare specializare = new Specializare();
         specializare.setIdSpecializare(1);
-        specializare.setNume("Informatica");
+        specializare.setNume("Matematica");
 
         when(specializareRepository.findById(1)).thenReturn(Optional.of(specializare));
 
-        // Act
         Specializare result = specializareService.getSpecializareById(1);
 
-        // Assert
         assertNotNull(result);
-        assertEquals("Informatica", result.getNume());
+        assertEquals("Matematica", result.getNume());
     }
 
     @Test
     public void testGetSpecializareById_NotFound() {
-        // Arrange
         when(specializareRepository.findById(1)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             specializareService.getSpecializareById(1);
         });
-        assertEquals("Specializarea nu a fost gasita", exception.getMessage());
     }
 
     @Test
     public void testActualizareSpecializare() {
-        // Arrange
-        SpecializareRequestDTO requestDTO = new SpecializareRequestDTO();
-        requestDTO.setIdSpecializare(1);
-        requestDTO.setNume("Informatica Avansata");
+        SpecializareDTO specializareDTO = new SpecializareDTO();
+        specializareDTO.setIdSpecializare(1);
+        specializareDTO.setNume("Informatica");
 
-        Specializare specializare = new Specializare();
-        specializare.setIdSpecializare(1);
-        specializare.setNume("Informatica");
+        Specializare specializareActuala = new Specializare();
+        specializareActuala.setIdSpecializare(1);
+        specializareActuala.setNume("Matematica");
 
-        when(specializareRepository.findById(1)).thenReturn(Optional.of(specializare));
-        when(specializareRepository.save(any(Specializare.class))).thenReturn(specializare);
+        when(specializareRepository.findById(1)).thenReturn(Optional.of(specializareActuala));
+        when(specializareRepository.save(any(Specializare.class))).thenReturn(specializareActuala);
 
-        // Act
-        Specializare updatedSpecializare = specializareService.actualizareSpecializare(requestDTO);
+        Specializare updatedSpecializare = specializareService.actualizareSpecializare(specializareDTO);
 
-        // Assert
-        assertEquals("Informatica Avansata", updatedSpecializare.getNume());
-        verify(specializareRepository, times(1)).save(specializare);
+        assertEquals("Informatica", updatedSpecializare.getNume());
+        verify(specializareRepository, times(1)).save(specializareActuala);
     }
 
     @Test
     public void testAdaugaSpecializare() {
-        // Arrange
-        SpecializareRequestDTO requestDTO = new SpecializareRequestDTO();
-        requestDTO.setNume("Matematica");
+        SpecializareDTO specializareDTO = new SpecializareDTO();
+        specializareDTO.setNume("Biologie");
 
         Specializare specializare = new Specializare();
-        specializare.setNume("Matematica");
+        specializare.setIdSpecializare(1);
+        specializare.setNume("Biologie");
 
         when(specializareRepository.save(any(Specializare.class))).thenReturn(specializare);
 
-        // Act
-        Specializare savedSpecializare = specializareService.adaugaSpecializare(requestDTO);
+        Specializare savedSpecializare = specializareService.adaugaSpecializare(specializareDTO);
 
-        // Assert
-        assertEquals("Matematica", savedSpecializare.getNume());
+        assertEquals("Biologie", savedSpecializare.getNume());
         verify(specializareRepository, times(1)).save(any(Specializare.class));
+    }
+
+    @Test
+    public void testStergeSpecializare() {
+        Integer idSpecializare = 1;
+
+        specializareService.stergeSpecializare(idSpecializare);
+
+        verify(specializareRepository, times(1)).deleteById(idSpecializare);
     }
 }

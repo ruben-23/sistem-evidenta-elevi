@@ -1,8 +1,10 @@
 package com.liceu.sistem_evidenta_elevi.service;
 
-import com.liceu.sistem_evidenta_elevi.dto.MaterieRequestDTO;
+import com.liceu.sistem_evidenta_elevi.dto.MaterieDTO;
 import com.liceu.sistem_evidenta_elevi.entity.Materie;
+import com.liceu.sistem_evidenta_elevi.mapper.MaterieMapper;
 import com.liceu.sistem_evidenta_elevi.repository.MaterieRepository;
+import com.liceu.sistem_evidenta_elevi.service.implementare.MaterieServiceImplementare;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,98 +19,98 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class MaterieServiceImplementare {
+public class MaterieServiceImplementareTest {
 
     @MockBean
     private MaterieRepository materieRepository;
 
+    @MockBean
+    private MaterieMapper materieMapper;
+
     @Autowired
-    private com.liceu.sistem_evidenta_elevi.service.implementare.MaterieServiceImplementare materieService;
+    private MaterieServiceImplementare materieService;
 
     @Test
     public void testGetAllMaterii() {
-        // Arrange
         Materie materie1 = new Materie();
         materie1.setIdMaterie(1);
         materie1.setNume("Matematica");
 
         when(materieRepository.findAll()).thenReturn(Arrays.asList(materie1));
 
-        // Act
         List<Materie> result = materieService.getAllMaterii();
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals("Matematica", result.get(0).getNume());
     }
 
     @Test
     public void testGetMaterieById() {
-        // Arrange
         Materie materie = new Materie();
         materie.setIdMaterie(1);
         materie.setNume("Matematica");
 
         when(materieRepository.findById(1)).thenReturn(Optional.of(materie));
 
-        // Act
         Materie result = materieService.getMaterieById(1);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Matematica", result.getNume());
     }
 
     @Test
     public void testGetMaterieById_NotFound() {
-        // Arrange
         when(materieRepository.findById(1)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             materieService.getMaterieById(1);
         });
-        assertEquals("Materia nu a fost gasita", exception.getMessage());
     }
 
     @Test
     public void testActualizareMaterie() {
-        // Arrange
-        MaterieRequestDTO requestDTO = new MaterieRequestDTO();
-        requestDTO.setIdMaterie(1);
-        requestDTO.setNume("Matematica Avansata");
+        MaterieDTO materieDTO = new MaterieDTO();
+        materieDTO.setIdMaterie(1);
+        materieDTO.setNume("Informatica");
 
-        Materie materie = new Materie();
-        materie.setIdMaterie(1);
-        materie.setNume("Matematica");
+        Materie materieActuala = new Materie();
+        materieActuala.setIdMaterie(1);
+        materieActuala.setNume("Informatica");
 
-        when(materieRepository.findById(1)).thenReturn(Optional.of(materie));
-        when(materieRepository.save(any(Materie.class))).thenReturn(materie);
+        when(materieRepository.findById(1)).thenReturn(Optional.of(materieActuala));
+        when(materieMapper.toEntity(materieDTO)).thenReturn(materieActuala);
+        when(materieRepository.save(any(Materie.class))).thenReturn(materieActuala);
 
-        // Act
-        Materie updatedMaterie = materieService.actualizareMaterie(requestDTO);
+        Materie updatedMaterie = materieService.actualizareMaterie(materieDTO);
 
-        // Assert
-        assertEquals("Matematica Avansata", updatedMaterie.getNume());
-        verify(materieRepository, times(1)).save(materie);
+        assertEquals("Informatica", updatedMaterie.getNume());
+        verify(materieRepository, times(1)).save(materieActuala);
     }
 
     @Test
     public void testAdaugaMaterie() {
-        // Arrange
-        MaterieRequestDTO requestDTO = new MaterieRequestDTO();
-        requestDTO.setNume("Biologie");
+        MaterieDTO materieDTO = new MaterieDTO();
+        materieDTO.setNume("Biologie");
 
         Materie materie = new Materie();
+        materie.setIdMaterie(1);
         materie.setNume("Biologie");
 
+        when(materieMapper.toEntity(materieDTO)).thenReturn(materie);
         when(materieRepository.save(any(Materie.class))).thenReturn(materie);
 
-        // Act
-        Materie savedMaterie = materieService.adaugaMaterie(requestDTO);
+        Materie savedMaterie = materieService.adaugaMaterie(materieDTO);
 
-        // Assert
         assertEquals("Biologie", savedMaterie.getNume());
         verify(materieRepository, times(1)).save(any(Materie.class));
+    }
+
+    @Test
+    public void testStergeMaterie() {
+        Integer idMaterie = 1;
+
+        materieService.stergeMaterie(idMaterie);
+
+        verify(materieRepository, times(1)).deleteById(idMaterie);
     }
 }

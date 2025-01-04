@@ -39,7 +39,7 @@ public class BursaServiceImplementare implements BursaService {
     public Bursa actualizareBursa(BursaDTO bursaDTO){
         Bursa bursa = getBursaById(bursaDTO.getIdBursa());
         bursaMapper.updateEntityFromDTO(bursaDTO, bursa);
-        return bursa;
+        return bursaRepository.save(bursa);
     }
 
     @Transactional
