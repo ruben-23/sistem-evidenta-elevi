@@ -22,3 +22,6 @@ Pentru a rula acest proiect, asigurați-vă că aveți următoarele versiuni ins
 4. **Rulați aplicația:**
    - În **IntelliJ IDEA**, faceți clic pe fișierul **SistemDeEvidentaAElevilorApplication** și apoi apăsați butonul Run.
    - După ce aplicația backend este pornită, navigați la **Frontend/SistemEvidentaEleviReact** și rulați comanda: **npm run dev**
+
+Acum ar trebui să aveți aplicația funcțională atât pe backend, cât și pe frontend. Dacă întâmpinați probleme, verificați 
+configurațiile și asigurați-vă că toate dependențele sunt instalate corect.
