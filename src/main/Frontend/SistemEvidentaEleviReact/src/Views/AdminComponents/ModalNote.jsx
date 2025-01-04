@@ -148,7 +148,7 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
                 prevNote[0], // primul rand ramane gol pentru a putea adauga note
                 {
                     idNota: notaAdaugata.idNota,
-                    nota: notaAdaugata.valoare,
+                    valoare: notaAdaugata.valoare.toString(),
                     data: notaAdaugata.data,
                     gestionare: '',
                     isNew: false,
