@@ -54,7 +54,7 @@ const Table = ({ tip, date, clase, onEditare, onStergere, onDetalii, onNote, onA
                                 <button className="btn btn-outline-dark" onClick={() => onDetalii(element)}>Detalii</button>
                                 <button className="btn btn-outline-dark" onClick={() => onNote(element)}>Note</button>
                                 <button className="btn btn-outline-dark" onClick={() => onAbsente(element)}>Absențe</button>
-                                <button className="btn btn-outline-dark" onClick={() => onAbsente(element)}>Burse</button>
+                                <button className="btn btn-outline-dark">Burse</button>
                             </>
                         )}
 
