@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clasa pentru mapare entitatilor clasa in DTO
+ * Clasa pentru maparea entitatilor de tip {@link Clasa} la obiecte de tip {@link ClasaDTO}
+ * si invers.
  */
 @Component
 public class ClasaMapper {
@@ -21,12 +22,24 @@ public class ClasaMapper {
     private final ProfesorService profesorService;
     private final SpecializareService specializareService;
 
+    /**
+     * Constructor pentru injectarea serviciilor necesare.
+     *
+     * @param profesorService serviciul pentru gestionarea profesorilor.
+     * @param specializareService serviciul pentru gestionarea specializarilor.
+     */
     @Autowired
-    ClasaMapper(ProfesorService profesorService, SpecializareService specializareService) {
+    public ClasaMapper(ProfesorService profesorService, SpecializareService specializareService) {
         this.profesorService = profesorService;
         this.specializareService = specializareService;
     }
 
+    /**
+     * Mapare de la entitatea {@link Clasa} la DTO.
+     *
+     * @param clasa entitatea {@link Clasa} care trebuie mapata.
+     * @return obiectul {@link ClasaDTO} rezultat.
+     */
     public ClasaDTO toDTO(Clasa clasa) {
         ClasaDTO clasaDTO = new ClasaDTO();
         clasaDTO.setIdClasa(clasa.getIdClasa());
@@ -37,6 +50,12 @@ public class ClasaMapper {
         return clasaDTO;
     }
 
+    /**
+     * Mapare de la o lista de entitati {@link Clasa} la o lista de DTO-uri.
+     *
+     * @param clase lista de entitati {@link Clasa} care trebuie mapata.
+     * @return lista de obiecte {@link ClasaDTO} rezultate.
+     */
     public List<ClasaDTO> toDTOList(List<Clasa> clase) {
         List<ClasaDTO> clasaDTOs = new ArrayList<>();
         for (Clasa clasa : clase) {
@@ -45,8 +64,13 @@ public class ClasaMapper {
         return clasaDTOs;
     }
 
+    /**
+     * Mapare de la DTO-ul {@link ClasaDTO} la entitatea {@link Clasa}.
+     *
+     * @param clasaDTO obiectul {@link ClasaDTO} care trebuie mapat.
+     * @return entitatea {@link Clasa} rezultata.
+     */
     public Clasa toEntity(ClasaDTO clasaDTO) {
-
         Profesor diriginte = profesorService.getProfesorById(clasaDTO.getIdProfesor());
         Specializare specializare = specializareService.getSpecializareById(clasaDTO.getIdSpecializare());
 
@@ -59,15 +83,18 @@ public class ClasaMapper {
         return clasa;
     }
 
+    /**
+     * Actualizeaza o entitate de tip {@link Clasa} pe baza unui DTO {@link ClasaDTO}.
+     *
+     * @param clasaDTO obiectul {@link ClasaDTO} cu noile date.
+     * @param clasa entitatea {@link Clasa} care trebuie actualizata.
+     */
     public void updateEntityFromDTO(ClasaDTO clasaDTO, Clasa clasa) {
-
         Profesor diriginte = profesorService.getProfesorById(clasaDTO.getIdProfesor());
         Specializare specializare = specializareService.getSpecializareById(clasaDTO.getIdSpecializare());
 
         clasa.setNume(clasaDTO.getNume());
         clasa.setDiriginte(diriginte);
         clasa.setSpecializare(specializare);
-
     }
-
 }

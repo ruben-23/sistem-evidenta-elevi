@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementare a serviciului Elev.
+ * Contine metode pentru gestionarea operatiunilor legate de elevi.
+ */
 @Service
 public class ElevServiceImplementare implements ElevService {
 
@@ -23,6 +27,13 @@ public class ElevServiceImplementare implements ElevService {
     private final ElevMapper elevMapper;
     private final BursaService bursaService;
 
+    /**
+     * Constructor pentru injectarea dependintelor.
+     *
+     * @param elevRepository Repositorul pentru gestionarea operatiunilor cu elevi.
+     * @param elevMapper     Mapper-ul pentru conversia intre Elev si ElevDTO.
+     * @param bursaService   Serviciul pentru gestionarea burselor.
+     */
     @Autowired
     public ElevServiceImplementare(ElevRepository elevRepository, ElevMapper elevMapper,
                                    BursaService bursaService) {
@@ -31,17 +42,35 @@ public class ElevServiceImplementare implements ElevService {
         this.bursaService = bursaService;
     }
 
+    /**
+     * Obtine toti elevii.
+     *
+     * @return Lista tuturor elevilor.
+     */
     @Override
     public List<Elev> getAllElevi(){
         return elevRepository.findAll();
     }
 
+    /**
+     * Obtine un elev dupa ID.
+     *
+     * @param id ID-ul elevului.
+     * @return Elevul corespunzator ID-ului.
+     * @throws RuntimeException Daca elevul nu este gasit.
+     */
     @Override
     public Elev getElevById(Integer id){
         return elevRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Elevul nu a fost gasit"));
     }
 
+    /**
+     * Actualizeaza un elev pe baza unui ElevDTO.
+     *
+     * @param elevDTO DTO-ul care contine noile date pentru elev.
+     * @return Elevul actualizat.
+     */
     @Transactional
     @Override
     public Elev actualizareElev(ElevDTO elevDTO){
@@ -50,6 +79,12 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elevActual);
     }
 
+    /**
+     * Adauga un elev in sistem pe baza unui ElevDTO.
+     *
+     * @param elevDTO DTO-ul care contine datele pentru elevul nou.
+     * @return Elevul adaugat.
+     */
     @Transactional
     @Override
     public Elev adaugaElev(ElevDTO elevDTO){
@@ -57,24 +92,48 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elev);
     }
 
+    /**
+     * Sterge un elev din sistem pe baza ID-ului.
+     *
+     * @param idElev ID-ul elevului de sters.
+     */
     @Transactional
     @Override
     public void stergeElev(Integer idElev){
-       elevRepository.deleteByIdElev(idElev);
+        elevRepository.deleteByIdElev(idElev);
     }
 
+    /**
+     * Obtine lista notelor unui elev.
+     *
+     * @param idElev ID-ul elevului.
+     * @return Lista notelor elevului.
+     */
     @Override
     public List<Nota> getNoteElev(Integer idElev){
         Elev elev = getElevById(idElev);
         return elev.getNote();
     }
 
+    /**
+     * Obtine lista absentelor unui elev.
+     *
+     * @param idElev ID-ul elevului.
+     * @return Lista absentelor elevului.
+     */
     @Override
     public List<Absenta> getAbsenteElev(Integer idElev){
         Elev elev = getElevById(idElev);
         return elev.getAbsente();
     }
 
+    /**
+     * Obtine notele unui elev pentru o anumita materie.
+     *
+     * @param idElev   ID-ul elevului.
+     * @param idMaterie ID-ul materiei.
+     * @return Lista notelor pentru materia specificata.
+     */
     @Override
     public List<Nota> getNoteElevMaterie(Integer idElev, Integer idMaterie){
         Elev elev = getElevById(idElev);
@@ -83,6 +142,13 @@ public class ElevServiceImplementare implements ElevService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Obtine absentelor unui elev pentru o anumita materie.
+     *
+     * @param idElev   ID-ul elevului.
+     * @param idMaterie ID-ul materiei.
+     * @return Lista absentelor pentru materia specificata.
+     */
     @Override
     public List<Absenta> getAbsenteElevMaterie(Integer idElev, Integer idMaterie){
         Elev elev = getElevById(idElev);
@@ -92,12 +158,25 @@ public class ElevServiceImplementare implements ElevService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Obtine lista burselor unui elev.
+     *
+     * @param idElev ID-ul elevului.
+     * @return Lista burselor elevului.
+     */
     @Override
     public List<Bursa> getBurseElev(Integer idElev){
         Elev elev = getElevById(idElev);
         return elev.getBurse();
     }
 
+    /**
+     * Adauga o bursa unui elev.
+     *
+     * @param idElev ID-ul elevului.
+     * @param idBursa ID-ul bursei.
+     * @return Elevul actualizat cu bursa adaugata.
+     */
     @Transactional
     @Override
     public Elev adaugaBursaLaElev(Integer idElev, Integer idBursa){
@@ -108,6 +187,12 @@ public class ElevServiceImplementare implements ElevService {
         return elevRepository.save(elev);
     }
 
+    /**
+     * Sterge o bursa de la un elev.
+     *
+     * @param idElev ID-ul elevului.
+     * @param idBursa ID-ul bursei de sters.
+     */
     @Transactional
     @Override
     public void stergeBursaLaElev(Integer idElev, Integer idBursa){
