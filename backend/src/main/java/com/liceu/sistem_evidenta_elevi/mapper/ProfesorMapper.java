@@ -17,6 +17,12 @@ import java.util.List;
 @Component
 public class ProfesorMapper {
 
+    /**
+     * Converteste un obiect de tip Profesor intr-un obiect DTO de tip ProfesorDTO.
+     *
+     * @param profesor Entitatea Profesor care trebuie convertită intr-un DTO.
+     * @return Un obiect ProfesorDTO populat cu datele din entitatea Profesor.
+     */
     public ProfesorDTO toDTO(Profesor profesor) {
         ProfesorDTO profesorDTO = new ProfesorDTO();
 
@@ -30,6 +36,12 @@ public class ProfesorMapper {
         return profesorDTO;
     }
 
+    /**
+     * Convertește o listă de obiecte Profesor într-o listă de obiecte ProfesorDTO.
+     *
+     * @param profesori Lista de entitati Profesor care trebuie convertita intr-o lista de DTO-uri.
+     * @return O lista de obiecte ProfesorDTO populata cu datele din lista de entitati Profesor.
+     */
     public List<ProfesorDTO> toDTOList(List<Profesor> profesori) {
         List<ProfesorDTO> profesorDTOs = new ArrayList<>();
         for (Profesor profesor : profesori) {
@@ -38,6 +50,13 @@ public class ProfesorMapper {
         return profesorDTOs;
     }
 
+    /**
+     * Converteste un obiect DTO de tip ProfesorDTO intr-o entitate de tip Profesor.
+     *
+     * @param profesorDTO DTO-ul Profesor care trebuie convertit într-o entitate Profesor.
+     * @param user Obiectul User asociat.
+     * @return O entitate Profesor populata cu datele din DTO-ul ProfesorDTO.
+     */
     public Profesor toEntity(ProfesorDTO profesorDTO, User user) {
 
         Profesor profesor = new Profesor();
@@ -52,6 +71,13 @@ public class ProfesorMapper {
         return profesor;
     }
 
+    /**
+     * Actualizeaza o entitate Profesor cu datele dintr-un DTO de tip ProfesorDTO.
+     *
+     * @param profesorDTO DTO-ul care contine noile date pentru entitatea Profesor.
+     * @param profesor Entitatea Profesor care va fi actualizata.
+     * @param user Obiectul User asociat.
+     */
     public void updateEntityFromDTO(ProfesorDTO profesorDTO, Profesor profesor, User user) {
 
         profesor.setNume(profesorDTO.getNume());
