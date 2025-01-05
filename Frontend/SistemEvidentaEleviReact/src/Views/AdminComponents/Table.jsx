@@ -4,10 +4,33 @@ import PropTypes from 'prop-types';
 import '../../StylesViews/StyleComponents/Table.css';
 import {useUser} from '../../UserContext.jsx';
 
+/**
+ * Componenta `Table` afiseaza un tabel pentru diferite tipuri de date.
+ * Este utilizata pentru gestionarea informatiilor elevilor sau altor entitati.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {string} props.tip - Tipul datelor care vor fi afisate in tabel (ex. "elevi").
+ * @param {Array} props.date - Datele care trebuie afisate in tabel.
+ * @param {Array} props.clase - Lista claselor disponibile (utilizata pentru asocierea elevilor cu clasele).
+ * @param {function} props.onEditare - Functie apelata la editarea unui element.
+ * @param {function} props.onStergere - Functie apelata la stergerea unui element.
+ * @param {function} [props.onDetalii] - Functie apelata pentru afisarea detaliilor unui elev.
+ * @param {function} [props.onNote] - Functie apelata pentru afisarea notelor unui elev.
+ * @param {function} [props.onAbsente] - Functie apelata pentru afisarea absentelor unui elev.
+ *
+ * @returns {JSX.Element} Un tabel cu datele specificate.
+ */
 const Table = ({ tip, date, clase, onEditare, onStergere, onDetalii, onNote, onAbsente }) => {
 
     const {user} = useUser();
 
+    /**
+     * Returneaza numele clasei in functie de ID.
+     *
+     * @param {number} id - ID-ul clasei.
+     * @returns {string} Numele clasei sau "Fara clasa" daca clasa nu este gasita.
+     */
     // gasire nume clasa dupa id
     const getNumeClasDupaId = (id) => {
         const clasa = clase.find((cls) => cls.idClasa === id);

@@ -11,6 +11,16 @@ import GestionareConturi from "./Views/GestionareConturi.jsx";
 import GestionareProfesori from "./Views/GestionareProfesor.jsx";
 import GestionareElevi from "./Views/GestionareElevi.jsx";
 
+/**
+ * Componenta principala a aplicatiei.
+ *
+ * Aceasta componenta gestioneaza rutele aplicatiei, permite navigarea intre
+ * paginile ale aplicatiei: pagina de login si dashboard-urile pentru administratori,
+ * profesori si elevi.
+ *
+ * @component
+ * @returns {JSX.Element} Elementul principal al aplicatiei care contine rutele.
+ */
 const App = () => {
 
     return (

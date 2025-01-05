@@ -6,10 +6,49 @@ import { fetchNoteElev } from "../../services/eleviService.js";
 import {actualizareNota, adaugaNota, stergereNota} from "../../services/notaService.js";
 import {useUser} from "../../UserContext.jsx";
 
+/**
+ * Componenta `ModalNote` gestioneaza afisarea, adaugarea, editarea si stergerea notelor unui elev.
+ *
+ *  Aceasta componenta permite utilizatorului sa vizualizeze notele unui elev, sa adauge note noi,
+ *  sa editeze note existente si sa stearga note. De asemenea, permite filtrarea notelor pe baza
+ *  modulului si materiei selectate.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {Object} props.elev - Datele despre elevul pentru care sunt gestionate notele.
+ * @param {number} props.elev.id - ID-ul elevului.
+ * @param {string} props.elev.nume - Numele elevului.
+ * @param {string} props.elev.prenume - Prenumele elevului.
+ * @param {function} props.onClose - Functie care inchide modalul.
+ * @param {function} props.onSave - Functie apelata la salvarea modificarilor.
+ * @param {Array} props.materii - Lista materiilor disponibile.
+ * @param {number} props.materii[].idMaterie - ID-ul materiei.
+ * @param {string} props.materii[].nume - Numele materiei.
+ *
+ * @returns {JSX.Element} Componenta de tip modal pentru gestionarea notelor elevilor.
+ */
 const ModalNote = ({ elev, onClose, onSave, materii }) => {
+
+    /**
+     * @typedef {Object} Nota
+     * @property {number|null} idNota - ID-ul notei sau `null` pentru o nota noua.
+     * @property {string} valoare - Valoarea notei.
+     * @property {string} data - Data atribuirii notei.
+     * @property {string} gestionare - Statusul gestionarii notei.
+     * @property {boolean} isNew - Indica daca nota este noua.
+     * @property {boolean} isEdited - Indica daca nota a fost editata.
+     * @property {boolean} isEditable - Indica daca nota poate fi editata.
+     * @property {number} idElev - ID-ul elevului.
+     * @property {number|null} idMaterie - ID-ul materiei.
+     * @property {string} modul - Modulul in care a fost primita nota.
+     */
+
+
     const {user} = useUser();
     const [modulSelectat, setModulSelectat] = useState('');
     const [materieSelectata, setMaterieSelectata] = useState('');
+
+    // Lista notelor, prima este goala pentru a putea introduce o nota noua
     const [note, setNote] = useState([
         {
             idNota: null,
@@ -28,6 +67,7 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
     const [media, setMedia] = useState(0);
 
 
+    // incarca toate notele elevului
     useEffect(() => {
         const fetchAllNote = async () => {
             if (elev?.idElev) {
@@ -90,20 +130,34 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
         filtrareNote();
     }, [note, modulSelectat, materieSelectata]);
 
+    // calculare medie cand se schimba filtrarea
     useEffect(() => {
         const media = calculeazaMedia(noteFiltrate);
         setMedia(media);
     }, [noteFiltrate]);
 
-
+    /**
+     * Schimba modulul selectat.
+     * @param {Event} e - Evenimentul de schimbare.
+     */
     const handleSchimbareModul = (e) => setModulSelectat(e.target.value);
 
+    /**
+     * Schimba materia selectata.
+     * @param {Event} e - Evenimentul de schimbare.
+     */
     const handleSchimbareMaterie = (e) => {
         const idSelectat = parseInt(e.target.value);
         const materiaSelectata = materii.find((materie) => materie.idMaterie === idSelectat);
         setMaterieSelectata(materiaSelectata || '');
     };
 
+    /**
+     * Modifica o nota existenta.
+     * @param {number|null} idNota - ID-ul notei de modificat.
+     * @param {string} camp - Numele campului de modificat.
+     * @param {string} valoare - Noua valoare pentru campul specificat.
+     */
     const handleModificareNota = (idNota, camp, valoare) => {
         setNote((prevNote) =>
             prevNote.map((nota) =>
@@ -114,6 +168,9 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
         );
     };
 
+    /**
+     * Adauga o nota noua.
+     */
     const handleAdaugareNota = async () => {
         if (!modulSelectat || !materieSelectata || !note[0].data) {
             alert("Alegeti modulul, materia si data pentru a adauga nota");
@@ -166,6 +223,10 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
 
     };
 
+    /**
+     * Salveaza modificarile unei note existente.
+     * @param {number} idNota - ID-ul notei de salvat.
+     */
     const handleSalvareNota = async (idNota) => {
 
         const notaGasita = note.find((nota) => nota.idNota === idNota);
@@ -194,6 +255,10 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
         }
     };
 
+    /**
+     * Activeaza modul de editare pentru o nota.
+     * @param {number} idNota - ID-ul notei de editat.
+     */
     const handleEditareNota = (idNota) => {
         setNote((prevNote) =>
             prevNote.map((nota) =>
@@ -202,6 +267,10 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
         );
     };
 
+    /**
+     * Sterge o nota existenta.
+     * @param {number} idNota - ID-ul notei de sters.
+     */
     const handleStergereNota = async (idNota) => {
         try {
             await stergereNota(idNota);
@@ -212,6 +281,11 @@ const ModalNote = ({ elev, onClose, onSave, materii }) => {
         }
     };
 
+    /**
+     * Calculeaza media notelor.
+     * @param {Array} note - Lista notelor pentru care se calculeaza media.
+     * @returns {number} Media notelor, rotunjita la doua zecimale.
+     */
     const calculeazaMedia = (note) => {
         const noteValide = note
             .filter(nota => nota.valoare && !isNaN(nota.valoare))
@@ -339,7 +413,6 @@ ModalNote.propTypes = {
         id: PropTypes.number.isRequired,
         nume: PropTypes.string.isRequired,
         prenume: PropTypes.string.isRequired,
-        media: PropTypes.string.isRequired,
     }).isRequired,
     onClose: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,

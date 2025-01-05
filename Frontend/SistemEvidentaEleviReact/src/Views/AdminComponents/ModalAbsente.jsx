@@ -5,6 +5,27 @@ import {fetchAbsenteElev} from "../../services/eleviService.js";
 import {actualizareAbsenta, adaugaAbsenta, stergereAbsenta} from "../../services/absentaService.js";
 import {useUser} from "../../UserContext.jsx";
 
+/**
+ * Componenta `AbsenteModal` gestioneaza afisarea, adaugarea, editarea si stergerea absentelor unui elev.
+ *
+ * Aceasta componenta permite utilizatorului sa vizualizeze absentele unui elev, sa adauge absente noi,
+ * sa editeze absente existente si sa stearga absente. De asemenea, permite filtrarea absentelor pe baza
+ * modulului si materiei selectate.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {Object} props.elev - Datele despre elevul pentru care sunt gestionate absentele.
+ * @param {number} props.elev.idElev - ID-ul elevului.
+ * @param {string} props.elev.nume - Numele elevului.
+ * @param {string} props.elev.prenume - Prenumele elevului.
+ * @param {function} props.onClose - Functie care inchide modalul.
+ * @param {function} props.onSave - Functie apelata la salvarea modificarilor.
+ * @param {Array} props.materii - Lista materiilor disponibile.
+ * @param {number} props.materii[].idMaterie - ID-ul materiei.
+ * @param {string} props.materii[].nume - Numele materiei.
+ *
+ * @returns {JSX.Element} Componenta de tip modal pentru gestionarea absentelor elevilor.
+ */
 const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
     const {user} = useUser();
     const [modulSelectat, setModulSelectat] = useState('');
@@ -24,6 +45,7 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
     ]);
     const [absenteFiltrate, setAbsenteFiltrate] = useState([]);
 
+    // incarca toate absentele elevului
     useEffect(() => {
         const fetchAllAbsente = async () => {
             if (elev?.idElev) {
@@ -64,9 +86,11 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
     }, [elev]);
 
 
+    // actualizare absenteFiltrate ori de cate ori note, modulSelectat sau materieSelectata se schimba
     useEffect(() => {
         const filtrareAbsente = () => {
 
+            // primul rand din tabel ramane gol pentru a putea adauga absente
             const randGol = absente[0];
 
             const filtrate = absente.slice(1).filter((absenta) => {
@@ -81,14 +105,28 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
         filtrareAbsente();
     }, [absente, modulSelectat, materieSelectata]);
 
+    /**
+     * Schimba modulul selectat.
+     * @param {Event} e - Evenimentul de schimbare a valorii selectate.
+     */
     const handleSchimbareModul = (e) => setModulSelectat(e.target.value);
 
+    /**
+     * Schimba materia selectata.
+     * @param {Event} e - Evenimentul de schimbare a valorii selectate.
+     */
     const handleSchimbareMaterie = (e) => {
         const idSelectat = parseInt(e.target.value);
         const materiaSelectata = materii.find((materie) => materie.idMaterie === idSelectat);
         setMaterieSelectata(materiaSelectata || '');
     };
 
+    /**
+     * Modifica o absenta existenta.
+     * @param {number|null} idAbsenta - ID-ul absentei de modificat.
+     * @param {string} camp - Numele campului de modificat.
+     * @param {string} valoare - Noua valoare pentru campul specificat.
+     */
     const handleModificareAbsenta = (idAbsenta, camp, valoare) => {
         setAbsente((prevAbsente) =>
             prevAbsente.map((absenta) =>
@@ -99,6 +137,10 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
         );
     };
 
+
+    /**
+     * Adauga o absenta noua.
+     */
     const handleAdaugareAbsenta = async () => {
         if (!modulSelectat || !materieSelectata || !absente[0].data) {
             alert("Alegeti modulul, materia si data pentru a adauga absenta");
@@ -138,6 +180,10 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
         }
     };
 
+    /**
+     * Salveaza modificarile unei absente existente.
+     * @param {number} idAbsenta - ID-ul absentei de salvat.
+     */
     const handleSalvareAbsenta = async (idAbsenta) => {
         const absentaGasita = absente.find((absenta) => absenta.idAbsenta === idAbsenta);
 
@@ -164,6 +210,10 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
         }
     };
 
+    /**
+     * Activeaza modul de editare pentru o absenta.
+     * @param {number} idAbsenta - ID-ul absentei de editat.
+     */
     const handleEditareAbsenta = (idAbsenta) => {
         setAbsente((prevAbsente) =>
             prevAbsente.map((absenta) =>
@@ -172,6 +222,10 @@ const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
         );
     };
 
+    /**
+     * Sterge o absenta existenta.
+     * @param {number} idAbsenta - ID-ul absentei de sters.
+     */
     const handleStergereAbsenta = async (idAbsenta) => {
         try {
             await stergereAbsenta(idAbsenta);

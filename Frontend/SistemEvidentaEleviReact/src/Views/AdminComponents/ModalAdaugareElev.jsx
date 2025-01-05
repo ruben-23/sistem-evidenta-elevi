@@ -4,6 +4,16 @@ import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
 import '../../StylesViews/StyleComponents/DetaliiElev.css';
 
+/**
+ * Componenta `ModalAdaugareElev` permite adaugarea unui nou elev prin completarea unui formular.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {Function} props.onClose - Functie apelata pentru inchiderea modalului.
+ * @param {Function} props.onSave - Functie apelata pentru salvarea datelor introduse in formular.
+ *
+ * @returns {JSX.Element} Modal pentru adaugarea unui elev.
+ */
 const ModalAdaugareElev = ({ onClose, onSave }) => {
     const [formData, setFormData] = useState({
         nume: '',
@@ -16,11 +26,19 @@ const ModalAdaugareElev = ({ onClose, onSave }) => {
         idClasa : '',
     });
 
+    /**
+     * Actualizeaza valorile campurilor din formular.
+     *
+     * @param {Object} e - Evenimentul de schimbare.
+     */
     const handleModificare = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    /**
+     * Apelata la trimiterea formularului pentru a salva datele.
+     */
     const handleAdaugare = () => {
         onSave(formData);
         onClose();

@@ -6,20 +6,52 @@ import '../../StylesViews/StyleComponents/DetaliiElev.css'
 import {actualizareElev} from "../../services/eleviService.js";
 import {useUser} from "../../UserContext.jsx";
 
+/**
+ * Componenta `ModalDetaliiElev` afiseaza un modal pentru gestionarea detaliilor unui elev.
+ * Permite vizualizarea si editarea informatiilor elevului, in functie de rolul utilizatorului.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {Object} props.elev - Obiect ce contine informatiile elevului.
+ * @param {string} props.elev.nume - Numele elevului.
+ * @param {string} props.elev.prenume - Prenumele elevului.
+ * @param {string} props.elev.cnp - Codul Numeric Personal al elevului.
+ * @param {string} props.elev.dataNasterii - Data nasterii elevului (in format ISO).
+ * @param {string} props.elev.adresa - Adresa elevului.
+ * @param {string} props.elev.numarTelefon - Numarul de telefon al elevului.
+ * @param {string} props.elev.sex - Sexul elevului (ex. "masculin", "feminin").
+ * @param {function} props.onSave - Functie apelata dupa salvarea modificarilor.
+ * @param {function} props.onClose - Functie apelata pentru inchiderea modalului.
+ *
+ * @returns {JSX.Element} Modal pentru afisarea si gestionarea detaliilor unui elev.
+ */
 const ModalDetaliiElev = ({ elev, onSave, onClose }) => {
     const {user} = useUser();
     const [isEditable, setIsEditable] = useState(false);
     const [elevEditat, setElevEditat] = useState(elev);
 
+    /**
+     * Gestionarea modificarilor pentru inputuri.
+     *
+     * @param {Object} e - Evenimentul de schimbare.
+     */
     const handleModificare = (e) => {
         const { name, value } = e.target;
         setElevEditat({ ...elevEditat, [name]: value });
     };
 
+    /**
+     * Activeaza modul de editare al formularului.
+     */
     const handleEditare = () => {
         setIsEditable(true);
     };
 
+    /**
+     * Salveaza modificarile facute informatiilor elevului si actualizeaza baza de date.
+     *
+     * @async
+     */
     const handleSalvare = async () => {
         try {
             // actualizare elev in db

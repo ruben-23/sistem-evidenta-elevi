@@ -4,11 +4,24 @@ import '../StylesViews/Navbar.css';
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../UserContext.jsx";
 
+/**
+ * Componenta `NavbarLiceu` reprezinta bara de navigare a aplicatiei.
+ *
+ * Aceasta componenta afiseaza numele liceului si ofera optiuni de navigare printr-un meniu dropdown
+ * care include linkuri pentru vizualizarea profilului, setari si posibilitatea de deconectare.
+ *
+ * @component
+ * @returns {JSX.Element} Bara de navigare personalizata.
+ */
 function NavbarLiceu() {
 
     const { setUser  } = useUser ();
     const navigate = useNavigate();
 
+    /**
+     * Functia `handleLogout` gestioneaza deconectarea utilizatorului.
+     * Sterge utilizatorul din context si navigheaza catre pagina principala.
+     */
     const handleLogout = () => {
         // stergere user din localStorage
         setUser (null);

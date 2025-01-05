@@ -32,6 +32,7 @@ const GestionareElevi = () => {
      * @type {Object}
      */
     const { user  } = useUser ();
+
     const [searchTerm, setSearchTerm] = useState('');
     const [clasaSelectata, setClasaSelectata] = useState(null);
     const [materieSelectata, setMaterieSelectata] = useState(null);
@@ -212,6 +213,16 @@ const GestionareElevi = () => {
         setIsStudentDetaliOpen (true);
     };
 
+    /**
+     * Randeaza un modal specific.
+     *
+     * @param {React.Component} ModalComponent - Componenta de modal care trebuie randata.
+     * @param {boolean} modalState - Starea curenta a modalului.
+     * @param {Function} setModalState - Functie pentru actualizarea starii modalului.
+     * @param {Function} onSave - Callback pentru salvarea datelor.
+     * @param {Object} [additionalProps={}] - Proprietati suplimentare pentru modal.
+     * @returns {JSX.Element|null} Elementul modal sau null daca modalul este inchis.
+     */
     const renderModal = (ModalComponent, modalState, setModalState, onSave, additionalProps={}) => {
         return modalState && (
             <ModalComponent
@@ -225,7 +236,7 @@ const GestionareElevi = () => {
 
     return (
         <div className="main-content">
-            <h2>Gestioneaza Elevi</h2>
+            <h2>Gestionează Elevi</h2>
 
             <div className="search-and-dropdowns">
                 <Dropdowns
@@ -238,7 +249,7 @@ const GestionareElevi = () => {
                 />
                 <input
                     type="text"
-                    placeholder="Cauta dupa nume"
+                    placeholder="Caută dupa nume"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-bar"
@@ -247,7 +258,7 @@ const GestionareElevi = () => {
 
             {user.rol === "ROLE_SECRETARA" && (
                 <button className="btn btn-warning" onClick={() => setIsModalAddInfoOpen(true)}>
-                    Adauga Elev
+                    Adaugă Elev
                 </button>
             )}
 
