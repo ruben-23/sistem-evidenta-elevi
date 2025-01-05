@@ -1,6 +1,8 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
-
+/**
+ * DTO pentru primirea cererilor legate de burse si returnarea raspunsurilor.
+ */
 public class BursaDTO {
     private Integer idBursa;
     private String tip;

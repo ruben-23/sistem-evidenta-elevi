@@ -14,6 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller pentru gestionarea autentificarea utilizatorilor.
+ * Aceasta clasa gestioneaza autentificarea utilizatorilor si returneaza informatii
+ * despre utilizatorii autentificati.
+ */
 @RestController
 @RequestMapping("/liceu/autentificare")
 public class AutentificareController {
@@ -22,6 +27,13 @@ public class AutentificareController {
     private final UserService userService;
     private final UserMapper userMapper;
 
+    /**
+     * Constructor pentru injectarea dependentelor.
+     *
+     * @param authenticationManager Managerul de autentificare al Spring Security.
+     * @param userService Serviciul pentru gestionarea utilizatorilor.
+     * @param userMapper Mapper pentru conversia dintre entitati si DTO-uri.
+     */
     @Autowired
     public AutentificareController(AuthenticationManager authenticationManager,UserService userService,
                                    UserMapper userMapper) {
@@ -30,6 +42,15 @@ public class AutentificareController {
         this.userMapper = userMapper;
     }
 
+    /**
+     * Endpoint pentru autentificarea utilizatorilor.
+     * Aceasta metoda primeste username-ul si parola utilizatorului, efectueaza autentificarea
+     * si returneaza informatiile utilizatorului autentificat.
+     *
+     * @param userRequest Obiect {@link UserRequestDTO} care contine numele de utilizator si parola.
+     * @return Un obiect {@link ResponseEntity} care contine un {@link UserResponseDTO}
+     * cu informatiile utilizatorului autentificat, sau un raspuns HTTP 401 daca autentificarea esueaza.
+     */
     @PostMapping("/login")
     public ResponseEntity<UserResponseDTO> login(@RequestBody UserRequestDTO userRequest) {
         try {
@@ -43,14 +64,15 @@ public class AutentificareController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // returnare user autentificat(principal)
+            // obtine user autentificat(principal)
             org.springframework.security.core.userdetails.User principal =
                     (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
-            // returnare user din baza de date
+            // ontine user din baza de date pe baza username-ului
             String username = principal.getUsername();
             User userAutentificat = userService.getUserByUsername(username);
 
+            // returnare informatii user in format DTO
             return ResponseEntity.ok(userMapper.toResponseDTO(userAutentificat));
 
         } catch (Exception ex) {

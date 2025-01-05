@@ -2,34 +2,65 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entitate care reprezinta un profesor.
+ * Aceasta este mapata la tabelul "profesori" din baza de date.
+ */
 @Entity
 @Table(name="profesori")
 public class Profesor {
 
+    /**
+     * ID-ul unic al profesorului.
+     * Generat automat de baza de date.
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idProfesor;
 
+    /**
+     * Numele profesorului.
+     */
     @Column(nullable=false)
     private String nume;
 
+    /**
+     * Prenumele profesorului.
+     */
     @Column(nullable=false)
     private String prenume;
 
+    /**
+     * Numarul de telefon al profesorului.
+     */
     @Column(nullable=false)
     private String numarTelefon;
 
+    /**
+     * Adresa profesorului.
+     */
     @Column(nullable=false)
     private String adresa;
 
+    /**
+     * CNP-ul profesorului.
+     */
     @Column(nullable=false)
     private String CNP;
 
+    /**
+     * Utilizatorul asociat profesorului.
+     * Relatie de tip One-to-One cu entitatea {@link User}.
+     */
     // pentru a stii carui user este asociat profesorul
     @OneToOne
     @JoinColumn(name="id_user")
     private User user;
 
+    /**
+     * Clasa pentru care profesorul este diriginte.
+     * Relatie de tip One-to-One cu entitatea {@link Clasa}.
+     */
     // clasa pentru care profesorul e diriginte
     @OneToOne(mappedBy = "diriginte", cascade = CascadeType.ALL)
     private Clasa clasa;

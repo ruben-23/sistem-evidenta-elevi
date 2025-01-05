@@ -6,23 +6,49 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Clasa folosita ca si cheie primara compusa pentru entitatea ClasaMaterieProfesor
+ * Clasa folosită ca și cheie primară compusă pentru entitatea {@link ClasaMaterieProfesor}.
  */
-
 public class ClasaMaterieProfesorId extends SecurityConfig implements Serializable {
 
+    /**
+     * ID-ul clasei.
+     */
     private Integer idClasa;
+
+    /**
+     * ID-ul profesorului.
+     */
     private Integer idProfesor;
+
+    /**
+     * ID-ul materiei.
+     */
     private Integer idMaterie;
 
+    /**
+     * Constructor implicit.
+     */
     public ClasaMaterieProfesorId() {}
 
+    /**
+     * Constructor cu parametri.
+     *
+     * @param idClasa ID-ul clasei.
+     * @param idProfesor ID-ul profesorului.
+     * @param idMaterie ID-ul materiei.
+     */
     public ClasaMaterieProfesorId(Integer idClasa, Integer idProfesor, Integer idMaterie) {
         this.idClasa = idClasa;
         this.idProfesor = idProfesor;
         this.idMaterie = idMaterie;
     }
 
+    /**
+     * Compară două entități de tip {@link ClasaMaterieProfesorId} în funcție de ID-urile cheii compuse.
+     *
+     * @param o Obiectul cu care se compară.
+     * @return true dacă obiectele sunt egale, false în caz contrar.
+     */
     // pentru a compara 2 entitati de tip ClasaMaterieProfesor, in functie de id-urile cheii compuse
     @Override
     public boolean equals(Object o) {
@@ -35,6 +61,11 @@ public class ClasaMaterieProfesorId extends SecurityConfig implements Serializab
                 idMaterie.equals(that.idMaterie);
     }
 
+    /**
+     * Generează un hash unic bazat pe ID-urile ce compun cheia.
+     *
+     * @return Hash-ul generat.
+     */
     // pentru a genera un hash unic bazat pe id-urile ce compun cheia
     @Override
     public int hashCode() {

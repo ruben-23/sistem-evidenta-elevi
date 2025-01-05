@@ -4,30 +4,55 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+/**
+ * Entitate care reprezinta o nota.
+ * Aceasta este mapata la tabelul "note" din baza de date.
+ */
 @Entity
 @Table(name="note")
 public class Nota {
 
+    /**
+     * ID-ul unic al notei.
+     * Generat automat de baza de date.
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idNota;
 
+    /**
+     * Valoarea notei.
+     */
     @Column(name = "nota", nullable = false)
     private Double valoare;
 
+    /**
+     * Data la care a fost pusa nota.
+     */
     @Column(nullable = false)
     private LocalDate data;
 
+    /**
+     * Elevul caruia ii apartine nota.
+     * Relatie de tip Many-to-One cu entitatea {@link Elev}.
+     */
     // elev caruia ii apartine nota
     @ManyToOne
     @JoinColumn(name = "id_elev", referencedColumnName = "idElev")
     private Elev elev;
 
+    /**
+     * Materia la care elevul a luat nota.
+     * Relatie de tip Many-to-One cu entitatea {@link Materie}.
+     */
     // materia la care elevul a luat nota
     @ManyToOne
     @JoinColumn(name = "id_materie", referencedColumnName = "idMaterie")
     private Materie materie;
 
+    /**
+     * Modulul in care a fost acordata nota.
+     */
     @Column(nullable = false)
     private String modul;
 

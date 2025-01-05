@@ -15,10 +15,21 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Collections;
 
+/**
+ * Clasa de configurare pentru securitatea aplicatiei.
+ * Aceasta configureaza setarile pentru autentificare, permisiuni de acces si CORS.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Configureaza lantul de filtre de securitate.
+     *
+     * @param http obiectul {@link HttpSecurity} pentru configurarea securitatii.
+     * @return instanta configurata de {@link SecurityFilterChain}.
+     * @throws Exception in cazul unei erori de configurare.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -34,23 +45,41 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configureaza CORS (Cross-Origin Resource Sharing) pentru accesul frontend.
+     *
+     * @return instanta configurata de {@link CorsConfigurationSource}.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5173");
-        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:*"));
-        configuration.addAllowedMethod("*");
-        configuration.addAllowedHeader("*");
+        configuration.addAllowedOrigin("http://localhost:5173"); // permite accesul de la frontend
+        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:*")); //acces pemis de la toate porturile localhost
+        configuration.addAllowedMethod("*");// permite toate metodele HTTP
+        configuration.addAllowedHeader("*");// permite toate antetele HTTP
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);// aplica configuratia pentru toate rutele.
         return source;
     }
+    
+    /**
+     * Defineste un bean pentru criptarea parolelor folosind BCrypt.
+     *
+     * @return instanta de {@link PasswordEncoder}.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
+    /**
+     * Configureaza managerul de autentificare pentru aplicatie.
+     *
+     * @param authConfig configuratia de autentificare {@link AuthenticationConfiguration}.
+     * @return instanta de {@link AuthenticationManager}.
+     * @throws Exception in cazul unei erori de configurare.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();

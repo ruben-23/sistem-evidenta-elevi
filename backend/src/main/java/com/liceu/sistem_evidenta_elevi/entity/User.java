@@ -2,29 +2,58 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entitate care reprezinta un utilizator al sistemului.
+ * Aceasta este mapata la tabelul "users" din baza de date.
+ */
 @Entity
 @Table(name="users")
 public class User {
 
+    /**
+     * ID-ul unic al utilizatorului.
+     * Generat automat de baza de date.
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idUser;
 
+    /**
+     * Numele de utilizator al utilizatorului.
+     */
     @Column(nullable=false)
     private String username;
 
+    /**
+     * Parola utilizatorului.
+     */
     @Column(nullable=false)
     private String parola;
 
+    /**
+     * Adresa de email a utilizatorului.
+     */
     @Column(nullable = false)
     private String email;
 
+    /**
+     * Rolul utilizatorului.
+     * Acesta este de tip {@link Rol}.
+     */
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
+    /**
+     * Profesorul asociat utilizatorului.
+     * Relatie de tip One-to-One cu entitatea {@link Profesor}.
+     */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Profesor profesor;
 
+    /**
+     * Secretara asociata utilizatorului.
+     * Relatie de tip One-to-One cu entitatea {@link Secretara}.
+     */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Secretara secretara;
 

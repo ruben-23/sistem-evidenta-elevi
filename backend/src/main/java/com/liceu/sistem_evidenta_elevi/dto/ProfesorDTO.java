@@ -1,5 +1,9 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
+/**
+ * DTO pentru primirea cererilor legate de profesori si returnarea raspunsurilor.
+ * Aceasta clasa este utilizata pentru a transfera date despre profesori intre diferite straturi ale aplicatiei.
+ */
 public class ProfesorDTO {
     private Integer idProfesor;
     private String nume;
