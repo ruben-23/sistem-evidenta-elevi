@@ -15,8 +15,22 @@ import {
 } from "../services/clasaMaterieProfesorService.js";
 import {useUser} from "../UserContext.jsx";
 
-
+/**
+ * Componenta principala pentru gestionarea elevilor.
+ *
+ * Aceasta componenta permite vizualizarea, adaugarea, modificarea, stergerea si gestionarea
+ * informatiilor despre elevi, inclusiv note si absente. Continutul este adaptat in functie
+ * de rolul utilizatorului (secretara sau profesor).
+ *
+ * @component
+ * @returns {JSX.Element} Interfata pentru gestionarea elevilor.
+ */
 const GestionareElevi = () => {
+
+    /**
+     * Contextul utilizatorului curent, care contine rolul si alte informatii.
+     * @type {Object}
+     */
     const { user  } = useUser ();
     const [searchTerm, setSearchTerm] = useState('');
     const [clasaSelectata, setClasaSelectata] = useState(null);
@@ -30,6 +44,13 @@ const GestionareElevi = () => {
     const [materii, setMaterii] = useState([]);
     const [elevi, setElevi] = useState([]);
 
+    /**
+     * Obtine lista claselor in functie de rolul utilizatorului.
+     * Daca utilizatorul este secretara, returneaza toate clasele;
+     * daca este profesor, returneaza clasele in care preda.
+     *
+     * @async
+     */
     // incarcare clase
     useEffect(() => {
         const fetchClase = async () => {
@@ -49,6 +70,13 @@ const GestionareElevi = () => {
         fetchClase();
     }, [user]);
 
+    /**
+     * Obtine lista elevilor in functie de rolul utilizatorului si clasa selectata.
+     * Daca utilizatorul este secretara, returneaza toti elevii;
+     * daca este profesor, returneaza elevii din clasa selectata.
+     *
+     * @async
+     */
     // incarcare elevi
     useEffect(() => {
         const fetchElevi = async () => {
@@ -72,6 +100,13 @@ const GestionareElevi = () => {
         fetchElevi();
     }, [user, clasaSelectata]);
 
+    /**
+     * Obtine lista materiilor pentru clasa selectata.
+     * Daca utilizatorul este diriginte pentru clasa selectata, afiseaza toate materiile;
+     * altfel, afiseaza doar materiile predate de profesor.
+     *
+     * @async
+     */
     // incarcare materii
     useEffect(() => {
         const fetchMaterii = async () => {
@@ -98,6 +133,12 @@ const GestionareElevi = () => {
         fetchMaterii();
     }, [clasaSelectata, user]);
 
+    /**
+     * Adauga un elev nou in clasa selectata.
+     *
+     * @param {Object} elevNou - Obiect ce contine informatiile despre elevul nou.
+     * @async
+     */
     // adaugare elev
     const handleAdaugareElev = async (elevNou) => {
         if (clasaSelectata) {
@@ -114,6 +155,11 @@ const GestionareElevi = () => {
         }
     };
 
+    /**
+     * Actualizeaza informatiile despre un elev existent.
+     *
+     * @param {Object} elevActualizat - Obiect ce contine informatiile actualizate ale elevului.
+     */
     // actualizare elev modificat
     const handleEditareElev = (elevActualizat) => {
         setElevi((prevElevi) => {
@@ -123,6 +169,12 @@ const GestionareElevi = () => {
         });
     };
 
+    /**
+     * Sterge un elev din lista curenta.
+     *
+     * @param {number} idElev - ID-ul elevului de sters.
+     * @async
+     */
     // stergere elev
     const handleStergereElev = async (idElev) => {
         try{
@@ -195,7 +247,7 @@ const GestionareElevi = () => {
 
             {user.rol === "ROLE_SECRETARA" && (
                 <button className="btn btn-warning" onClick={() => setIsModalAddInfoOpen(true)}>
-                    Adaugă Elev
+                    Adauga Elev
                 </button>
             )}
 

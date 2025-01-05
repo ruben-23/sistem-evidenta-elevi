@@ -7,12 +7,34 @@ import GestionareConturi from './GestionareConturi.jsx';
 import NavbarLiceu from "./Navbar.jsx";
 import '../StylesViews/AdminDashboard.css';
 
+/**
+ * Componenta principala pentru dashboard-ul administratorului.
+ *
+ * Aceasta componenta administreaza navigarea intre diferitele sectiuni ale interfetei
+ * pentru administrator, incluzand gestionarea elevilor, profesorilor si conturilor.
+ * De asemenea, ofera functionalitatea de deconectare.
+ *
+ * @component
+ * @returns {JSX.Element} Interfata pentru dashboard-ul administratorului.
+ */
 const AdminDashboard = () => {
+
+    // starea care determina sectiunea curenta afisata in dashboard.
     const [vedereCurenta, setVedereCurenta] = useState('elevi');
+
+    // hook pentru navigare.
     const navigate = useNavigate();
 
+    /**
+     * Navigheaza utilizatorul catre pagina de login (deconectare).
+     */
     const handleLogout = () => navigate('/');
 
+    /**
+     * Randeaza sectiunea principala pe baza optiunii curente selectate in sidebar.
+     *
+     * @returns {JSX.Element} Componenta asociata cu optiunea curenta.
+     */
     const renderMainContent = () => {
         switch (vedereCurenta) {
             case 'elevi':
