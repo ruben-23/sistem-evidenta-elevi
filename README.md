@@ -37,6 +37,63 @@ dacă nu le folosiți pe cele care sunt deja:
    - În **IntelliJ IDEA**, faceți clic pe fișierul **SistemDeEvidentaAElevilorApplication** și apoi apăsați butonul Run.
    - După ce aplicația backend este pornită, navigați la **Frontend/SistemEvidentaEleviReact** și rulați comanda: ```npm run dev```
    - Asigurați-vă că aplicația frontend rulează pe portul **5173** și aplicația backend pe portul **8080**.
-   
-Acum ar trebui să aveți aplicația funcțională atât pe backend, cât și pe frontend. Dacă întâmpinați probleme, verificați 
+     
+Acum ar trebui să aveți aplicația funcțională atât pe backend, cât și pe frontend. Dacă întâmpinați probleme, verificați
 configurațiile și asigurați-vă că toate dependențele sunt instalate corect.
+
+## Conturi de utilizator
+
+Pentru a accesa aplicația, aveți nevoie de conturi de utilizator pentru fiecare rol. Mai jos aveți detaliile conturilor:
+
+**Rol Administrator:**
+
+**Nume Utilizator:** `vasilescuioana`  
+**Parola:** `ioana`
+
+**Rol Profesor:**
+
+**Nume Utilizator:** `ionpopescu`  
+**Parola:** `ionpopescu`
+
+**Nume Utilizator:** `sebastiansava`  
+**Parola:** `sebastiansava`
+
+
+## Capturi de ecran
+
+### Secretara
+
+**Pagina Principala - Gestionare Elevi**
+![Pagina principala](images/GestioneazaElevi.png)
+
+**Adaugare Elev**
+![Pagina principala](images/ModalAdaugareElev.png)
+
+**Detalii Elev**
+![Pagina principala](images/ModalDetaliiElev.png)
+
+**Note**
+![Pagina principala](images/ModalNote.png)
+
+**Absente**
+![Pagina principala](images/ModalAbsente.png)
+
+**Gestionare Profesori**
+![Pagina principala](images/GestioneazaProfesori.png)
+
+**Gestionare Conturi**
+![Pagina principala](images/GestioneazaConturi.png)
+
+### Profesor
+
+**Pagina Principala - Gestionare Elevi**
+![Pagina principala](images/ProfesorDashboard.png)
+
+**Detalii Elev**
+![Pagina principala](images/DetaliiElev_ProfesorDashboard.png)
+
+**Note**
+![Pagina principala](images/Note_ProfesorDashboard.png)
+
+**Absente**
+![Pagina principala](images/Absente_ProfesorDashboard.png)
