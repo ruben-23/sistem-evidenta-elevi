@@ -2,13 +2,41 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
+/**
+ * Data Transfer Object (DTO) pentru reprezentarea unei absente.
+ * Aceasta clasa este utilizata pentru a transfera date despre absente intre diferite straturi ale aplicatiei.
+ */
 public class AbsentaDTO {
 
+    /**
+     * ID-ul unic al absentei.
+     */
     private Integer idAbsenta;
+
+    /**
+     * ID-ul clasei in care e elevul..
+     */
     private Integer idClasa;
+
+    /**
+     * ID-ul elevului care a primit absenta.
+     */
+
     private Integer idElev;
+
+    /**
+     * ID-ul materiei la care s-a primit cu absenta.
+     */
     private Integer idMaterie;
+
+    /**
+     * Data in care a fost primita absenta.
+     */
     private LocalDate data;
+    
+    /**
+     * Modulul in care a fost primita absenta.
+     */
     private String modul;
 
     public Integer getIdAbsenta() {
