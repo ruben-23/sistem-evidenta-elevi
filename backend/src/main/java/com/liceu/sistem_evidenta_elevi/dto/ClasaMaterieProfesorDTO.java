@@ -1,5 +1,8 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
+/**
+ * DTO pentru primirea cererilor legate de relatiile dintre clase, profesori si materii.
+ */
 public class ClasaMaterieProfesorDTO {
 
     private Integer idClasa;

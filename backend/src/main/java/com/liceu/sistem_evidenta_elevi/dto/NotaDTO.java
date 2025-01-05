@@ -2,6 +2,10 @@ package com.liceu.sistem_evidenta_elevi.dto;
 
 import java.time.LocalDate;
 
+/**
+ * DTO pentru primirea cererilor legate de note si returnarea raspunsurilor.
+ * Aceasta clasa este utilizata pentru a transfera date despre note intre diferite straturi ale aplicatiei.
+ */
 public class NotaDTO {
 
     private Integer idNota;

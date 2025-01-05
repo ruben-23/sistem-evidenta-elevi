@@ -3,29 +3,56 @@ package com.liceu.sistem_evidenta_elevi.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entitate care reprezinta o secretara.
+ * Aceasta este mapata la tabelul "secretare" din baza de date.
+ */
 @Entity
 @Table(name="secretare")
 public class Secretara {
 
+    /**
+     * ID-ul unic al secretarei.
+     * Generat automat de baza de date.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSecretara;
 
+    /**
+     * Numele secretarei.
+     */
     @Column(nullable=false)
     private String nume;
 
+    /**
+     * Prenumele secretarei.
+     */
     @Column(nullable=false)
     private String prenume;
 
+    /**
+     * Numarul de telefon al secretarei.
+     */
     @Column(nullable=false)
     private String numarTelefon;
 
+    /**
+     * Adresa secretarei.
+     */
     @Column(nullable=false)
     private String adresa;
 
+    /**
+     * CNP-ul secretarei.
+     */
     @Column(nullable=false)
     private String CNP;
 
+    /**
+     * Utilizatorul asociat secretarei.
+     * Relatie de tip One-to-One cu entitatea {@link User}.
+     */
     // pentru a stii carui user este asociata secretara
     @OneToOne
     @JoinColumn(name="id_user")

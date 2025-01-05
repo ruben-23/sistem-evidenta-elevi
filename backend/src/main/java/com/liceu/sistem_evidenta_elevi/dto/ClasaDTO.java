@@ -1,5 +1,9 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
+/**
+ * DTO pentru primirea cererilor legate de clase si returnarea raspunsurilor.
+ * Aceasta clasa este utilizata pentru a transfera date despre clase intre diferite straturi ale aplicatiei.
+ */
 public class ClasaDTO {
     private Integer idClasa;
     private String nume;

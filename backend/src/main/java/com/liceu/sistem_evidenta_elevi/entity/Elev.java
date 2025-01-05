@@ -6,48 +6,92 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entitate care reprezinta un elev.
+ * Aceasta este mapata la tabelul "elevi" din baza de date.
+ */
 @Entity
-
 @Table(name="elevi")
 public class Elev {
 
+    /**
+     * ID-ul unic al elevului.
+     * Generat automat de baza de date.
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idElev;
 
+    /**
+     * Numele elevului.
+     */
     @Column(nullable = false)
     private String nume;
 
+    /**
+     * Prenumele elevului.
+     */
     @Column(nullable = false)
     private String prenume;
 
+    /**
+     * CNP-ul elevului.
+     */
     @Column(nullable = false)
     private String CNP;
 
+    /**
+     * Sexul elevului.
+     */
     @Column(nullable = false)
     private String sex;
 
+    /**
+     * Numarul de telefon al elevului.
+     */
     private String numarTelefon;
 
+    /**
+     * Adresa elevului.
+     */
     @Column(nullable = false)
     private String adresa;
 
+    /**
+     * Data nasterii a elevului.
+     */
     @Column(nullable = false)
     private LocalDate dataNasterii;
 
+    /**
+     * Clasa din care face parte elevul.
+     * Relatie de tip Many-to-One cu entitatea {@link Clasa}.
+     */
     // clasa din care face parte elevul
     @ManyToOne
     @JoinColumn(name="id_clasa", referencedColumnName = "idClasa")
     private Clasa clasa;
 
+    /**
+     * Notele primite de elev.
+     * Relatie de tip One-to-Many cu entitatea {@link Nota}.
+     */
     // notele primite de elev
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Nota> note = new ArrayList<>();
 
+    /**
+     * Absentele primite de elev.
+     * Relatie de tip One-to-Many cu entitatea {@link Absenta}.
+     */
     // absentele primite de elev
     @OneToMany(mappedBy = "elev", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Absenta> absente = new ArrayList<>();
 
+    /**
+     * Bursele de care beneficiaza elevul.
+     * Relatie de tip Many-to-Many cu entitatea {@link Bursa}.
+     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="elevi_burse",

@@ -1,5 +1,10 @@
 package com.liceu.sistem_evidenta_elevi.dto;
 
+/**
+ * DTO pentru primirea cererilor legate de utilizatori.
+ * Acesta contine informatiile necesare pentru a crea sau actualiza un utilizator,
+ * inclusiv date despre profesor sau secretara, daca este cazul.
+ */
 public class UserRequestDTO {
 
     private Integer idUser;
