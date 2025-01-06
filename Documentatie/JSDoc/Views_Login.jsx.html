@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Views/Login.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Views/Login.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../StylesViews/Login.css';
+import {useUser} from "../UserContext.jsx";
+
+/**
+ * Componenta de autentificare.
+ *
+ * Aceasta componenta ofera o interfata pentru autentificarea utilizatorilor.
+ * In functie de rolul utilizatorului autentificat, acesta este redirectionat catre
+ * o pagina specifica (admin, profesor sau elev).
+ *
+ * @component
+ * @returns {JSX.Element} Formularul de autentificare.
+ */
+const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const { setUser  } = useUser ();
+
+  /**
+   * Trimite datele utilizatorului catre server pentru autentificare.
+   *
+   * @async
+   * @param {string} username - Numele de utilizator introdus.
+   * @param {string} password - Parola introdusa.
+   * @returns {Promise&lt;Object>} Datele utilizatorului autentificat.
+   * @throws {Error} Daca autentificarea nu reuseste.
+   */
+  const loginUser  = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:8080/liceu/autentificare/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, parola: password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("eroare:", errorData);
+        throw new Error(errorData.message || 'eroare necunoscuta');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Eroare login:', error);
+      throw error;
+    }
+  };
+
+  /**
+   * Gestioneaza evenimentul de autentificare atunci cand utilizatorul trimite formularul.
+   *
+   * @param {Event} e - Evenimentul declansat la trimiterea formularului.
+   * @async
+   */
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await loginUser(username, password);
+
+      // seteaza utilizatorul in context
+      setUser(user);
+
+      // redirectionare in functie de rol
+      if (user.rol === 'ROLE_SECRETARA') {
+        navigate('/admin');
+      } else if (user.rol === 'ROLE_PROFESOR') {
+        navigate('/profesor');
+      } else if (user.rol === 'ROLE_ELEV') {
+        navigate('/elev');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+      &lt;div className="login-container">
+        &lt;div className="form-wrapper">
+          &lt;h2 className="header">Autentificare&lt;/h2>
+          {error &amp;&amp; &lt;p className="error">{"Nume utilizator sau parola incorecte"}&lt;/p>}
+          &lt;form onSubmit={handleLogin}>
+            &lt;div className="input-group">
+              &lt;label className="label">Nume Utilizator:&lt;/label>
+              &lt;input
+                  className="input"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+              />
+            &lt;/div>
+            &lt;div className="input-group">
+              &lt;label className="label">Parola:&lt;/label>
+              &lt;div className="password-wrapper">
+                &lt;input
+                    className="input"
+                    type={passwordVisible ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                &lt;button
+                    type="button"
+                    className="eye-button"
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? '🙈' : '👁️'}
+                &lt;/button>
+              &lt;/div>
+            &lt;/div>
+            &lt;button className="btn btn-warning button" >Autentificare&lt;/button>
+          &lt;/form>
+        &lt;/div>
+      &lt;/div>
+  );
+};
+
+export default Login;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AbsenteModal">AbsenteModal</a></li><li><a href="global.html#AdminDashboard">AdminDashboard</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Dropdowns">Dropdowns</a></li><li><a href="global.html#GestionareElevi">GestionareElevi</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#ModalAdaugareElev">ModalAdaugareElev</a></li><li><a href="global.html#ModalDetaliiElev">ModalDetaliiElev</a></li><li><a href="global.html#ModalNote">ModalNote</a></li><li><a href="global.html#NavbarLiceu">NavbarLiceu</a></li><li><a href="global.html#ProfesorDashboard">ProfesorDashboard</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Table">Table</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 06 2025 13:37:14 GMT+0200 (Ora standard a Europei de Est)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

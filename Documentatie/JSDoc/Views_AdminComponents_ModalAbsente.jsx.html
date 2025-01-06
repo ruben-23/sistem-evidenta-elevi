@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Views/AdminComponents/ModalAbsente.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Views/AdminComponents/ModalAbsente.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import '../../StylesViews/StyleComponents/ModalNoteAbsente.css';
+import {fetchAbsenteElev} from "../../services/eleviService.js";
+import {actualizareAbsenta, adaugaAbsenta, stergereAbsenta} from "../../services/absentaService.js";
+import {useUser} from "../../UserContext.jsx";
+
+/**
+ * Componenta `AbsenteModal` gestioneaza afisarea, adaugarea, editarea si stergerea absentelor unui elev.
+ *
+ * Aceasta componenta permite utilizatorului sa vizualizeze absentele unui elev, sa adauge absente noi,
+ * sa editeze absente existente si sa stearga absente. De asemenea, permite filtrarea absentelor pe baza
+ * modulului si materiei selectate.
+ *
+ * @component
+ * @param {Object} props - Proprietatile componentei.
+ * @param {Object} props.elev - Datele despre elevul pentru care sunt gestionate absentele.
+ * @param {number} props.elev.idElev - ID-ul elevului.
+ * @param {string} props.elev.nume - Numele elevului.
+ * @param {string} props.elev.prenume - Prenumele elevului.
+ * @param {function} props.onClose - Functie care inchide modalul.
+ * @param {function} props.onSave - Functie apelata la salvarea modificarilor.
+ * @param {Array} props.materii - Lista materiilor disponibile.
+ * @param {number} props.materii[].idMaterie - ID-ul materiei.
+ * @param {string} props.materii[].nume - Numele materiei.
+ *
+ * @returns {JSX.Element} Componenta de tip modal pentru gestionarea absentelor elevilor.
+ */
+const AbsenteModal = ({ elev, onClose, onSave, materii }) => {
+    const {user} = useUser();
+    const [modulSelectat, setModulSelectat] = useState('');
+    const [materieSelectata, setMaterieSelectata] = useState('');
+    const [absente, setAbsente] = useState([
+        {
+            idAbsenta: null,
+            data: '',
+            gestionare: '',
+            isNew: true,
+            isEdited: false,
+            isEditable: true,
+            idElev: elev.idElev,
+            idMaterie: null,
+            modul: '',
+        },
+    ]);
+    const [absenteFiltrate, setAbsenteFiltrate] = useState([]);
+
+    // incarca toate absentele elevului
+    useEffect(() => {
+        const fetchAllAbsente = async () => {
+            if (elev?.idElev) {
+                try {
+                    const absenteReturnate = await fetchAbsenteElev(elev.idElev);
+                    const absenteMapate = absenteReturnate.map((absenta) => ({
+                        idAbsenta: absenta.idAbsenta,
+                        data: absenta.data,
+                        gestionare: '',
+                        isNew: false,
+                        isEdited: false,
+                        isEditable: false,
+                        modul: absenta.modul,
+                        idMaterie: absenta.idMaterie,
+                    }));
+
+                    setAbsente([
+                        {
+                            idAbsenta: null,
+                            data: '',
+                            gestionare: '',
+                            isNew: true,
+                            isEdited: false,
+                            isEditable: true,
+                            idElev: elev.idElev,
+                            idMaterie: null,
+                            modul: '',
+                        },
+                        ...absenteMapate
+                    ]);
+                } catch (error) {
+                    console.error("Eroare la returnarea tuturor absentelor:", error);
+                }
+            }
+        };
+
+        fetchAllAbsente();
+    }, [elev]);
+
+
+    // actualizare absenteFiltrate ori de cate ori note, modulSelectat sau materieSelectata se schimba
+    useEffect(() => {
+        const filtrareAbsente = () => {
+
+            // primul rand din tabel ramane gol pentru a putea adauga absente
+            const randGol = absente[0];
+
+            const filtrate = absente.slice(1).filter((absenta) => {
+                const verifModul = modulSelectat ? absenta.modul === modulSelectat : true;
+                const verifMaterie = materieSelectata ? absenta.idMaterie === materieSelectata.idMaterie : true;
+                return verifModul &amp;&amp; verifMaterie;
+            });
+
+            setAbsenteFiltrate([randGol, ...filtrate]);
+        };
+
+        filtrareAbsente();
+    }, [absente, modulSelectat, materieSelectata]);
+
+    /**
+     * Schimba modulul selectat.
+     * @param {Event} e - Evenimentul de schimbare a valorii selectate.
+     */
+    const handleSchimbareModul = (e) => setModulSelectat(e.target.value);
+
+    /**
+     * Schimba materia selectata.
+     * @param {Event} e - Evenimentul de schimbare a valorii selectate.
+     */
+    const handleSchimbareMaterie = (e) => {
+        const idSelectat = parseInt(e.target.value);
+        const materiaSelectata = materii.find((materie) => materie.idMaterie === idSelectat);
+        setMaterieSelectata(materiaSelectata || '');
+    };
+
+    /**
+     * Modifica o absenta existenta.
+     * @param {number|null} idAbsenta - ID-ul absentei de modificat.
+     * @param {string} camp - Numele campului de modificat.
+     * @param {string} valoare - Noua valoare pentru campul specificat.
+     */
+    const handleModificareAbsenta = (idAbsenta, camp, valoare) => {
+        setAbsente((prevAbsente) =>
+            prevAbsente.map((absenta) =>
+                absenta.idAbsenta === idAbsenta || (idAbsenta === null &amp;&amp; absenta.idAbsenta === null)
+                    ? { ...absenta, [camp]: valoare, isEdited: true }
+                    : absenta
+            )
+        );
+    };
+
+
+    /**
+     * Adauga o absenta noua.
+     */
+    const handleAdaugareAbsenta = async () => {
+        if (!modulSelectat || !materieSelectata || !absente[0].data) {
+            alert("Alegeti modulul, materia si data pentru a adauga absenta");
+            return;
+        }
+
+        const absentaNoua = {
+            idElev: elev.idElev,
+            idMaterie: materieSelectata.idMaterie,
+            data: absente[0].data,
+            modul: modulSelectat,
+        };
+
+        // resetare data
+        absente[0].data = '';
+
+        try {
+            const absentaAdaugata = await adaugaAbsenta(absentaNoua);
+
+            setAbsente((prevAbsente) => [
+                prevAbsente[0],
+                {
+                    idAbsenta: absentaAdaugata.idAbsenta,
+                    data: absentaAdaugata.data,
+                    gestionare: '',
+                    isNew: false,
+                    isEdited: false,
+                    isEditable: false,
+                    modul: absentaAdaugata.modul,
+                    idMaterie: absentaAdaugata.idMaterie,
+                },
+                ...prevAbsente.slice(1),
+            ]);
+        } catch (error) {
+            console.error("Eroare la adaugarea absentei:", error);
+            alert("A aparut o eroare la adaugarea absentei");
+        }
+    };
+
+    /**
+     * Salveaza modificarile unei absente existente.
+     * @param {number} idAbsenta - ID-ul absentei de salvat.
+     */
+    const handleSalvareAbsenta = async (idAbsenta) => {
+        const absentaGasita = absente.find((absenta) => absenta.idAbsenta === idAbsenta);
+
+        const absentaActualizata = {
+            idAbsenta: idAbsenta,
+            idElev: elev.idElev,
+            idMaterie: absentaGasita.idMaterie,
+            data: absentaGasita.data,
+            modul: absentaGasita.modul,
+        };
+
+        try {
+            await actualizareAbsenta(elev.idElev, absentaActualizata);
+            setAbsente((prevAbsente) =>
+                prevAbsente.map((absenta) =>
+                    absenta.idAbsenta === idAbsenta
+                        ? { ...absenta, isEditable: false, isNew: false, isEdited: false }
+                        : absenta
+                )
+            );
+        } catch (error) {
+            console.error("Eroare la actualizarea absentei:", error);
+            alert("A aparut o eroare la actualizarea absentei");
+        }
+    };
+
+    /**
+     * Activeaza modul de editare pentru o absenta.
+     * @param {number} idAbsenta - ID-ul absentei de editat.
+     */
+    const handleEditareAbsenta = (idAbsenta) => {
+        setAbsente((prevAbsente) =>
+            prevAbsente.map((absenta) =>
+                absenta.idAbsenta === idAbsenta ? { ...absenta, isEditable: true } : absenta
+            )
+        );
+    };
+
+    /**
+     * Sterge o absenta existenta.
+     * @param {number} idAbsenta - ID-ul absentei de sters.
+     */
+    const handleStergereAbsenta = async (idAbsenta) => {
+        try {
+            await stergereAbsenta(idAbsenta);
+            setAbsente((prevAbsente) => prevAbsente.filter((absenta) =>
+                absenta.idAbsenta !== idAbsenta));
+        } catch (error) {
+            console.error("Eroare la stergerea absentei:", error);
+            alert("A aparut o eroare la stergerea absentei");
+        }
+    };
+
+    return (
+        &lt;div className="modal-overlay">
+            &lt;div className="modal-content">
+                &lt;div className="modal-header">
+                    &lt;h3>Absențe pentru {elev.nume} {elev.prenume}&lt;/h3>
+                    &lt;button className="close-button" onClick={onClose}>&amp;times;&lt;/button>
+                &lt;/div>
+
+                &lt;div className="modal-body">
+                    &lt;div className="modul-dropdown">
+                        &lt;label htmlFor="modul">Modul:&lt;/label>
+                        &lt;select id="modul" value={modulSelectat} onChange={handleSchimbareModul}>
+                            &lt;option value="">Selectați modulul&lt;/option>
+                            &lt;option value="Modul 1">Modul 1&lt;/option>
+                            &lt;option value="Modul 2">Modul 2&lt;/option>
+                            &lt;option value="Modul 3">Modul 3&lt;/option>
+                            &lt;option value="Modul 4">Modul 4&lt;/option>
+                            &lt;option value="Modul 5">Modul 5&lt;/option>
+                        &lt;/select>
+
+                        &lt;label htmlFor="materii" className="materii-dropdown">Materie:&lt;/label>
+                        &lt;select id="materii" value={materieSelectata?.idMaterie || ''} onChange={handleSchimbareMaterie}>
+                            &lt;option value="">Selectați materia&lt;/option>
+                            {materii.map((materie) => (
+                                &lt;option key={materie.idMaterie} value={materie.idMaterie}>
+                                    {materie.nume}
+                                &lt;/option>
+                            ))}
+                        &lt;/select>
+                    &lt;/div>
+
+                    &lt;table>
+                        &lt;thead>
+                        &lt;tr>
+                            &lt;th>Data&lt;/th>
+                            &lt;th>&lt;/th>
+                        &lt;/tr>
+                        &lt;/thead>
+                        &lt;tbody className="scrollable-table-body">
+                        {absenteFiltrate.map((absenta) => (
+                            &lt;tr key={absenta.idAbsenta}>
+                                &lt;td>
+                                    &lt;input
+                                        type="date"
+                                        style={{ fontWeight: "600" }}
+                                        className="form-control bg-gradient-secondary"
+                                        value={absenta.data}
+                                        onChange={(e) =>
+                                            handleModificareAbsenta(absenta.idAbsenta, 'data', e.target.value)
+                                        }
+                                        disabled={!absenta.isEditable}
+                                    />
+                                &lt;/td>
+                                &lt;td>
+                                    {absenta.idAbsenta === null ? (
+                                        &lt;button className="btn btn-warning" onClick={handleAdaugareAbsenta}>Adaugă Absența&lt;/button>
+                                    ) : (
+                                        user.rol === "ROLE_SECRETARA" &amp;&amp; (
+                                            &lt;>
+                                                {absenta.isEditable ? (
+                                                    &lt;button className="btn btn-success" onClick={() => handleSalvareAbsenta(absenta.idAbsenta)}>
+                                                        Salvează
+                                                    &lt;/button>
+                                                ) : (
+                                                    &lt;button className="btn btn-secondary" onClick={() => handleEditareAbsenta(absenta.idAbsenta)}>
+                                                        Editează
+                                                    &lt;/button>
+                                                )}
+
+                                                &lt;button
+                                                    onClick={() => handleStergereAbsenta(absenta.idAbsenta)}
+                                                    className="btn btn-danger"
+                                                >
+                                                    Șterge
+                                                &lt;/button>
+                                            &lt;/>
+                                        )
+                                    )}
+                                &lt;/td>
+                            &lt;/tr>
+                        ))}
+                        &lt;/tbody>
+                    &lt;/table>
+
+                    &lt;h4>Absente: {absenteFiltrate.length-1}&lt;/h4>
+
+                    &lt;div className="modal-footer">
+                        {/*&lt;button onClick={onSave}>Salveaza&lt;/button>*/}
+                        {/*&lt;button onClick={onClose}>Inchide&lt;/button>*/}
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    );
+};
+
+AbsenteModal.propTypes = {
+    elev: PropTypes.shape({
+        idElev: PropTypes.number.isRequired,
+        nume: PropTypes.string.isRequired,
+        prenume: PropTypes.string.isRequired,
+    }).isRequired,
+    onClose: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    materii: PropTypes.arrayOf(PropTypes.shape({
+        idMaterie: PropTypes.number.isRequired,
+        nume: PropTypes.string.isRequired,
+    })).isRequired,
+};
+
+export default AbsenteModal;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AbsenteModal">AbsenteModal</a></li><li><a href="global.html#AdminDashboard">AdminDashboard</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Dropdowns">Dropdowns</a></li><li><a href="global.html#GestionareElevi">GestionareElevi</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#ModalAdaugareElev">ModalAdaugareElev</a></li><li><a href="global.html#ModalDetaliiElev">ModalDetaliiElev</a></li><li><a href="global.html#ModalNote">ModalNote</a></li><li><a href="global.html#NavbarLiceu">NavbarLiceu</a></li><li><a href="global.html#ProfesorDashboard">ProfesorDashboard</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Table">Table</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 06 2025 13:37:14 GMT+0200 (Ora standard a Europei de Est)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

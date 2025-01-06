@@ -1,0 +1,9 @@
+com.liceu.sistem_evidenta_elevi
+com.liceu.sistem_evidenta_elevi.config
+com.liceu.sistem_evidenta_elevi.controller
+com.liceu.sistem_evidenta_elevi.dto
+com.liceu.sistem_evidenta_elevi.entity
+com.liceu.sistem_evidenta_elevi.mapper
+com.liceu.sistem_evidenta_elevi.repository
+com.liceu.sistem_evidenta_elevi.service
+com.liceu.sistem_evidenta_elevi.service.implementare
